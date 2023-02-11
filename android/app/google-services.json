@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "930292132871",
+    "project_id": "topgrid-95259",
+    "storage_bucket": "topgrid-95259.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930292132871:android:28265668087d360ae44ea2",
+        "android_client_info": {
+          "package_name": "com.codifytech.topgrid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930292132871-mfjpqohdrdsp8ep05rg13bm6biouu3et.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codifytech.topgrid",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "930292132871-b5ouart0554o2sqfs42gos76qbl59krv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrJCYCVhMoOKv8nJ4r5yGWfeCs7bsTI5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930292132871-b5ouart0554o2sqfs42gos76qbl59krv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "930292132871-2nc8bv64imoeuhodqcatcoit7qkvdufb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.codifytech.topgrid"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

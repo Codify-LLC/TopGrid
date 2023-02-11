@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "company_users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "company_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "email",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}
