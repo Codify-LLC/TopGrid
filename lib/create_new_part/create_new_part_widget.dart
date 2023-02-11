@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -435,7 +436,7 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                       Text(
                                                         getJsonField(
                                                           fileItem,
-                                                          r'''$.filename''',
+                                                          r'''$.fileName''',
                                                         ).toString(),
                                                         textAlign:
                                                             TextAlign.center,
@@ -469,6 +470,14 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                                 _model.removeFromFileData(
                                                                     fileItem);
                                                               });
+                                                              await FirebaseStorage
+                                                                  .instance
+                                                                  .refFromURL(
+                                                                      getJsonField(
+                                                                    fileItem,
+                                                                    r'''$.filePath''',
+                                                                  ).toString())
+                                                                  .delete();
                                                             },
                                                             child: Icon(
                                                               Icons.close,

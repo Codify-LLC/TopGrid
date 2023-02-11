@@ -14,13 +14,14 @@ import 'dart:io';
 
 Future<dynamic> pickFile(BuildContext context) async {
   // Add your function code here!
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: const Text('Uploading File'),
-    duration: const Duration(seconds: 60),
-  ));
+
   FilePickerResult? result = await FilePicker.platform.pickFiles();
 
   if (result != null) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: const Text('Uploading File'),
+      duration: const Duration(seconds: 60),
+    ));
     Uint8List fileBytes = result.files.first.bytes!;
     String fileName = result.files.first.name;
 
