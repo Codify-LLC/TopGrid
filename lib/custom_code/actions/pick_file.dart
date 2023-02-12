@@ -50,14 +50,12 @@ Future<dynamic> pickFile(
       final key = KeyParameter(
           await Uint8List.fromList(sha256.convert(passwordBytes).bytes));
 
-      final iv = Uint8List.fromList(utf8.encode(password));
-
-      final params = ParametersWithIV(key, iv);
-
-      final encryptor = StreamCipher('AES/CTR/PKCS7');
-      encryptor.init(true, params);
+      final encryptor = BlockCipher('AES');
+      encryptor.init(true, key);
 
       fileBytes = encryptor.process(fileBytes);
+      fileName = fileName.replaceFirst(result.files.first.extension ?? "", "") +
+          ".aes";
     }
 
     // Upload file
