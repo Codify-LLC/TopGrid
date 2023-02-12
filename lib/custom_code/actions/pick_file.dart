@@ -24,7 +24,10 @@ Future<dynamic> pickFile(
   if (result != null) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Row(
-        children: [const Text('Uploading File'), CircularProgressIndicator()],
+        children: [
+          const Text('Uploading File'),
+          SizedBox(height: 50, width: 50, child: CircularProgressIndicator())
+        ],
       ),
       duration: const Duration(seconds: 60),
     ));
@@ -36,7 +39,10 @@ Future<dynamic> pickFile(
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Row(
-          children: [const Text('Encrypting'), CircularProgressIndicator()],
+          children: [
+            const Text('Encrypting'),
+            SizedBox(height: 50, width: 50, child: CircularProgressIndicator())
+          ],
         ),
         duration: const Duration(seconds: 60),
       ));
