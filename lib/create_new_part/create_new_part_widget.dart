@@ -509,6 +509,8 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                           _model.newFile =
                                               await actions.pickFile(
                                             context,
+                                            _model.switchValue!,
+                                            currentUserDocument!.companyRef!.id,
                                           );
                                           setState(() {
                                             _model

@@ -11,19 +11,48 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+import 'package:pointycastle/pointycastle.dart';
 
-Future<dynamic> pickFile(BuildContext context) async {
+Future<dynamic> pickFile(
+    BuildContext context, bool encryption, String password) async {
   // Add your function code here!
 
   FilePickerResult? result = await FilePicker.platform.pickFiles();
 
   if (result != null) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: const Text('Uploading File'),
+      content: Row(
+        children: [const Text('Uploading File'), CircularProgressIndicator()],
+      ),
       duration: const Duration(seconds: 60),
     ));
     Uint8List fileBytes = result.files.first.bytes!;
     String fileName = result.files.first.name;
+
+    if (encryption) {
+      // Encryption
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Row(
+          children: [const Text('Encrypting'), CircularProgressIndicator()],
+        ),
+        duration: const Duration(seconds: 60),
+      ));
+      final passwordBytes = utf8.encode(password);
+      final key = KeyParameter(
+          await Uint8List.fromList(sha256.convert(passwordBytes).bytes));
+
+      final iv = Uint8List.fromList(utf8.encode(password));
+
+      final params = ParametersWithIV(key, iv);
+
+      final encryptor = StreamCipher('AES/CTR/PKCS7');
+      encryptor.init(true, params);
+
+      fileBytes = encryptor.process(fileBytes);
+    }
 
     // Upload file
     await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes);
