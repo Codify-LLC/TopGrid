@@ -7,6 +7,8 @@ import 'company_record.dart';
 import 'users_record.dart';
 import 'request_for_quotation_record.dart';
 import 'company_users_record.dart';
+import 'chat_record.dart';
+import 'messages_record.dart';
 
 import 'index.dart';
 
@@ -23,6 +25,8 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   UsersRecord,
   RequestForQuotationRecord,
   CompanyUsersRecord,
+  ChatRecord,
+  MessagesRecord,
   PartStruct,
 ])
 final Serializers serializers = (_$serializers.toBuilder()

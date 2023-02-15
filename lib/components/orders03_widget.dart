@@ -227,7 +227,7 @@ class _Orders03WidgetState extends State<Orders03Widget> {
                           .map((e) => DataRow(cells: e))
                           .toList(),
                       headingRowColor: MaterialStateProperty.all(
-                        FlutterFlowTheme.of(context).primaryBackground,
+                        FlutterFlowTheme.of(context).secondaryBackground,
                       ),
                       headingRowHeight: 56,
                       dataRowColor: MaterialStateProperty.all(

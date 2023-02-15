@@ -33,6 +33,9 @@ abstract class RequestForQuotationRecord
   @BuiltValueField(wireName: 'rfq_status')
   String? get rfqStatus;
 
+  @BuiltValueField(wireName: 'customer_company_ref')
+  DocumentReference? get customerCompanyRef;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -77,6 +80,7 @@ Map<String, dynamic> createRequestForQuotationRecordData({
   String? partsDescription,
   String? rfqDescription,
   String? rfqStatus,
+  DocumentReference? customerCompanyRef,
 }) {
   final firestoreData = serializers.toFirestore(
     RequestForQuotationRecord.serializer,
@@ -89,7 +93,8 @@ Map<String, dynamic> createRequestForQuotationRecordData({
         ..attachments = null
         ..vendors = null
         ..rfqDescription = rfqDescription
-        ..rfqStatus = rfqStatus,
+        ..rfqStatus = rfqStatus
+        ..customerCompanyRef = customerCompanyRef,
     ),
   );
 

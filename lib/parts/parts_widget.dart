@@ -65,7 +65,7 @@ class _PartsWidgetState extends State<PartsWidget> {
                       dashboard: false,
                       companyProfile: false,
                       purchase: false,
-                      parts: false,
+                      parts: true,
                       vendors: false,
                     ),
                   ),

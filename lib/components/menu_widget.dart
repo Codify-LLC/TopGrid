@@ -3,6 +3,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -62,6 +63,9 @@ class _MenuWidgetState extends State<MenuWidget> {
       elevation: 2,
       child: Container(
         height: MediaQuery.of(context).size.height * 1,
+        constraints: BoxConstraints(
+          maxWidth: 350,
+        ),
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryColor,
         ),
@@ -69,25 +73,40 @@ class _MenuWidgetState extends State<MenuWidget> {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20, 30, 30, 0),
-              child: ToggleIcon(
-                onPressed: () async {
-                  setState(() => FFAppState().showDrawerFull =
-                      !FFAppState().showDrawerFull);
-                },
-                value: FFAppState().showDrawerFull,
-                onIcon: Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                  size: 30,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 30, 0, 0),
+                  child: ToggleIcon(
+                    onPressed: () async {
+                      setState(() => FFAppState().showDrawerFull =
+                          !FFAppState().showDrawerFull);
+                    },
+                    value: FFAppState().showDrawerFull,
+                    onIcon: Icon(
+                      Icons.menu,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                    offIcon: Icon(
+                      Icons.menu,
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                  ),
                 ),
-                offIcon: Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                  size: 30,
-                ),
-              ),
+                if (FFAppState().showDrawerFull)
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    child: Image.asset(
+                      'assets/images/Top_grid_logo-02-removebg-preview.png',
+                      width: 160,
+                      height: 48,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+              ],
             ),
             Expanded(
               flex: 8,
@@ -115,7 +134,9 @@ class _MenuWidgetState extends State<MenuWidget> {
                               buttonSize: 45,
                               icon: Icon(
                                 Icons.dashboard_rounded,
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: widget.dashboard!
+                                    ? FlutterFlowTheme.of(context).primaryColor
+                                    : FlutterFlowTheme.of(context).primaryText,
                                 size: 25,
                               ),
                               onPressed: () async {
@@ -123,23 +144,26 @@ class _MenuWidgetState extends State<MenuWidget> {
                               },
                             ),
                             if (FFAppState().showDrawerFull)
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                                child: Text(
-                                  'Dashboard',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: widget.dashboard!
-                                            ? FlutterFlowTheme.of(context)
-                                                .primaryColor
-                                            : FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      20, 0, 0, 0),
+                                  child: AutoSizeText(
+                                    'Dashboard',
+                                    textAlign: TextAlign.start,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: widget.dashboard!
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primaryColor
+                                              : FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
                                 ),
                               ),
                           ],
@@ -163,7 +187,9 @@ class _MenuWidgetState extends State<MenuWidget> {
                               buttonSize: 45,
                               icon: Icon(
                                 Icons.location_history_rounded,
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: widget.companyProfile!
+                                    ? FlutterFlowTheme.of(context).primaryColor
+                                    : FlutterFlowTheme.of(context).primaryText,
                                 size: 25,
                               ),
                               onPressed: () async {
@@ -171,29 +197,32 @@ class _MenuWidgetState extends State<MenuWidget> {
                               },
                             ),
                             if (FFAppState().showDrawerFull)
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                                child: AuthUserStreamWidget(
-                                  builder: (context) => Text(
-                                    valueOrDefault(
-                                                currentUserDocument?.userType,
-                                                '') ==
-                                            'vendor'
-                                        ? 'Vendor Profile'
-                                        : 'Company Profile',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: widget.companyProfile!
-                                              ? FlutterFlowTheme.of(context)
-                                                  .primaryColor
-                                              : FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      20, 0, 0, 0),
+                                  child: AuthUserStreamWidget(
+                                    builder: (context) => AutoSizeText(
+                                      valueOrDefault(
+                                                  currentUserDocument?.userType,
+                                                  '') ==
+                                              'vendor'
+                                          ? 'Vendor Profile'
+                                          : 'Company Profile',
+                                      textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: widget.companyProfile!
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primaryColor
+                                                : FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -214,7 +243,9 @@ class _MenuWidgetState extends State<MenuWidget> {
                             buttonSize: 45,
                             icon: Icon(
                               Icons.point_of_sale,
-                              color: FlutterFlowTheme.of(context).primaryText,
+                              color: widget.purchase!
+                                  ? FlutterFlowTheme.of(context).primaryColor
+                                  : FlutterFlowTheme.of(context).primaryText,
                               size: 25,
                             ),
                             onPressed: () {
@@ -222,28 +253,32 @@ class _MenuWidgetState extends State<MenuWidget> {
                             },
                           ),
                           if (FFAppState().showDrawerFull)
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                              child: AuthUserStreamWidget(
-                                builder: (context) => Text(
-                                  valueOrDefault(currentUserDocument?.userType,
-                                              '') ==
-                                          'vendor'
-                                      ? 'Sales'
-                                      : 'Purchases',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: widget.purchase!
-                                            ? FlutterFlowTheme.of(context)
-                                                .primaryColor
-                                            : FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                                child: AuthUserStreamWidget(
+                                  builder: (context) => AutoSizeText(
+                                    valueOrDefault(
+                                                currentUserDocument?.userType,
+                                                '') ==
+                                            'vendor'
+                                        ? 'Sales'
+                                        : 'Purchases',
+                                    textAlign: TextAlign.start,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: widget.purchase!
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primaryColor
+                                              : FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -270,8 +305,11 @@ class _MenuWidgetState extends State<MenuWidget> {
                                   buttonSize: 45,
                                   icon: Icon(
                                     Icons.settings_input_component_sharp,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: widget.parts!
+                                        ? FlutterFlowTheme.of(context)
+                                            .primaryColor
+                                        : FlutterFlowTheme.of(context)
+                                            .primaryText,
                                     size: 25,
                                   ),
                                   onPressed: () async {
@@ -279,23 +317,26 @@ class _MenuWidgetState extends State<MenuWidget> {
                                   },
                                 ),
                                 if (FFAppState().showDrawerFull)
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 0, 0),
-                                    child: Text(
-                                      'Parts',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: widget.parts!
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primaryColor
-                                                : FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
+                                      child: AutoSizeText(
+                                        'Parts',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: widget.parts!
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primaryColor
+                                                  : FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
                                     ),
                                   ),
                               ],
@@ -319,8 +360,11 @@ class _MenuWidgetState extends State<MenuWidget> {
                                 buttonSize: 45,
                                 icon: Icon(
                                   Icons.send,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: widget.vendors!
+                                      ? FlutterFlowTheme.of(context)
+                                          .primaryColor
+                                      : FlutterFlowTheme.of(context)
+                                          .primaryText,
                                   size: 25,
                                 ),
                                 onPressed: () {
@@ -328,23 +372,26 @@ class _MenuWidgetState extends State<MenuWidget> {
                                 },
                               ),
                               if (FFAppState().showDrawerFull)
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 0, 0, 0),
-                                  child: Text(
-                                    'Vendors',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: widget.vendors!
-                                              ? FlutterFlowTheme.of(context)
-                                                  .primaryColor
-                                              : FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20, 0, 0, 0),
+                                    child: AutoSizeText(
+                                      'Vendors',
+                                      textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: widget.vendors!
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primaryColor
+                                                : FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
                                   ),
                                 ),
                             ],
@@ -382,18 +429,21 @@ class _MenuWidgetState extends State<MenuWidget> {
                               },
                             ),
                             if (FFAppState().showDrawerFull)
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                                child: Text(
-                                  'Logout',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      20, 0, 0, 0),
+                                  child: AutoSizeText(
+                                    'Logout',
+                                    textAlign: TextAlign.start,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
                                 ),
                               ),
                           ],

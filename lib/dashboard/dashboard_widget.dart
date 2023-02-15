@@ -80,7 +80,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             model: _model.userwidgetModel,
                             updateCallback: () => setState(() {}),
                             child: UserwidgetWidget(
-                              visibleSettings: false,
+                              visibleSettings: true,
                             ),
                           ),
                         ),
@@ -352,75 +352,161 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                       .mapIndexed((dataTableIndex,
                                                               dataTableRequestForQuotationRecord) =>
                                                           [
-                                                            Text(
-                                                              dataTableIndex
-                                                                  .toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                  ),
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                context
+                                                                    .pushNamed(
+                                                                  'RCPtabbar',
+                                                                  queryParams: {
+                                                                    'rfqRef':
+                                                                        serializeParam(
+                                                                      dataTableRequestForQuotationRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              child: Text(
+                                                                dataTableIndex
+                                                                    .toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                    ),
+                                                              ),
                                                             ),
-                                                            Text(
-                                                              dataTableRequestForQuotationRecord
-                                                                  .reference.id,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                  ),
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                context
+                                                                    .pushNamed(
+                                                                  'RCPtabbar',
+                                                                  queryParams: {
+                                                                    'rfqRef':
+                                                                        serializeParam(
+                                                                      dataTableRequestForQuotationRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              child: Text(
+                                                                dataTableRequestForQuotationRecord
+                                                                    .reference
+                                                                    .id,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                    ),
+                                                              ),
                                                             ),
-                                                            Text(
-                                                              dataTableRequestForQuotationRecord
-                                                                  .rfqName!,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                  ),
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                context
+                                                                    .pushNamed(
+                                                                  'RCPtabbar',
+                                                                  queryParams: {
+                                                                    'rfqRef':
+                                                                        serializeParam(
+                                                                      dataTableRequestForQuotationRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              child: Text(
+                                                                dataTableRequestForQuotationRecord
+                                                                    .rfqName!,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                    ),
+                                                              ),
                                                             ),
-                                                            Text(
-                                                              dataTableRequestForQuotationRecord
-                                                                  .rfqDescription!,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                  ),
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                context
+                                                                    .pushNamed(
+                                                                  'RCPtabbar',
+                                                                  queryParams: {
+                                                                    'rfqRef':
+                                                                        serializeParam(
+                                                                      dataTableRequestForQuotationRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              child: Text(
+                                                                dataTableRequestForQuotationRecord
+                                                                    .rfqDescription!,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                    ),
+                                                              ),
                                                             ),
-                                                            Text(
-                                                              dataTableRequestForQuotationRecord
-                                                                  .rfqStatus!,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyText1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                  ),
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                context
+                                                                    .pushNamed(
+                                                                  'RCPtabbar',
+                                                                  queryParams: {
+                                                                    'rfqRef':
+                                                                        serializeParam(
+                                                                      dataTableRequestForQuotationRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              child: Text(
+                                                                dataTableRequestForQuotationRecord
+                                                                    .rfqStatus!,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                    ),
+                                                              ),
                                                             ),
                                                           ]
                                                               .map((c) =>
@@ -432,7 +518,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               headingRowColor:
                                                   MaterialStateProperty.all(
                                                 FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
+                                                    .secondaryBackground,
                                               ),
                                               headingRowHeight: 56,
                                               dataRowColor:

@@ -104,7 +104,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'ForgotPassword',
               path: 'forgotPassword',
-              requireAuth: true,
               builder: (context, params) => ForgotPasswordWidget(),
             ),
             FFRoute(
@@ -128,16 +127,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'CreateNewPart',
-              path: 'createNewPart',
-              requireAuth: true,
-              builder: (context, params) => CreateNewPartWidget(),
-            ),
-            FFRoute(
               name: 'CreateNewRFQ-EP',
               path: 'createNewRFQEP',
               requireAuth: true,
               builder: (context, params) => CreateNewRFQEPWidget(),
+            ),
+            FFRoute(
+              name: 'CreateNewPart',
+              path: 'createNewPart',
+              requireAuth: true,
+              builder: (context, params) => CreateNewPartWidget(),
             ),
             FFRoute(
               name: 'editCompanyProfile',
@@ -171,12 +170,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'setting',
               requireAuth: true,
               builder: (context, params) => SettingWidget(),
-            ),
-            FFRoute(
-              name: 'inviteUser',
-              path: 'inviteUser',
-              requireAuth: true,
-              builder: (context, params) => InviteUserWidget(),
             ),
             FFRoute(
               name: 'Parts',

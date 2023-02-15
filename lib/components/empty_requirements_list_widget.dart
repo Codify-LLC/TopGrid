@@ -92,7 +92,18 @@ class _EmptyRequirementsListWidgetState
               children: [
                 FFButtonWidget(
                   onPressed: () async {
-                    context.pushNamed('CreateNewRFQ');
+                    if (Navigator.of(context).canPop()) {
+                      context.pop();
+                    }
+                    context.pushNamed(
+                      'CreateNewRFQ',
+                      queryParams: {
+                        'parts': serializeParam(
+                          false,
+                          ParamType.bool,
+                        ),
+                      }.withoutNulls,
+                    );
                   },
                   text: 'Proceed without Parts',
                   options: FFButtonOptions(

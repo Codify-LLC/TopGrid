@@ -62,7 +62,7 @@ class _VendorDashboardWidgetState extends State<VendorDashboardWidget> {
                     model: _model.menuModel,
                     updateCallback: () => setState(() {}),
                     child: MenuWidget(
-                      dashboard: false,
+                      dashboard: true,
                       companyProfile: false,
                       purchase: false,
                       parts: false,

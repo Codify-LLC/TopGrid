@@ -1,13 +1,14 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
 import '../components/menu_widget.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/upload_media.dart';
+import '../custom_code/actions/index.dart' as actions;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_new_r_f_q_e_p_model.dart';
@@ -64,7 +65,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                     model: _model.menuModel,
                     updateCallback: () => setState(() {}),
                     child: MenuWidget(
-                      dashboard: true,
+                      dashboard: false,
                       companyProfile: false,
                       purchase: false,
                       parts: false,
@@ -88,15 +89,39 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 24, 0, 48),
-                                    child: Text(
-                                      'Create RFQ - Existing Part',
-                                      style: FlutterFlowTheme.of(context)
-                                          .subtitle1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w600,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Create RFQ - Existing Part',
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            context.pop();
+                                          },
+                                          child: Text(
+                                            '< Back',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  fontSize: 18,
+                                                ),
                                           ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   Row(
@@ -158,10 +183,29 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                             .withoutNulls
                                                             .toList()
                                                             .toList(),
-                                                    onChanged: (val) =>
-                                                        setState(() => _model
-                                                                .dropDownValue1 =
-                                                            val),
+                                                    onChanged: (val) async {
+                                                      setState(() => _model
+                                                              .dropDownValue1 =
+                                                          val);
+                                                      if (dropDownPartRecordList
+                                                          .where((e) =>
+                                                              e.partName ==
+                                                              _model
+                                                                  .dropDownValue1)
+                                                          .toList()
+                                                          .first
+                                                          .encryption!) {
+                                                        setState(() {
+                                                          _model.encryptedPart =
+                                                              true;
+                                                        });
+                                                      } else {
+                                                        setState(() {
+                                                          _model.encryptedPart =
+                                                              false;
+                                                        });
+                                                      }
+                                                    },
                                                     height:
                                                         MediaQuery.of(context)
                                                                 .size
@@ -182,8 +226,8 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                         FlutterFlowTheme.of(
                                                                 context)
                                                             .secondaryText,
-                                                    borderWidth: 0,
-                                                    borderRadius: 8,
+                                                    borderWidth: 1,
+                                                    borderRadius: 4,
                                                     margin:
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
@@ -192,6 +236,44 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                   );
                                                 },
                                               ),
+                                              if (_model.encryptedPart)
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 8, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.lock_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        size: 20,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8, 0, 0, 0),
+                                                        child: Text(
+                                                          'This Part is Encrypted',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                             ],
                                           ),
                                         ),
@@ -283,8 +365,8 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                         FlutterFlowTheme.of(
                                                                 context)
                                                             .secondaryText,
-                                                    borderWidth: 0,
-                                                    borderRadius: 8,
+                                                    borderWidth: 1,
+                                                    borderRadius: 4,
                                                     margin:
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(
@@ -333,7 +415,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .secondaryText,
-                                                    width: 1,
+                                                    width: 0.5,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(4),
@@ -344,7 +426,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .secondaryText,
-                                                    width: 1,
+                                                    width: 0.5,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(4),
@@ -354,7 +436,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .alternate,
-                                                    width: 1,
+                                                    width: 0.5,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(4),
@@ -365,7 +447,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .alternate,
-                                                    width: 1,
+                                                    width: 0.5,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius.circular(4),
@@ -374,9 +456,15 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               validator: _model
                                                   .textController1Validator
                                                   .asValidator(context),
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .allow(RegExp('[0-9]'))
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -397,7 +485,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                     ),
                                   ),
                                   FlutterFlowDropDown<String>(
-                                    options: <String>[],
+                                    options: ['RFQ for Mold', 'RFQ for Parts'],
                                     onChanged: (val) => setState(
                                         () => _model.dropDownValue3 = val),
                                     width: MediaQuery.of(context).size.width *
@@ -413,8 +501,8 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                     hintText: 'Select',
                                     elevation: 2,
                                     borderColor: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    borderWidth: 0,
+                                        .secondaryText,
+                                    borderWidth: 1,
                                     borderRadius: 4,
                                     margin: EdgeInsetsDirectional.fromSTEB(
                                         12, 4, 12, 4),
@@ -437,9 +525,11 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 12, 0, 0),
                                     child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.5,
+                                      constraints: BoxConstraints(
+                                        maxHeight:
+                                            MediaQuery.of(context).size.height *
+                                                0.5,
+                                      ),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4),
                                         border: Border.all(
@@ -448,7 +538,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                         ),
                                       ),
                                       child: Column(
-                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.stretch,
                                         children: [
@@ -475,12 +565,51 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                         fontSize: 18,
                                                       ),
                                                   enabledBorder:
-                                                      InputBorder.none,
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
                                                   focusedBorder:
-                                                      InputBorder.none,
-                                                  errorBorder: InputBorder.none,
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
                                                   focusedErrorBorder:
-                                                      InputBorder.none,
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -507,9 +636,8 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                     12, 12, 12, 12),
                                             child: Builder(
                                               builder: (context) {
-                                                final file = FFAppState()
-                                                    .attachments
-                                                    .toList();
+                                                final file =
+                                                    _model.fileData.toList();
                                                 return Wrap(
                                                   spacing: 0,
                                                   runSpacing: 0,
@@ -573,7 +701,10 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'SGFD.jpge',
+                                                                getJsonField(
+                                                                  fileItem,
+                                                                  r'''$.fileName''',
+                                                                ).toString(),
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -601,12 +732,32 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                   alignment:
                                                                       AlignmentDirectional(
                                                                           1, 0),
-                                                                  child: Icon(
-                                                                    Icons.close,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                    size: 18,
+                                                                  child:
+                                                                      InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      setState(
+                                                                          () {
+                                                                        _model.removeFromFileData(
+                                                                            fileItem);
+                                                                      });
+                                                                      await FirebaseStorage
+                                                                          .instance
+                                                                          .refFromURL(
+                                                                              getJsonField(
+                                                                            fileItem,
+                                                                            r'''$.filePath''',
+                                                                          ).toString())
+                                                                          .delete();
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .close,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryColor,
+                                                                      size: 18,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
@@ -620,122 +771,65 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                               },
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Align(
-                                              alignment:
-                                                  AlignmentDirectional(1, 1),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 12, 12),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    final selectedFile =
-                                                        await selectFile(
-                                                            allowedExtensions: [
-                                                          'pdf'
-                                                        ]);
-                                                    if (selectedFile != null) {
-                                                      setState(() => _model
-                                                              .isMediaUploading =
-                                                          true);
-                                                      FFUploadedFile?
-                                                          selectedUploadedFile;
-                                                      String? downloadUrl;
-                                                      try {
-                                                        showUploadMessage(
-                                                          context,
-                                                          'Uploading file...',
-                                                          showLoading: true,
-                                                        );
-                                                        selectedUploadedFile =
-                                                            FFUploadedFile(
-                                                          name: selectedFile
-                                                              .storagePath
-                                                              .split('/')
-                                                              .last,
-                                                          bytes: selectedFile
-                                                              .bytes,
-                                                        );
-                                                        downloadUrl =
-                                                            await uploadData(
-                                                                selectedFile
-                                                                    .storagePath,
-                                                                selectedFile
-                                                                    .bytes);
-                                                      } finally {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .hideCurrentSnackBar();
-                                                        _model.isMediaUploading =
-                                                            false;
-                                                      }
-                                                      if (selectedUploadedFile !=
-                                                              null &&
-                                                          downloadUrl != null) {
-                                                        setState(() {
-                                                          _model.uploadedLocalFile =
-                                                              selectedUploadedFile!;
-                                                          _model.uploadedFileUrl =
-                                                              downloadUrl!;
-                                                        });
-                                                        showUploadMessage(
-                                                          context,
-                                                          'Success!',
-                                                        );
-                                                      } else {
-                                                        setState(() {});
-                                                        showUploadMessage(
-                                                          context,
-                                                          'Failed to upload file',
-                                                        );
-                                                        return;
-                                                      }
-                                                    }
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(1, 1),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 12, 12),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  _model.newFile =
+                                                      await actions.pickFile(
+                                                    context,
+                                                    valueOrDefault<bool>(
+                                                        currentUserDocument
+                                                            ?.encryption,
+                                                        false),
+                                                    currentUserDocument!
+                                                        .companyRef!.id,
+                                                  );
+                                                  setState(() {
+                                                    _model.addToFileData(
+                                                        _model.newFile!);
+                                                  });
 
-                                                    FFAppState().update(() {
-                                                      FFAppState()
-                                                          .addToAttachments(
-                                                              FFAppState()
-                                                                  .attachments
-                                                                  .length
-                                                                  .toString());
-                                                    });
-                                                  },
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Icon(
-                                                        Icons
-                                                            .attachment_rounded,
-                                                        color:
+                                                  setState(() {});
+                                                },
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.attachment_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                      size: 20,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8, 0, 0, 0),
+                                                      child: Text(
+                                                        'Attach Files',
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
-                                                        size: 20,
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                  fontSize: 12,
+                                                                ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    8, 0, 0, 0),
-                                                        child: Text(
-                                                          'Attach Files',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                                fontSize: 12,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
@@ -755,8 +849,40 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                           alignment:
                                               AlignmentDirectional(-1, 0),
                                           child: FFButtonWidget(
-                                            onPressed: () {
-                                              print('SubmitRFQ pressed ...');
+                                            onPressed: () async {
+                                              var confirmDialogResponse =
+                                                  await showDialog<bool>(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                                'Are you sure, you want to exit?'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext,
+                                                                        false),
+                                                                child: Text(
+                                                                    'Cancel'),
+                                                              ),
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext,
+                                                                        true),
+                                                                child: Text(
+                                                                    'Confirm'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      ) ??
+                                                      false;
+                                              if (confirmDialogResponse) {
+                                                context.pop();
+                                              }
                                             },
                                             text: 'Cancel',
                                             options: FFButtonOptions(

@@ -87,6 +87,14 @@ class _$RequestForQuotationRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.customerCompanyRef;
+    if (value != null) {
+      result
+        ..add('customer_company_ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -150,6 +158,12 @@ class _$RequestForQuotationRecordSerializer
           result.rfqStatus = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'customer_company_ref':
+          result.customerCompanyRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -181,6 +195,8 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
   @override
   final String? rfqStatus;
   @override
+  final DocumentReference<Object?>? customerCompanyRef;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$RequestForQuotationRecord(
@@ -196,6 +212,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
       this.vendors,
       this.rfqDescription,
       this.rfqStatus,
+      this.customerCompanyRef,
       this.ffRef})
       : super._();
 
@@ -220,6 +237,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
         vendors == other.vendors &&
         rfqDescription == other.rfqDescription &&
         rfqStatus == other.rfqStatus &&
+        customerCompanyRef == other.customerCompanyRef &&
         ffRef == other.ffRef;
   }
 
@@ -232,14 +250,16 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, rfqName.hashCode),
-                                    partList.hashCode),
-                                quantity.hashCode),
-                            partsDescription.hashCode),
-                        attachments.hashCode),
-                    vendors.hashCode),
-                rfqDescription.hashCode),
-            rfqStatus.hashCode),
+                                $jc(
+                                    $jc($jc(0, rfqName.hashCode),
+                                        partList.hashCode),
+                                    quantity.hashCode),
+                                partsDescription.hashCode),
+                            attachments.hashCode),
+                        vendors.hashCode),
+                    rfqDescription.hashCode),
+                rfqStatus.hashCode),
+            customerCompanyRef.hashCode),
         ffRef.hashCode));
   }
 
@@ -254,6 +274,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
           ..add('vendors', vendors)
           ..add('rfqDescription', rfqDescription)
           ..add('rfqStatus', rfqStatus)
+          ..add('customerCompanyRef', customerCompanyRef)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -304,6 +325,12 @@ class RequestForQuotationRecordBuilder
   String? get rfqStatus => _$this._rfqStatus;
   set rfqStatus(String? rfqStatus) => _$this._rfqStatus = rfqStatus;
 
+  DocumentReference<Object?>? _customerCompanyRef;
+  DocumentReference<Object?>? get customerCompanyRef =>
+      _$this._customerCompanyRef;
+  set customerCompanyRef(DocumentReference<Object?>? customerCompanyRef) =>
+      _$this._customerCompanyRef = customerCompanyRef;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -323,6 +350,7 @@ class RequestForQuotationRecordBuilder
       _vendors = $v.vendors?.toBuilder();
       _rfqDescription = $v.rfqDescription;
       _rfqStatus = $v.rfqStatus;
+      _customerCompanyRef = $v.customerCompanyRef;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -356,6 +384,7 @@ class RequestForQuotationRecordBuilder
               vendors: _vendors?.build(),
               rfqDescription: rfqDescription,
               rfqStatus: rfqStatus,
+              customerCompanyRef: customerCompanyRef,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

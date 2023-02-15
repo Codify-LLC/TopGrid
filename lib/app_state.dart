@@ -32,8 +32,6 @@ class FFAppState extends ChangeNotifier {
         await secureStorage.getString('ff_addDescription') ?? _addDescription;
     _addedUserName =
         await secureStorage.getStringList('ff_addedUserName') ?? _addedUserName;
-    _encryptionKey =
-        await secureStorage.getString('ff_encryptionKey') ?? _encryptionKey;
   }
 
   void update(VoidCallback callback) {
@@ -208,17 +206,6 @@ class FFAppState extends ChangeNotifier {
     _createNewUser = _value;
   }
 
-  String _encryptionKey = 'abcdefghijklmnopqrstuvwxyz';
-  String get encryptionKey => _encryptionKey;
-  set encryptionKey(String _value) {
-    _encryptionKey = _value;
-    secureStorage.setString('ff_encryptionKey', _value);
-  }
-
-  void deleteEncryptionKey() {
-    secureStorage.delete(key: 'ff_encryptionKey');
-  }
-
   bool _AditionNote = false;
   bool get AditionNote => _AditionNote;
   set AditionNote(bool _value) {
@@ -241,6 +228,12 @@ class FFAppState extends ChangeNotifier {
 
   void removeAtIndexFromSelectedParts(int _index) {
     _selectedParts.removeAt(_index);
+  }
+
+  bool _encryptionFlag = true;
+  bool get encryptionFlag => _encryptionFlag;
+  set encryptionFlag(bool _value) {
+    _encryptionFlag = _value;
   }
 }
 

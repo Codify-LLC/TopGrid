@@ -70,8 +70,8 @@ class _VendorProfile11WidgetState extends State<VendorProfile11Widget> {
                     model: _model.menuModel,
                     updateCallback: () => setState(() {}),
                     child: MenuWidget(
-                      dashboard: true,
-                      companyProfile: false,
+                      dashboard: false,
+                      companyProfile: true,
                       purchase: false,
                       parts: false,
                       vendors: false,

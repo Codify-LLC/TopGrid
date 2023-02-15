@@ -6,7 +6,7 @@ import '../components/menu_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../custom_code/widgets/index.dart' as custom_widgets;
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -341,72 +341,34 @@ class _CompanyProfileWidgetState extends State<CompanyProfileWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 24, 0, 0),
+                                        0, 12, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Container(
-                                          width: 300,
-                                          decoration: BoxDecoration(),
-                                          child: SwitchListTile.adaptive(
-                                            value:
-                                                _model.switchListTileValue ??=
-                                                    companyProfileCompanyRecord
-                                                        .encryption!,
-                                            onChanged: (newValue) async {
-                                              setState(() =>
-                                                  _model.switchListTileValue =
-                                                      newValue!);
-                                              if (newValue!) {
-                                                final companyUpdateData =
-                                                    createCompanyRecordData(
-                                                  encryption: true,
-                                                );
-                                                await currentUserDocument!
-                                                    .companyRef!
-                                                    .update(companyUpdateData);
-                                              } else {
-                                                final companyUpdateData =
-                                                    createCompanyRecordData(
-                                                  encryption: false,
-                                                );
-                                                await currentUserDocument!
-                                                    .companyRef!
-                                                    .update(companyUpdateData);
-                                              }
-                                            },
-                                            title: Text(
-                                              'Do you Need Encryption?',
-                                              textAlign: TextAlign.start,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .subtitle1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                            ),
-                                            activeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryColor,
-                                            dense: true,
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 0),
-                                          ),
+                                        Text(
+                                          'Do you need encryption? ',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                         ),
-                                        Expanded(
-                                          child: Text(
-                                            _model.switchListTileValue!
-                                                ? 'Yes'
-                                                : 'No',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12, 0, 0, 0),
+                                          child: Container(
+                                            width: 200,
+                                            height: 30,
+                                            child:
+                                                custom_widgets.EncryptionToggle(
+                                              width: 200,
+                                              height: 30,
+                                              encryption:
+                                                  FFAppState().encryptionFlag,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -414,7 +376,20 @@ class _CompanyProfileWidgetState extends State<CompanyProfileWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 36, 0, 0),
+                                        0, 24, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          width: 300,
+                                          decoration: BoxDecoration(),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 24, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -812,7 +787,7 @@ class _CompanyProfileWidgetState extends State<CompanyProfileWidget> {
                                                 headingRowColor:
                                                     MaterialStateProperty.all(
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .secondaryBackground,
                                                 ),
                                                 headingRowHeight: 56,
                                                 dataRowColor:
