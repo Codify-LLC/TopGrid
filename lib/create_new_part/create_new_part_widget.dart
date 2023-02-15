@@ -683,6 +683,7 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                           await PartRecord.collection
                                               .doc()
                                               .set(partCreateData);
+                                          context.pop();
                                         },
                                         text: 'Save',
                                         options: FFButtonOptions(

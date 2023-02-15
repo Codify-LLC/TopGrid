@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/empty_animation_widget.dart';
 import '../components/menu_widget.dart';
@@ -218,11 +219,32 @@ class _PartsWidgetState extends State<PartsWidget> {
                                         width: 0.5,
                                       ),
                                     ),
-                                    child: Builder(
-                                      builder: (context) {
-                                        final part =
-                                            FFAppState().selectedParts.toList();
-                                        if (part.isEmpty) {
+                                    child: StreamBuilder<List<PartRecord>>(
+                                      stream: queryPartRecord(
+                                        queryBuilder: (partRecord) =>
+                                            partRecord.where('user_ref',
+                                                isEqualTo:
+                                                    currentUserReference),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: CircularProgressIndicator(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<PartRecord>
+                                            dataTablePartRecordList =
+                                            snapshot.data!;
+                                        if (dataTablePartRecordList.isEmpty) {
                                           return Center(
                                             child: EmptyAnimationWidget(),
                                           );
@@ -333,12 +355,13 @@ class _PartsWidgetState extends State<PartsWidget> {
                                                         0.12,
                                               ),
                                             ],
-                                            rows: part
-                                                .mapIndexed((partIndex,
-                                                        partItem) =>
+                                            rows: dataTablePartRecordList
+                                                .mapIndexed((dataTableIndex,
+                                                        dataTablePartRecord) =>
                                                     [
                                                       Text(
-                                                        partIndex.toString(),
+                                                        (dataTableIndex + 1)
+                                                            .toString(),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -354,35 +377,12 @@ class _PartsWidgetState extends State<PartsWidget> {
                                                                           .normal,
                                                                 ),
                                                       ),
-                                                      FutureBuilder<PartRecord>(
-                                                        future: PartRecord
-                                                            .getDocumentOnce(
-                                                                partItem),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50,
-                                                                height: 50,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final textPartRecord =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            textPartRecord
-                                                                .partName!,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                      Text(
+                                                        dataTablePartRecord
+                                                            .partName!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyText2
                                                                 .override(
                                                                   fontFamily:
@@ -391,38 +391,13 @@ class _PartsWidgetState extends State<PartsWidget> {
                                                                       FontWeight
                                                                           .normal,
                                                                 ),
-                                                          );
-                                                        },
                                                       ),
-                                                      FutureBuilder<PartRecord>(
-                                                        future: PartRecord
-                                                            .getDocumentOnce(
-                                                                partItem),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50,
-                                                                height: 50,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final textPartRecord =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            textPartRecord
-                                                                .description!,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                      Text(
+                                                        dataTablePartRecord
+                                                            .description!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyText1
                                                                 .override(
                                                                   fontFamily:
@@ -434,38 +409,13 @@ class _PartsWidgetState extends State<PartsWidget> {
                                                                       FontWeight
                                                                           .normal,
                                                                 ),
-                                                          );
-                                                        },
                                                       ),
-                                                      FutureBuilder<PartRecord>(
-                                                        future: PartRecord
-                                                            .getDocumentOnce(
-                                                                partItem),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50,
-                                                                height: 50,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final textPartRecord =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            textPartRecord
-                                                                .partType!,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                      Text(
+                                                        dataTablePartRecord
+                                                            .partType!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyText1
                                                                 .override(
                                                                   fontFamily:
@@ -477,38 +427,13 @@ class _PartsWidgetState extends State<PartsWidget> {
                                                                       FontWeight
                                                                           .normal,
                                                                 ),
-                                                          );
-                                                        },
                                                       ),
-                                                      FutureBuilder<PartRecord>(
-                                                        future: PartRecord
-                                                            .getDocumentOnce(
-                                                                partItem),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50,
-                                                                height: 50,
-                                                                child:
-                                                                    CircularProgressIndicator(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final textPartRecord =
-                                                              snapshot.data!;
-                                                          return Text(
-                                                            textPartRecord
-                                                                .description!,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                      Text(
+                                                        dataTablePartRecord
+                                                            .description!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyText1
                                                                 .override(
                                                                   fontFamily:
@@ -520,8 +445,6 @@ class _PartsWidgetState extends State<PartsWidget> {
                                                                       FontWeight
                                                                           .normal,
                                                                 ),
-                                                          );
-                                                        },
                                                       ),
                                                     ]
                                                         .map((c) => DataCell(c))
