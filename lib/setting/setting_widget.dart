@@ -52,6 +52,20 @@ class _SettingWidgetState extends State<SettingWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Align(
+                  alignment: AlignmentDirectional(1, 0),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
+                    child: Text(
+                      '< Back',
+                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            fontSize: 18,
+                          ),
+                    ),
+                  ),
+                ),
                 wrapWithModel(
                   model: _model.userwidgetModel,
                   updateCallback: () => setState(() {}),

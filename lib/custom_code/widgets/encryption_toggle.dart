@@ -14,11 +14,13 @@ class EncryptionToggle extends StatefulWidget {
     this.width,
     this.height,
     required this.encryption,
+    this.onToggleAction,
   }) : super(key: key);
 
   final double? width;
   final double? height;
   final bool encryption;
+  final Future<dynamic> Function()? onToggleAction;
 
   @override
   _EncryptionToggleState createState() => _EncryptionToggleState();
@@ -44,6 +46,7 @@ class _EncryptionToggleState extends State<EncryptionToggle> {
             if (newValue) {
               setState(() => encryptionStatus = newValue);
               FFAppState().update(() => FFAppState().encryptionFlag = newValue);
+              widget.onToggleAction != null ? widget.onToggleAction!() : null;
             } else {
               var confirmDialogResponse = await showDialog<bool>(
                     context: context,
@@ -71,6 +74,7 @@ class _EncryptionToggleState extends State<EncryptionToggle> {
                 setState(() => encryptionStatus = newValue);
                 FFAppState()
                     .update(() => FFAppState().encryptionFlag = newValue);
+                widget.onToggleAction != null ? widget.onToggleAction!() : null;
               }
             }
           },

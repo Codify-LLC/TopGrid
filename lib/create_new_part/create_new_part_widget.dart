@@ -287,6 +287,7 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                       width: 200,
                                       height: 30,
                                       encryption: FFAppState().encryptionFlag,
+                                      onToggleAction: () async {},
                                     ),
                                   ),
                                 ],
@@ -654,23 +655,31 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                     alignment: AlignmentDirectional(-1, 0),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          32, 0, 32, 0),
+                                          32, 0, 0, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          final partCreateData =
-                                              createPartRecordData(
-                                            partName:
-                                                _model.partNameController.text,
-                                            partType:
-                                                _model.partTypeDropDownValue,
-                                            description: _model
-                                                .addDescriptionController.text,
-                                            encryption: /* NOT RECOMMENDED */ _model
-                                                    .addDescriptionController
-                                                    .text ==
-                                                'true',
-                                            userRef: currentUserReference,
-                                          );
+                                          final partCreateData = {
+                                            ...createPartRecordData(
+                                              partName: _model
+                                                  .partNameController.text,
+                                              partType:
+                                                  _model.partTypeDropDownValue,
+                                              description: _model
+                                                  .addDescriptionController
+                                                  .text,
+                                              encryption: /* NOT RECOMMENDED */ _model
+                                                      .addDescriptionController
+                                                      .text ==
+                                                  'true',
+                                              userRef: currentUserReference,
+                                            ),
+                                            'attachments': _model.fileData
+                                                .map((e) => getJsonField(
+                                                      e,
+                                                      r'''$.filePath''',
+                                                    ))
+                                                .toList(),
+                                          };
                                           await PartRecord.collection
                                               .doc()
                                               .set(partCreateData);
