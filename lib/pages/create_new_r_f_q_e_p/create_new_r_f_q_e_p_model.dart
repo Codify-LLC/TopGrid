@@ -27,8 +27,6 @@ class CreateNewRFQEPModel extends FlutterFlowModel {
 
   bool vendorDropDown = false;
 
-  bool encryption = false;
-
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

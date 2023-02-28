@@ -230,22 +230,9 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                         .selectPartsValue)
                                                                 .toList()
                                                                 .first;
-                                                        _model.encryption =
-                                                            selectPartsPartRecordList
-                                                                .where((e) =>
-                                                                    e.partName ==
-                                                                    _model
-                                                                        .selectPartsValue)
-                                                                .toList()
-                                                                .first
-                                                                .encryption!;
                                                       });
                                                     },
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.06,
+                                                    height: 50.0,
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodyText1
@@ -271,7 +258,11 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                   );
                                                 },
                                               ),
-                                              if (_model.encryption)
+                                              if ((_model.selectedPart != null
+                                                      ? _model.selectedPart!
+                                                          .encryption
+                                                      : false) ??
+                                                  true)
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
@@ -570,8 +561,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                         .selectRequirementTypeValue = val),
                                     width: MediaQuery.of(context).size.width *
                                         0.24,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.06,
+                                    height: 50.0,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(

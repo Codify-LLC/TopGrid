@@ -55,18 +55,28 @@ class _MultipleSelectionDropDownWidgetState
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      decoration: BoxDecoration(),
-      child: FlutterFlowCheckboxGroup(
-        options: widget.optionsList!.toList(),
-        onChanged: (val) => setState(() => _model.checkboxGroupValues = val),
-        activeColor: FlutterFlowTheme.of(context).primaryColor,
-        checkColor: Colors.white,
-        checkboxBorderColor: Color(0xFF95A1AC),
-        textStyle: FlutterFlowTheme.of(context).bodyText1,
-        initialized: _model.checkboxGroupValues != null,
+    return Material(
+      color: Colors.transparent,
+      elevation: 2.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Container(
+        width: widget.width,
+        height: widget.height,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: FlutterFlowCheckboxGroup(
+          options: widget.optionsList!.toList(),
+          onChanged: (val) => setState(() => _model.checkboxGroupValues = val),
+          activeColor: FlutterFlowTheme.of(context).primaryColor,
+          checkColor: Colors.white,
+          checkboxBorderColor: Color(0xFF95A1AC),
+          textStyle: FlutterFlowTheme.of(context).bodyText1,
+          initialized: _model.checkboxGroupValues != null,
+        ),
       ),
     );
   }
