@@ -380,13 +380,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                   0.0,
                                                                   0.0),
                                                       child: Text(
-                                                        _model
-                                                                    .multipleSelectionDropDownModel
-                                                                    .checkboxGroupValues!
-                                                                    .length >
-                                                                0
-                                                            ? 'Select Vendors'
-                                                            : '${_model.multipleSelectionDropDownModel.checkboxGroupValues?.length?.toString()} Vendor Selected',
+                                                        'Select Vendors',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
