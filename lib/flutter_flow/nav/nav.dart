@@ -68,16 +68,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, _) => appStateNotifier.loggedIn
-          ? EmailVerificationLinkWidget()
-          : LoginWidget(),
+      errorBuilder: (context, _) =>
+          appStateNotifier.loggedIn ? DashboardWidget() : LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? EmailVerificationLinkWidget()
-              : LoginWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? DashboardWidget() : LoginWidget(),
           routes: [
             FFRoute(
               name: 'SplashScreen',
@@ -136,7 +134,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'CreateNewPart',
               path: 'createNewPart',
               requireAuth: true,
-              builder: (context, params) => CreateNewPartWidget(),
+              builder: (context, params) => CreateNewPartWidget(
+                addToRequirements:
+                    params.getParam('addToRequirements', ParamType.bool),
+              ),
             ),
             FFRoute(
               name: 'editCompanyProfile',
@@ -152,12 +153,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 rfqRef: params.getParam('rfqRef', ParamType.DocumentReference,
                     false, ['request_for_quotation']),
               ),
-            ),
-            FFRoute(
-              name: 'VendorProfile11',
-              path: 'vendorProfile11',
-              requireAuth: true,
-              builder: (context, params) => VendorProfile11Widget(),
             ),
             FFRoute(
               name: 'VendorDashboard',
@@ -176,6 +171,78 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'parts',
               requireAuth: true,
               builder: (context, params) => PartsWidget(),
+            ),
+            FFRoute(
+              name: 'Purchases',
+              path: 'purchases',
+              requireAuth: true,
+              builder: (context, params) => PurchasesWidget(),
+            ),
+            FFRoute(
+              name: 'TopGridDashboard',
+              path: 'topGridDashboard',
+              requireAuth: true,
+              builder: (context, params) => TopGridDashboardWidget(),
+            ),
+            FFRoute(
+              name: 'TopGridUsers',
+              path: 'topGridUsers',
+              requireAuth: true,
+              builder: (context, params) => TopGridUsersWidget(),
+            ),
+            FFRoute(
+              name: 'TopGridCustomers',
+              path: 'topGridCustomers',
+              requireAuth: true,
+              builder: (context, params) => TopGridCustomersWidget(),
+            ),
+            FFRoute(
+              name: 'AddNewCustomer',
+              path: 'addNewCustomer',
+              requireAuth: true,
+              builder: (context, params) => AddNewCustomerWidget(),
+            ),
+            FFRoute(
+              name: 'TopGridVendors',
+              path: 'topGridVendors',
+              requireAuth: true,
+              builder: (context, params) => TopGridVendorsWidget(),
+            ),
+            FFRoute(
+              name: 'AddNewVendor',
+              path: 'addNewVendor',
+              requireAuth: true,
+              builder: (context, params) => AddNewVendorWidget(),
+            ),
+            FFRoute(
+              name: 'PartDetails',
+              path: 'partDetails',
+              requireAuth: true,
+              asyncParams: {
+                'part': getDoc(['part'], PartRecord.serializer),
+              },
+              builder: (context, params) => PartDetailsWidget(
+                part: params.getParam('part', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'Sales',
+              path: 'sales',
+              requireAuth: true,
+              builder: (context, params) => SalesWidget(),
+            ),
+            FFRoute(
+              name: 'ModifyCustomer',
+              path: 'modifyCustomer',
+              requireAuth: true,
+              asyncParams: {
+                'companyUserDocument':
+                    getDoc(['company_users'], CompanyUsersRecord.serializer),
+              },
+              builder: (context, params) => ModifyCustomerWidget(
+                companyUserDocument:
+                    params.getParam('companyUserDocument', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -353,8 +420,8 @@ class FFRoute {
                   child: Center(
                     child: Image.asset(
                       'assets/images/Top_grid_logo-01.png',
-                      width: 300,
-                      height: 300,
+                      width: 300.0,
+                      height: 300.0,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -394,5 +461,9 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(
+        hasTransition: true,
+        transitionType: PageTransitionType.fade,
+        duration: Duration(milliseconds: 0),
+      );
 }

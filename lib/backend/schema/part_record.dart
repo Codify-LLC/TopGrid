@@ -12,9 +12,6 @@ abstract class PartRecord implements Built<PartRecord, PartRecordBuilder> {
   @BuiltValueField(wireName: 'part_name')
   String? get partName;
 
-  @BuiltValueField(wireName: 'part_number')
-  String? get partNumber;
-
   @BuiltValueField(wireName: 'part_type')
   String? get partType;
 
@@ -30,18 +27,24 @@ abstract class PartRecord implements Built<PartRecord, PartRecordBuilder> {
 
   bool? get encryption;
 
+  @BuiltValueField(wireName: 'date_created')
+  DateTime? get dateCreated;
+
+  @BuiltValueField(wireName: 'part_number')
+  int? get partNumber;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(PartRecordBuilder builder) => builder
     ..partName = ''
-    ..partNumber = ''
     ..partType = ''
     ..attachments = ListBuilder()
     ..description = ''
     ..requirementType = ''
-    ..encryption = false;
+    ..encryption = false
+    ..partNumber = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('part');
@@ -65,25 +68,27 @@ abstract class PartRecord implements Built<PartRecord, PartRecordBuilder> {
 
 Map<String, dynamic> createPartRecordData({
   String? partName,
-  String? partNumber,
   String? partType,
   String? description,
   DocumentReference? userRef,
   String? requirementType,
   bool? encryption,
+  DateTime? dateCreated,
+  int? partNumber,
 }) {
   final firestoreData = serializers.toFirestore(
     PartRecord.serializer,
     PartRecord(
       (p) => p
         ..partName = partName
-        ..partNumber = partNumber
         ..partType = partType
         ..attachments = null
         ..description = description
         ..userRef = userRef
         ..requirementType = requirementType
-        ..encryption = encryption,
+        ..encryption = encryption
+        ..dateCreated = dateCreated
+        ..partNumber = partNumber,
     ),
   );
 

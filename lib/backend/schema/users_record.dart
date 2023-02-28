@@ -33,6 +33,11 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'company_ref')
   DocumentReference? get companyRef;
 
+  String? get role;
+
+  @BuiltValueField(wireName: 'app_state_requirements')
+  BuiltList<RequirementStruct>? get appStateRequirements;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -44,7 +49,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..uid = ''
     ..phoneNumber = ''
     ..userType = ''
-    ..encryption = false;
+    ..encryption = false
+    ..role = ''
+    ..appStateRequirements = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -77,6 +84,7 @@ Map<String, dynamic> createUsersRecordData({
   String? userType,
   bool? encryption,
   DocumentReference? companyRef,
+  String? role,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -90,7 +98,9 @@ Map<String, dynamic> createUsersRecordData({
         ..phoneNumber = phoneNumber
         ..userType = userType
         ..encryption = encryption
-        ..companyRef = companyRef,
+        ..companyRef = companyRef
+        ..role = role
+        ..appStateRequirements = null,
     ),
   );
 

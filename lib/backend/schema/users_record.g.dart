@@ -83,6 +83,21 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.role;
+    if (value != null) {
+      result
+        ..add('role')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.appStateRequirements;
+    if (value != null) {
+      result
+        ..add('app_state_requirements')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(RequirementStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -143,6 +158,16 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'role':
+          result.role = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'app_state_requirements':
+          result.appStateRequirements.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(RequirementStruct)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -176,6 +201,10 @@ class _$UsersRecord extends UsersRecord {
   @override
   final DocumentReference<Object?>? companyRef;
   @override
+  final String? role;
+  @override
+  final BuiltList<RequirementStruct>? appStateRequirements;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -191,6 +220,8 @@ class _$UsersRecord extends UsersRecord {
       this.userType,
       this.encryption,
       this.companyRef,
+      this.role,
+      this.appStateRequirements,
       this.ffRef})
       : super._();
 
@@ -214,6 +245,8 @@ class _$UsersRecord extends UsersRecord {
         userType == other.userType &&
         encryption == other.encryption &&
         companyRef == other.companyRef &&
+        role == other.role &&
+        appStateRequirements == other.appStateRequirements &&
         ffRef == other.ffRef;
   }
 
@@ -227,15 +260,19 @@ class _$UsersRecord extends UsersRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, email.hashCode),
-                                        displayName.hashCode),
-                                    photoUrl.hashCode),
-                                uid.hashCode),
-                            createdTime.hashCode),
-                        phoneNumber.hashCode),
-                    userType.hashCode),
-                encryption.hashCode),
-            companyRef.hashCode),
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, email.hashCode),
+                                                displayName.hashCode),
+                                            photoUrl.hashCode),
+                                        uid.hashCode),
+                                    createdTime.hashCode),
+                                phoneNumber.hashCode),
+                            userType.hashCode),
+                        encryption.hashCode),
+                    companyRef.hashCode),
+                role.hashCode),
+            appStateRequirements.hashCode),
         ffRef.hashCode));
   }
 
@@ -251,6 +288,8 @@ class _$UsersRecord extends UsersRecord {
           ..add('userType', userType)
           ..add('encryption', encryption)
           ..add('companyRef', companyRef)
+          ..add('role', role)
+          ..add('appStateRequirements', appStateRequirements)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -296,6 +335,17 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   set companyRef(DocumentReference<Object?>? companyRef) =>
       _$this._companyRef = companyRef;
 
+  String? _role;
+  String? get role => _$this._role;
+  set role(String? role) => _$this._role = role;
+
+  ListBuilder<RequirementStruct>? _appStateRequirements;
+  ListBuilder<RequirementStruct> get appStateRequirements =>
+      _$this._appStateRequirements ??= new ListBuilder<RequirementStruct>();
+  set appStateRequirements(
+          ListBuilder<RequirementStruct>? appStateRequirements) =>
+      _$this._appStateRequirements = appStateRequirements;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -316,6 +366,8 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _userType = $v.userType;
       _encryption = $v.encryption;
       _companyRef = $v.companyRef;
+      _role = $v.role;
+      _appStateRequirements = $v.appStateRequirements?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -337,18 +389,33 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   UsersRecord build() => _build();
 
   _$UsersRecord _build() {
-    final _$result = _$v ??
-        new _$UsersRecord._(
-            email: email,
-            displayName: displayName,
-            photoUrl: photoUrl,
-            uid: uid,
-            createdTime: createdTime,
-            phoneNumber: phoneNumber,
-            userType: userType,
-            encryption: encryption,
-            companyRef: companyRef,
-            ffRef: ffRef);
+    _$UsersRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$UsersRecord._(
+              email: email,
+              displayName: displayName,
+              photoUrl: photoUrl,
+              uid: uid,
+              createdTime: createdTime,
+              phoneNumber: phoneNumber,
+              userType: userType,
+              encryption: encryption,
+              companyRef: companyRef,
+              role: role,
+              appStateRequirements: _appStateRequirements?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'appStateRequirements';
+        _appStateRequirements?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'UsersRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

@@ -57,6 +57,13 @@ class _$CompanyUsersRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.userType;
+    if (value != null) {
+      result
+        ..add('user_type')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -102,6 +109,10 @@ class _$CompanyUsersRecordSerializer
           result.role = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'user_type':
+          result.userType = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -127,6 +138,8 @@ class _$CompanyUsersRecord extends CompanyUsersRecord {
   @override
   final String? role;
   @override
+  final String? userType;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$CompanyUsersRecord(
@@ -139,6 +152,7 @@ class _$CompanyUsersRecord extends CompanyUsersRecord {
       this.companyRef,
       this.mobileNumber,
       this.role,
+      this.userType,
       this.ffRef})
       : super._();
 
@@ -160,6 +174,7 @@ class _$CompanyUsersRecord extends CompanyUsersRecord {
         companyRef == other.companyRef &&
         mobileNumber == other.mobileNumber &&
         role == other.role &&
+        userType == other.userType &&
         ffRef == other.ffRef;
   }
 
@@ -168,10 +183,12 @@ class _$CompanyUsersRecord extends CompanyUsersRecord {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, email.hashCode), name.hashCode),
-                    companyRef.hashCode),
-                mobileNumber.hashCode),
-            role.hashCode),
+                $jc(
+                    $jc($jc($jc(0, email.hashCode), name.hashCode),
+                        companyRef.hashCode),
+                    mobileNumber.hashCode),
+                role.hashCode),
+            userType.hashCode),
         ffRef.hashCode));
   }
 
@@ -183,6 +200,7 @@ class _$CompanyUsersRecord extends CompanyUsersRecord {
           ..add('companyRef', companyRef)
           ..add('mobileNumber', mobileNumber)
           ..add('role', role)
+          ..add('userType', userType)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -213,6 +231,10 @@ class CompanyUsersRecordBuilder
   String? get role => _$this._role;
   set role(String? role) => _$this._role = role;
 
+  String? _userType;
+  String? get userType => _$this._userType;
+  set userType(String? userType) => _$this._userType = userType;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -229,6 +251,7 @@ class CompanyUsersRecordBuilder
       _companyRef = $v.companyRef;
       _mobileNumber = $v.mobileNumber;
       _role = $v.role;
+      _userType = $v.userType;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -257,6 +280,7 @@ class CompanyUsersRecordBuilder
             companyRef: companyRef,
             mobileNumber: mobileNumber,
             role: role,
+            userType: userType,
             ffRef: ffRef);
     replace(_$result);
     return _$result;
