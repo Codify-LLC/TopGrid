@@ -1018,118 +1018,123 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                       0.0,
                                                                       10.0,
                                                                       0.0),
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          24.0),
-                                                              border:
-                                                                  Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryColor,
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              await launchURL(
+                                                                  getJsonField(
+                                                                fileItem,
+                                                                r'''$.filePath''',
+                                                              ).toString());
+                                                            },
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            24.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          4.0,
-                                                                          2.0,
-                                                                          4.0,
-                                                                          2.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .insert_drive_file_outlined,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                      size:
-                                                                          18.0,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    getJsonField(
-                                                                      fileItem,
-                                                                      r'''$.fileName''',
-                                                                    ).toString(),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText1
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Poppins',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
-                                                                          fontSize:
-                                                                              12.0,
-                                                                          fontWeight:
-                                                                              FontWeight.normal,
-                                                                          decoration:
-                                                                              TextDecoration.underline,
-                                                                        ),
-                                                                  ),
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            1.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        Padding(
+                                                                            4.0,
+                                                                            2.0,
+                                                                            4.0,
+                                                                            2.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Padding(
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
                                                                           8.0,
-                                                                          0.0,
-                                                                          0.0,
                                                                           0.0),
                                                                       child:
-                                                                          InkWell(
-                                                                        onTap:
-                                                                            () async {
-                                                                          setState(
-                                                                              () {
-                                                                            _model.removeFromFileData(fileItem);
-                                                                          });
-                                                                          await FirebaseStorage
-                                                                              .instance
-                                                                              .refFromURL(getJsonField(
-                                                                                fileItem,
-                                                                                r'''$.filePath''',
-                                                                              ).toString())
-                                                                              .delete();
-                                                                        },
+                                                                          Icon(
+                                                                        Icons
+                                                                            .insert_drive_file_outlined,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryColor,
+                                                                        size:
+                                                                            18.0,
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      getJsonField(
+                                                                        fileItem,
+                                                                        r'''$.fileName''',
+                                                                      ).toString(),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Poppins',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryColor,
+                                                                            fontSize:
+                                                                                12.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                            decoration:
+                                                                                TextDecoration.underline,
+                                                                          ),
+                                                                    ),
+                                                                    Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              1.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                         child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .close,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
-                                                                          size:
-                                                                              18.0,
+                                                                            InkWell(
+                                                                          onTap:
+                                                                              () async {
+                                                                            setState(() {
+                                                                              _model.removeFromFileData(fileItem);
+                                                                            });
+                                                                            await FirebaseStorage.instance
+                                                                                .refFromURL(getJsonField(
+                                                                                  fileItem,
+                                                                                  r'''$.filePath''',
+                                                                                ).toString())
+                                                                                .delete();
+                                                                          },
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.close,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryColor,
+                                                                            size:
+                                                                                18.0,
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -1345,9 +1350,42 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                     .set(
                                                         requestForQuotationCreateData1);
                                               } else {
-                                                final requestForQuotationCreateData2 =
-                                                    {
-                                                  ...createRequestForQuotationRecordData(
+                                                if (_model.fileData.length >
+                                                    0) {
+                                                  final requestForQuotationCreateData2 =
+                                                      {
+                                                    ...createRequestForQuotationRecordData(
+                                                      rfqName: _model
+                                                          .rFQNameController
+                                                          .text,
+                                                      quantity: int.tryParse(
+                                                          _model
+                                                              .quantityController
+                                                              .text),
+                                                      partsDescription: _model
+                                                          .addDescriptionController
+                                                          .text,
+                                                      customerCompanyRef:
+                                                          currentUserDocument!
+                                                              .companyRef,
+                                                    ),
+                                                    'attachments': _model
+                                                        .fileData
+                                                        .map(
+                                                            (e) => getJsonField(
+                                                                  e,
+                                                                  r'''$.filePath''',
+                                                                ))
+                                                        .toList(),
+                                                  };
+                                                  await RequestForQuotationRecord
+                                                      .collection
+                                                      .doc()
+                                                      .set(
+                                                          requestForQuotationCreateData2);
+                                                } else {
+                                                  final requestForQuotationCreateData3 =
+                                                      createRequestForQuotationRecordData(
                                                     rfqName: _model
                                                         .rFQNameController.text,
                                                     quantity: int.tryParse(
@@ -1360,19 +1398,13 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                     customerCompanyRef:
                                                         currentUserDocument!
                                                             .companyRef,
-                                                  ),
-                                                  'attachments': _model.fileData
-                                                      .map((e) => getJsonField(
-                                                            e,
-                                                            r'''$.filepath''',
-                                                          ))
-                                                      .toList(),
-                                                };
-                                                await RequestForQuotationRecord
-                                                    .collection
-                                                    .doc()
-                                                    .set(
-                                                        requestForQuotationCreateData2);
+                                                  );
+                                                  await RequestForQuotationRecord
+                                                      .collection
+                                                      .doc()
+                                                      .set(
+                                                          requestForQuotationCreateData3);
+                                                }
                                               }
 
                                               context.pop();

@@ -300,11 +300,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 ),
                                                       ),
                                                     ),
-                                                    fixedWidth:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.06,
+                                                    fixedWidth: 100.0,
                                                   ),
                                                   DataColumn2(
                                                     label:
@@ -327,11 +323,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 ),
                                                       ),
                                                     ),
-                                                    fixedWidth:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.1,
                                                   ),
                                                   DataColumn2(
                                                     label:
@@ -398,11 +389,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 ),
                                                       ),
                                                     ),
-                                                    fixedWidth:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.08,
                                                   ),
                                                 ],
                                                 rows:

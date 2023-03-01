@@ -186,9 +186,11 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          custom_widgets.PartSelector(
-                                            width: 250.0,
-                                            height: 200.0,
+                                          Expanded(
+                                            child: custom_widgets.PartSelector(
+                                              width: 250.0,
+                                              height: 200.0,
+                                            ),
                                           ),
                                           Expanded(
                                             child: Padding(
