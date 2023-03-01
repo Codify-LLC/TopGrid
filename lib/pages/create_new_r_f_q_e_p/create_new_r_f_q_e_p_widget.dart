@@ -187,11 +187,11 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                           Expanded(
                                             child: Container(
                                               width: double.infinity,
-                                              height: 100.0,
+                                              height: 150.0,
                                               child:
                                                   custom_widgets.PartSelector(
                                                 width: double.infinity,
-                                                height: 100.0,
+                                                height: 150.0,
                                               ),
                                             ),
                                           ),
@@ -982,51 +982,39 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                     }
                                                     if (columnPartRecord !=
                                                         null) {
+                                                      _model.finalArray =
+                                                          await actions
+                                                              .combineArrays(
+                                                        (currentUserDocument
+                                                                    ?.appStateRequirements
+                                                                    ?.toList() ??
+                                                                [])
+                                                            .toList(),
+                                                        int.parse(_model
+                                                            .quantityController
+                                                            .text),
+                                                        _model
+                                                            .addDescriptionController
+                                                            .text,
+                                                        _model
+                                                            .selectRequirementTypeValue!,
+                                                        columnPartRecord!
+                                                            .reference,
+                                                      );
+
                                                       final usersUpdateData = {
                                                         'app_state_requirements':
-                                                            FieldValue
-                                                                .arrayUnion([
-                                                          getRequirementFirestoreData(
-                                                            createRequirementStruct(
-                                                              quantity: int
-                                                                  .tryParse(_model
-                                                                      .quantityController
-                                                                      .text),
-                                                              requirementType:
-                                                                  _model
-                                                                      .selectRequirementTypeValue,
-                                                              description: _model
-                                                                  .addDescriptionController
-                                                                  .text,
-                                                              part:
-                                                                  columnPartRecord!
-                                                                      .reference,
-                                                              fieldValues: {
-                                                                'vendors':
-                                                                    FieldValue
-                                                                        .arrayUnion([
-                                                                  createNewRFQEPCompanyUsersRecordList
-                                                                      .where((e) => FFAppState()
-                                                                          .selectedVendors
-                                                                          .contains(
-                                                                              e.name))
-                                                                      .toList()
-                                                                      .first
-                                                                      .reference
-                                                                ]),
-                                                              },
-                                                              clearUnsetFields:
-                                                                  true,
-                                                            ),
-                                                            true,
-                                                          )
-                                                        ]),
+                                                            getRequirementListFirestoreData(
+                                                          _model.finalArray,
+                                                        ),
                                                       };
                                                       await currentUserReference!
                                                           .update(
                                                               usersUpdateData);
                                                       context.pop();
                                                     }
+
+                                                    setState(() {});
                                                   },
                                                   text: 'Save',
                                                   options: FFButtonOptions(
