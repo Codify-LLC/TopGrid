@@ -24,8 +24,6 @@ class CreateNewRFQEPModel extends FlutterFlowModel {
   void removeFromFileData(dynamic item) => fileData.remove(item);
   void removeAtIndexFromFileData(int index) => fileData.removeAt(index);
 
-  PartRecord? selectedPart;
-
   bool vendorDropDown = false;
 
   ///  State fields for stateful widgets in this page.

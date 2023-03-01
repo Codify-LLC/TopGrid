@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/lat_lng.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -42,6 +44,31 @@ class FFAppState extends ChangeNotifier {
   bool get encryptionFlag => _encryptionFlag;
   set encryptionFlag(bool _value) {
     _encryptionFlag = _value;
+  }
+
+  List<String> _selectedVendors = [];
+  List<String> get selectedVendors => _selectedVendors;
+  set selectedVendors(List<String> _value) {
+    _selectedVendors = _value;
+  }
+
+  void addToSelectedVendors(String _value) {
+    _selectedVendors.add(_value);
+  }
+
+  void removeFromSelectedVendors(String _value) {
+    _selectedVendors.remove(_value);
+  }
+
+  void removeAtIndexFromSelectedVendors(int _index) {
+    _selectedVendors.removeAt(_index);
+  }
+
+  DocumentReference? _selectedPart =
+      FirebaseFirestore.instance.doc('/part/abc');
+  DocumentReference? get selectedPart => _selectedPart;
+  set selectedPart(DocumentReference? _value) {
+    _selectedPart = _value;
   }
 }
 

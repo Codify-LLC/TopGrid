@@ -13,13 +13,11 @@ class MultipleSelectionDropDownWidget extends StatefulWidget {
     this.optionsList,
     this.width,
     this.height,
-    this.onSelectAction,
   }) : super(key: key);
 
   final List<String>? optionsList;
   final double? width;
   final double? height;
-  final Future<dynamic> Function()? onSelectAction;
 
   @override
   _MultipleSelectionDropDownWidgetState createState() =>
@@ -69,8 +67,15 @@ class _MultipleSelectionDropDownWidgetState
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: FlutterFlowCheckboxGroup(
+          initiallySelected: FFAppState().selectedVendors,
           options: widget.optionsList!.toList(),
-          onChanged: (val) => setState(() => _model.checkboxGroupValues = val),
+          onChanged: (val) async {
+            setState(() => _model.checkboxGroupValues = val);
+            setState(() {
+              FFAppState().selectedVendors =
+                  _model.checkboxGroupValues!.toList();
+            });
+          },
           activeColor: FlutterFlowTheme.of(context).primaryColor,
           checkColor: Colors.white,
           checkboxBorderColor: Color(0xFF95A1AC),

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'add_new_customer_model.dart';
@@ -482,6 +483,9 @@ class _AddNewCustomerWidgetState extends State<AddNewCustomerWidget> {
                                               controller:
                                                   _model.adminEmailController,
                                               autofocus: true,
+                                              autofillHints: [
+                                                AutofillHints.email
+                                              ],
                                               textCapitalization:
                                                   TextCapitalization.words,
                                               obscureText: false,
@@ -584,8 +588,11 @@ class _AddNewCustomerWidgetState extends State<AddNewCustomerWidget> {
                                               controller: _model
                                                   .adminContactNumberController,
                                               autofocus: true,
+                                              autofillHints: [
+                                                AutofillHints.telephoneNumber
+                                              ],
                                               textCapitalization:
-                                                  TextCapitalization.words,
+                                                  TextCapitalization.none,
                                               obscureText: false,
                                               decoration: InputDecoration(
                                                 isDense: true,
@@ -643,9 +650,15 @@ class _AddNewCustomerWidgetState extends State<AddNewCustomerWidget> {
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               validator: _model
                                                   .adminContactNumberControllerValidator
                                                   .asValidator(context),
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .allow(RegExp('[0-9]'))
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -686,6 +699,9 @@ class _AddNewCustomerWidgetState extends State<AddNewCustomerWidget> {
                                               controller: _model
                                                   .adminUserNameController,
                                               autofocus: true,
+                                              autofillHints: [
+                                                AutofillHints.name
+                                              ],
                                               textCapitalization:
                                                   TextCapitalization.words,
                                               obscureText: false,
@@ -745,6 +761,7 @@ class _AddNewCustomerWidgetState extends State<AddNewCustomerWidget> {
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1,
+                                              keyboardType: TextInputType.name,
                                               validator: _model
                                                   .adminUserNameControllerValidator
                                                   .asValidator(context),

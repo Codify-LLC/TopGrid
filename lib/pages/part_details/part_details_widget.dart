@@ -320,7 +320,7 @@ class _PartDetailsWidgetState extends State<PartDetailsWidget> {
                                       child: custom_widgets.EncryptionToggle(
                                         width: 200.0,
                                         height: 30.0,
-                                        encryption: FFAppState().encryptionFlag,
+                                        encryption: widget.part!.encryption!,
                                         onToggleAction: () async {},
                                       ),
                                     ),
@@ -721,42 +721,20 @@ class _PartDetailsWidgetState extends State<PartDetailsWidget> {
                                                     .validate()) {
                                               return;
                                             }
-                                            _model.uniquePartId = await actions
-                                                .generateUniqueNumber(
-                                              8,
+
+                                            final partUpdateData =
+                                                createPartRecordData(
+                                              partName: _model
+                                                  .partNameController.text,
+                                              partType:
+                                                  _model.partTypeDropDownValue,
+                                              description: _model
+                                                  .addDescriptionController
+                                                  .text,
                                             );
-
-                                            final partCreateData = {
-                                              ...createPartRecordData(
-                                                partName: _model
-                                                    .partNameController.text,
-                                                partType: _model
-                                                    .partTypeDropDownValue,
-                                                description: _model
-                                                    .addDescriptionController
-                                                    .text,
-                                                encryption: /* NOT RECOMMENDED */ _model
-                                                        .addDescriptionController
-                                                        .text ==
-                                                    'true',
-                                                userRef: currentUserReference,
-                                                partNumber: _model.uniquePartId,
-                                                dateCreated:
-                                                    getCurrentTimestamp,
-                                              ),
-                                              'attachments': _model.fileData
-                                                  .map((e) => getJsonField(
-                                                        e,
-                                                        r'''$.filePath''',
-                                                      ))
-                                                  .toList(),
-                                            };
-                                            await PartRecord.collection
-                                                .doc()
-                                                .set(partCreateData);
+                                            await widget.part!.reference
+                                                .update(partUpdateData);
                                             context.pop();
-
-                                            setState(() {});
                                           },
                                           text: 'Save',
                                           options: FFButtonOptions(

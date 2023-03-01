@@ -449,11 +449,6 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                       .fromSTEB(
                                                           0.0, 0.0, 10.0, 0.0),
                                                   child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.12,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -475,75 +470,80 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                                   2.0),
                                                       child: Row(
                                                         mainAxisSize:
-                                                            MainAxisSize.max,
+                                                            MainAxisSize.min,
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .center,
                                                         children: [
-                                                          Expanded(
-                                                            child: Icon(
-                                                              Icons
-                                                                  .insert_drive_file_outlined,
-                                                              color: FlutterFlowTheme
+                                                          Icon(
+                                                            Icons
+                                                                .insert_drive_file_outlined,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryColor,
+                                                            size: 18.0,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        4.0,
+                                                                        0.0,
+                                                                        4.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              getJsonField(
+                                                                fileItem,
+                                                                r'''$.fileName''',
+                                                              ).toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .primaryColor,
-                                                              size: 18.0,
+                                                                  .bodyText1
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                    fontSize:
+                                                                        12.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .underline,
+                                                                  ),
                                                             ),
                                                           ),
-                                                          Text(
-                                                            getJsonField(
-                                                              fileItem,
-                                                              r'''$.fileName''',
-                                                            ).toString(),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .underline,
-                                                                ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      1.0, 0.0),
-                                                              child: InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  setState(() {
-                                                                    _model.removeFromFileData(
-                                                                        fileItem);
-                                                                  });
-                                                                  await FirebaseStorage
-                                                                      .instance
-                                                                      .refFromURL(
-                                                                          getJsonField(
-                                                                        fileItem,
-                                                                        r'''$.filePath''',
-                                                                      ).toString())
-                                                                      .delete();
-                                                                },
-                                                                child: Icon(
-                                                                  Icons.close,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  size: 18.0,
-                                                                ),
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    1.0, 0.0),
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                setState(() {
+                                                                  _model.removeFromFileData(
+                                                                      fileItem);
+                                                                });
+                                                                await FirebaseStorage
+                                                                    .instance
+                                                                    .refFromURL(
+                                                                        getJsonField(
+                                                                      fileItem,
+                                                                      r'''$.filePath''',
+                                                                    ).toString())
+                                                                    .delete();
+                                                              },
+                                                              child: Icon(
+                                                                Icons.close,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                size: 18.0,
                                                               ),
                                                             ),
                                                           ),
@@ -744,10 +744,8 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                 description: _model
                                                     .addDescriptionController
                                                     .text,
-                                                encryption: /* NOT RECOMMENDED */ _model
-                                                        .addDescriptionController
-                                                        .text ==
-                                                    'true',
+                                                encryption:
+                                                    FFAppState().encryptionFlag,
                                                 userRef: currentUserReference,
                                                 partNumber: _model.uniquePartId,
                                                 dateCreated:

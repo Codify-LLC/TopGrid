@@ -17,12 +17,10 @@ class PartSelector extends StatefulWidget {
     Key? key,
     this.width,
     this.height,
-    required this.updateCurrentPart,
   }) : super(key: key);
 
   final double? width;
   final double? height;
-  final Future<dynamic> Function() updateCurrentPart;
 
   @override
   _PartSelectorState createState() => _PartSelectorState();
@@ -79,17 +77,13 @@ class _PartSelectorState extends State<PartSelector> {
                       .toList(),
                   onChanged: (val) async {
                     setState(() => selectPartsValue = val);
-                    instantTimer = InstantTimer.periodic(
-                      duration: Duration(milliseconds: 500),
-                      callback: (timer) async {
-                        setState(() {
-                          selectedPart = selectPartsPartRecordList
+                    FFAppState().update(
+                      () => FFAppState().selectedPart =
+                          selectPartsPartRecordList
                               .where((e) => e.partName == val)
                               .toList()
-                              .first;
-                        });
-                      },
-                      startImmediately: true,
+                              .first
+                              .reference,
                     );
                   },
                   height: 50,

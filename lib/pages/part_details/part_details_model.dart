@@ -37,8 +37,6 @@ class PartDetailsModel extends FlutterFlowModel {
   String? Function(BuildContext, String?)? addDescriptionControllerValidator;
   // Stores action output result for [Custom Action - pickFile] action in Row widget.
   dynamic? newFile;
-  // Stores action output result for [Custom Action - generateUniqueNumber] action in CreateRFQ-PWP widget.
-  int? uniquePartId;
 
   /// Initialization and disposal methods.
 
