@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import '/backend/schema/structs/requirement_struct.dart';
-
 Future<List<RequirementStruct>> combineArrays(
   List<RequirementStruct> existing,
   int quantity,
