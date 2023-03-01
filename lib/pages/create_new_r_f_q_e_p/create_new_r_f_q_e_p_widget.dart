@@ -1003,9 +1003,8 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                     FieldValue
                                                                         .arrayUnion([
                                                                   createNewRFQEPCompanyUsersRecordList
-                                                                      .where((e) => _model
-                                                                          .multipleSelectionDropDownModel
-                                                                          .checkboxGroupValues!
+                                                                      .where((e) => FFAppState()
+                                                                          .selectedVendors
                                                                           .contains(
                                                                               e.name))
                                                                       .toList()
@@ -1014,7 +1013,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                 ]),
                                                               },
                                                               clearUnsetFields:
-                                                                  false,
+                                                                  true,
                                                             ),
                                                             true,
                                                           )
