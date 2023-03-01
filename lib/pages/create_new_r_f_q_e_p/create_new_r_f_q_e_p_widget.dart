@@ -109,9 +109,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                               stream: queryPartRecord(
                                 queryBuilder: (partRecord) => partRecord.where(
                                     'part_name',
-                                    isEqualTo: FFAppState().selectedPart != ''
-                                        ? FFAppState().selectedPart
-                                        : null),
+                                    isEqualTo: FFAppState().selectedPart),
                                 singleRecord: true,
                               ),
                               builder: (context, snapshot) {
@@ -187,20 +185,25 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                            child: custom_widgets.PartSelector(
-                                              width: 250.0,
-                                              height: 200.0,
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: 100.0,
+                                              child:
+                                                  custom_widgets.PartSelector(
+                                                width: double.infinity,
+                                                height: 100.0,
+                                              ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      0.0, 0.0, 48.0, 0.0),
+                                                      0.0, 0.0, 32.0, 0.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.stretch,
                                                 children: [
                                                   Padding(
                                                     padding:
@@ -236,7 +239,6 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                       }
                                                     },
                                                     child: Container(
-                                                      width: 250.0,
                                                       height: 50.0,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
@@ -342,7 +344,6 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                       'N / A',
                                                                     ))
                                                                 .toList(),
-                                                        width: 250.0,
                                                         height: 100.0,
                                                       ),
                                                     ),

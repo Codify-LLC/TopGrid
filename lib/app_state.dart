@@ -62,7 +62,7 @@ class FFAppState extends ChangeNotifier {
     _selectedVendors.removeAt(_index);
   }
 
-  String _selectedPart = '';
+  String _selectedPart = 'bvhvhhfggdfjf54545465465';
   String get selectedPart => _selectedPart;
   set selectedPart(String _value) {
     _selectedPart = _value;

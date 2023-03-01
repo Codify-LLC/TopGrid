@@ -78,7 +78,8 @@ class _PartSelectorState extends State<PartSelector> {
                   onChanged: (val) async {
                     setState(() => selectPartsValue = val);
                     FFAppState().update(
-                      () => FFAppState().selectedPart = val ?? '',
+                      () => FFAppState().selectedPart =
+                          val ?? 'uuygjkjgUOHJLuy34645',
                     );
                   },
                   height: 50,

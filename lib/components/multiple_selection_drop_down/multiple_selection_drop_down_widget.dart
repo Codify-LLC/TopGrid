@@ -11,12 +11,10 @@ class MultipleSelectionDropDownWidget extends StatefulWidget {
   const MultipleSelectionDropDownWidget({
     Key? key,
     this.optionsList,
-    this.width,
     this.height,
   }) : super(key: key);
 
   final List<String>? optionsList;
-  final double? width;
   final double? height;
 
   @override
@@ -60,7 +58,7 @@ class _MultipleSelectionDropDownWidgetState
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Container(
-        width: widget.width,
+        width: double.infinity,
         height: widget.height,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
