@@ -7,8 +7,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -157,166 +157,10 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 48.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 12.0),
-                                                child: Text(
-                                                  'Select Parts',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 16.0,
-                                                      ),
-                                                ),
-                                              ),
-                                              StreamBuilder<List<PartRecord>>(
-                                                stream: queryPartRecord(
-                                                  queryBuilder: (partRecord) =>
-                                                      partRecord.where(
-                                                          'user_ref',
-                                                          isEqualTo:
-                                                              currentUserReference),
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryColor,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  List<PartRecord>
-                                                      selectPartsPartRecordList =
-                                                      snapshot.data!;
-                                                  return FlutterFlowDropDown<
-                                                      String>(
-                                                    options:
-                                                        selectPartsPartRecordList
-                                                            .map((e) =>
-                                                                e.partName)
-                                                            .withoutNulls
-                                                            .toList()
-                                                            .toList(),
-                                                    onChanged: (val) async {
-                                                      setState(() => _model
-                                                              .selectPartsValue =
-                                                          val);
-                                                      _model.instantTimer =
-                                                          InstantTimer.periodic(
-                                                        duration: Duration(
-                                                            milliseconds: 500),
-                                                        callback:
-                                                            (timer) async {
-                                                          setState(() {
-                                                            _model.selectedPart =
-                                                                selectPartsPartRecordList
-                                                                    .where((e) =>
-                                                                        e.partName ==
-                                                                        _model
-                                                                            .selectPartsValue)
-                                                                    .toList()
-                                                                    .first;
-                                                          });
-                                                        },
-                                                        startImmediately: true,
-                                                      );
-                                                    },
-                                                    height: 50.0,
-                                                    textStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                        ),
-                                                    hintText: 'Select',
-                                                    elevation: 2.0,
-                                                    borderColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondaryText,
-                                                    borderWidth: 1.0,
-                                                    borderRadius: 4.0,
-                                                    margin:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(12.0, 4.0,
-                                                                12.0, 4.0),
-                                                    hidesUnderline: true,
-                                                  );
-                                                },
-                                              ),
-                                              if ((_model.selectedPart != null
-                                                      ? _model.selectedPart!
-                                                          .encryption
-                                                      : false) ??
-                                                  true)
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 8.0, 0.0, 0.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.lock_outlined,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                        size: 20.0,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    8.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Text(
-                                                          'This Part is Encrypted',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryColor,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                        ),
+                                      custom_widgets.PartSelector(
+                                        width: 250.0,
+                                        height: 200.0,
+                                        updateCurrentPart: () async {},
                                       ),
                                       Expanded(
                                         child: Padding(
@@ -1026,27 +870,6 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                     !_model
                                                         .formKey.currentState!
                                                         .validate()) {
-                                                  return;
-                                                }
-                                                if (_model.selectPartsValue ==
-                                                    null) {
-                                                  ScaffoldMessenger.of(context)
-                                                      .clearSnackBars();
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'Please select a part',
-                                                        style: TextStyle(),
-                                                      ),
-                                                      duration: Duration(
-                                                          milliseconds: 4000),
-                                                      backgroundColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                    ),
-                                                  );
                                                   return;
                                                 }
                                                 if (_model
