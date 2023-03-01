@@ -250,16 +250,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                           StreamBuilder<
                                               List<RequestForQuotationRecord>>(
                                             stream:
-                                                queryRequestForQuotationRecord(
-                                              queryBuilder:
-                                                  (requestForQuotationRecord) =>
-                                                      requestForQuotationRecord
-                                                          .whereIn(
-                                                              'rfq_status', [
-                                                'Negotiate',
-                                                'Ongoing'
-                                              ]),
-                                            ),
+                                                queryRequestForQuotationRecord(),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
