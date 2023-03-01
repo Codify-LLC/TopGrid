@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import '../../auth/auth_util.dart';
+import '../../flutter_flow/flutter_flow_drop_down.dart';
+import '../../flutter_flow/instant_timer.dart';
+
 class PartSelector extends StatefulWidget {
   const PartSelector({
     Key? key,
@@ -25,6 +29,10 @@ class PartSelector extends StatefulWidget {
 }
 
 class _PartSelectorState extends State<PartSelector> {
+  PartRecord? selectedPart;
+  String? selectPartsValue;
+  InstantTimer? instantTimer;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -70,14 +78,13 @@ class _PartSelectorState extends State<PartSelector> {
                       .toList()
                       .toList(),
                   onChanged: (val) async {
-                    setState(() => _model.selectPartsValue = val);
-                    _model.instantTimer = InstantTimer.periodic(
+                    setState(() => selectPartsValue = val);
+                    instantTimer = InstantTimer.periodic(
                       duration: Duration(milliseconds: 500),
                       callback: (timer) async {
                         setState(() {
-                          _model.selectedPart = selectPartsPartRecordList
-                              .where(
-                                  (e) => e.partName == _model.selectPartsValue)
+                          selectedPart = selectPartsPartRecordList
+                              .where((e) => e.partName == val)
                               .toList()
                               .first;
                         });
@@ -100,9 +107,7 @@ class _PartSelectorState extends State<PartSelector> {
                 );
               },
             ),
-            if ((_model.selectedPart != null
-                    ? _model.selectedPart!.encryption
-                    : false) ??
+            if ((selectedPart != null ? selectedPart!.encryption : false) ??
                 true)
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
