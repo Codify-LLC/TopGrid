@@ -78,12 +78,7 @@ class _PartSelectorState extends State<PartSelector> {
                   onChanged: (val) async {
                     setState(() => selectPartsValue = val);
                     FFAppState().update(
-                      () => FFAppState().selectedPart =
-                          selectPartsPartRecordList
-                              .where((e) => e.partName == val)
-                              .toList()
-                              .first
-                              .reference,
+                      () => FFAppState().selectedPart = val ?? '',
                     );
                   },
                   height: 50,

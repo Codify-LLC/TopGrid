@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
-import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/lat_lng.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -64,10 +62,9 @@ class FFAppState extends ChangeNotifier {
     _selectedVendors.removeAt(_index);
   }
 
-  DocumentReference? _selectedPart =
-      FirebaseFirestore.instance.doc('/part/abc');
-  DocumentReference? get selectedPart => _selectedPart;
-  set selectedPart(DocumentReference? _value) {
+  String _selectedPart = '';
+  String get selectedPart => _selectedPart;
+  set selectedPart(String _value) {
     _selectedPart = _value;
   }
 }

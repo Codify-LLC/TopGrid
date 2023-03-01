@@ -105,9 +105,15 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            child: FutureBuilder<PartRecord>(
-                              future: PartRecord.getDocumentOnce(
-                                  FFAppState().selectedPart!),
+                            child: StreamBuilder<List<PartRecord>>(
+                              stream: queryPartRecord(
+                                queryBuilder: (partRecord) => partRecord.where(
+                                    'part_name',
+                                    isEqualTo: FFAppState().selectedPart != ''
+                                        ? FFAppState().selectedPart
+                                        : null),
+                                singleRecord: true,
+                              ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -122,7 +128,12 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                     ),
                                   );
                                 }
-                                final columnPartRecord = snapshot.data!;
+                                List<PartRecord> columnPartRecordList =
+                                    snapshot.data!;
+                                final columnPartRecord =
+                                    columnPartRecordList.isNotEmpty
+                                        ? columnPartRecordList.first
+                                        : null;
                                 return SingleChildScrollView(
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -533,7 +544,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                         TextEditingController(
                                                       text: columnPartRecord !=
                                                               null
-                                                          ? columnPartRecord
+                                                          ? columnPartRecord!
                                                               .description
                                                           : ' ',
                                                     ),
@@ -966,47 +977,54 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                       );
                                                       return;
                                                     }
-
-                                                    final usersUpdateData = {
-                                                      'app_state_requirements':
-                                                          FieldValue
-                                                              .arrayUnion([
-                                                        getRequirementFirestoreData(
-                                                          createRequirementStruct(
-                                                            quantity: int
-                                                                .tryParse(_model
-                                                                    .quantityController
-                                                                    .text),
-                                                            requirementType: _model
-                                                                .selectRequirementTypeValue,
-                                                            description: _model
-                                                                .addDescriptionController
-                                                                .text,
-                                                            fieldValues: {
-                                                              'vendors': FieldValue
-                                                                  .arrayUnion([
-                                                                createNewRFQEPCompanyUsersRecordList
-                                                                    .where((e) => _model
-                                                                        .multipleSelectionDropDownModel
-                                                                        .checkboxGroupValues!
-                                                                        .contains(
-                                                                            e.name))
-                                                                    .toList()
-                                                                    .first
-                                                                    .reference
-                                                              ]),
-                                                            },
-                                                            clearUnsetFields:
-                                                                false,
-                                                          ),
-                                                          true,
-                                                        )
-                                                      ]),
-                                                    };
-                                                    await currentUserReference!
-                                                        .update(
-                                                            usersUpdateData);
-                                                    context.pop();
+                                                    if (columnPartRecord !=
+                                                        null) {
+                                                      final usersUpdateData = {
+                                                        'app_state_requirements':
+                                                            FieldValue
+                                                                .arrayUnion([
+                                                          getRequirementFirestoreData(
+                                                            createRequirementStruct(
+                                                              quantity: int
+                                                                  .tryParse(_model
+                                                                      .quantityController
+                                                                      .text),
+                                                              requirementType:
+                                                                  _model
+                                                                      .selectRequirementTypeValue,
+                                                              description: _model
+                                                                  .addDescriptionController
+                                                                  .text,
+                                                              part:
+                                                                  columnPartRecord!
+                                                                      .reference,
+                                                              fieldValues: {
+                                                                'vendors':
+                                                                    FieldValue
+                                                                        .arrayUnion([
+                                                                  createNewRFQEPCompanyUsersRecordList
+                                                                      .where((e) => _model
+                                                                          .multipleSelectionDropDownModel
+                                                                          .checkboxGroupValues!
+                                                                          .contains(
+                                                                              e.name))
+                                                                      .toList()
+                                                                      .first
+                                                                      .reference
+                                                                ]),
+                                                              },
+                                                              clearUnsetFields:
+                                                                  false,
+                                                            ),
+                                                            true,
+                                                          )
+                                                        ]),
+                                                      };
+                                                      await currentUserReference!
+                                                          .update(
+                                                              usersUpdateData);
+                                                      context.pop();
+                                                    }
                                                   },
                                                   text: 'Save',
                                                   options: FFButtonOptions(
