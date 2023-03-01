@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -34,6 +35,7 @@ class CreateNewRFQEPModel extends FlutterFlowModel {
   late MenuModel menuModel;
   // State field(s) for SelectParts widget.
   String? selectPartsValue;
+  InstantTimer? instantTimer;
   // Model for multipleSelectionDropDown component.
   late MultipleSelectionDropDownModel multipleSelectionDropDownModel;
   // State field(s) for Quantity widget.
@@ -84,6 +86,7 @@ class CreateNewRFQEPModel extends FlutterFlowModel {
 
   void dispose() {
     menuModel.dispose();
+    instantTimer?.cancel();
     multipleSelectionDropDownModel.dispose();
     quantityController?.dispose();
     addDescriptionController?.dispose();

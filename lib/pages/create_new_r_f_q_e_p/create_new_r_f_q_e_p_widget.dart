@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -221,16 +222,25 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                       setState(() => _model
                                                               .selectPartsValue =
                                                           val);
-                                                      setState(() {
-                                                        _model.selectedPart =
-                                                            selectPartsPartRecordList
-                                                                .where((e) =>
-                                                                    e.partName ==
-                                                                    _model
-                                                                        .selectPartsValue)
-                                                                .toList()
-                                                                .first;
-                                                      });
+                                                      _model.instantTimer =
+                                                          InstantTimer.periodic(
+                                                        duration: Duration(
+                                                            milliseconds: 500),
+                                                        callback:
+                                                            (timer) async {
+                                                          setState(() {
+                                                            _model.selectedPart =
+                                                                selectPartsPartRecordList
+                                                                    .where((e) =>
+                                                                        e.partName ==
+                                                                        _model
+                                                                            .selectPartsValue)
+                                                                    .toList()
+                                                                    .first;
+                                                          });
+                                                        },
+                                                        startImmediately: true,
+                                                      );
                                                     },
                                                     height: 50.0,
                                                     textStyle: FlutterFlowTheme
