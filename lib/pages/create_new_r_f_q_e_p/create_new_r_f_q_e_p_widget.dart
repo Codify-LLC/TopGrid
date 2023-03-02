@@ -160,7 +160,19 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                             ),
                                             InkWell(
                                               onTap: () async {
-                                                context.pop();
+                                                if (Navigator.of(context)
+                                                    .canPop()) {
+                                                  context.pop();
+                                                }
+                                                context.pushNamed(
+                                                  'CreateNewRFQ',
+                                                  queryParams: {
+                                                    'parts': serializeParam(
+                                                      true,
+                                                      ParamType.bool,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
                                               },
                                               child: Text(
                                                 '< Back',

@@ -122,10 +122,19 @@ class _ChooseTypesOfPartsWidgetState extends State<ChooseTypesOfPartsWidget> {
                     children: [
                       FFButtonWidget(
                         onPressed: () async {
+                          Navigator.pop(context);
                           if (Navigator.of(context).canPop()) {
                             context.pop();
                           }
-                          context.pushNamed('CreateNewPart');
+                          context.pushNamed(
+                            'CreateNewPart',
+                            queryParams: {
+                              'addToRequirements': serializeParam(
+                                true,
+                                ParamType.bool,
+                              ),
+                            }.withoutNulls,
+                          );
                         },
                         text: 'Create New Part',
                         options: FFButtonOptions(
@@ -153,7 +162,9 @@ class _ChooseTypesOfPartsWidgetState extends State<ChooseTypesOfPartsWidget> {
                       FFButtonWidget(
                         onPressed: () async {
                           Navigator.pop(context);
-
+                          if (Navigator.of(context).canPop()) {
+                            context.pop();
+                          }
                           context.pushNamed('CreateNewRFQ-EP');
                         },
                         text: 'Choose Existing Part',

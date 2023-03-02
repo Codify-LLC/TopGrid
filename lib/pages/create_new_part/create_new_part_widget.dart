@@ -113,7 +113,22 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        context.pop();
+                                        if (widget.addToRequirements) {
+                                          if (Navigator.of(context).canPop()) {
+                                            context.pop();
+                                          }
+                                          context.pushNamed(
+                                            'CreateNewRFQ',
+                                            queryParams: {
+                                              'parts': serializeParam(
+                                                true,
+                                                ParamType.bool,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        } else {
+                                          context.pop();
+                                        }
                                       },
                                       child: Text(
                                         '< Back',
@@ -767,6 +782,19 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                     partCreateData,
                                                     partRecordReference);
                                             if (widget.addToRequirements) {
+                                              await actions.combineArrays(
+                                                (currentUserDocument
+                                                            ?.appStateRequirements
+                                                            ?.toList() ??
+                                                        [])
+                                                    .toList(),
+                                                0,
+                                                _model.addDescriptionController
+                                                    .text,
+                                                _model.partTypeDropDownValue!,
+                                                _model.newPartDoc!.reference,
+                                              );
+
                                               final usersUpdateData = {
                                                 'app_state_requirements':
                                                     FieldValue.arrayUnion([
@@ -787,8 +815,22 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                               };
                                               await currentUserReference!
                                                   .update(usersUpdateData);
+                                              if (Navigator.of(context)
+                                                  .canPop()) {
+                                                context.pop();
+                                              }
+                                              context.pushNamed(
+                                                'CreateNewRFQ',
+                                                queryParams: {
+                                                  'parts': serializeParam(
+                                                    true,
+                                                    ParamType.bool,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            } else {
+                                              context.pop();
                                             }
-                                            context.pop();
 
                                             setState(() {});
                                           },

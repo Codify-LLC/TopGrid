@@ -76,14 +76,16 @@ class _PartSelectorState extends State<PartSelector> {
                       .toList()
                       .toList(),
                   onChanged: (val) async {
-                    setState(() => selectPartsValue = val);
-                    selectedPart = selectPartsPartRecordList
-                        .where((element) => element.partName == val)
-                        .first;
-                    FFAppState().update(
-                      () => FFAppState().selectedPart =
-                          val ?? 'uuygjkjgUOHJLuy34645',
-                    );
+                    setState(() {
+                      selectPartsValue = val;
+                      selectedPart = selectPartsPartRecordList
+                          .where((element) => element.partName == val)
+                          .first;
+                      FFAppState().update(
+                        () => FFAppState().selectedPart =
+                            val ?? 'uuygjkjgUOHJLuy34645',
+                      );
+                    });
                   },
                   height: 50,
                   textStyle: FlutterFlowTheme.of(context).bodyText1.override(
