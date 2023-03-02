@@ -82,7 +82,8 @@ class FFAppState extends ChangeNotifier {
     _totalRFQVendors.removeAt(_index);
   }
 
-  DocumentReference? _selectedPart;
+  DocumentReference? _selectedPart =
+      FirebaseFirestore.instance.doc('/part/abc');
   DocumentReference? get selectedPart => _selectedPart;
   set selectedPart(DocumentReference? _value) {
     _selectedPart = _value;
