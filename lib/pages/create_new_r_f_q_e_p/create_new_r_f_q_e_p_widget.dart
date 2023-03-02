@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -105,13 +106,9 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            child: StreamBuilder<List<PartRecord>>(
-                              stream: queryPartRecord(
-                                queryBuilder: (partRecord) => partRecord.where(
-                                    'part_name',
-                                    isEqualTo: FFAppState().selectedPart),
-                                singleRecord: true,
-                              ),
+                            child: StreamBuilder<PartRecord>(
+                              stream: PartRecord.getDocument(
+                                  FFAppState().selectedPart!),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -126,12 +123,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                     ),
                                   );
                                 }
-                                List<PartRecord> columnPartRecordList =
-                                    snapshot.data!;
-                                final columnPartRecord =
-                                    columnPartRecordList.isNotEmpty
-                                        ? columnPartRecordList.first
-                                        : null;
+                                final columnPartRecord = snapshot.data!;
                                 return SingleChildScrollView(
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -197,13 +189,18 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                            child: Container(
-                                              width: 300.0,
-                                              height: 150.0,
-                                              child:
-                                                  custom_widgets.PartSelector(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 32.0, 0.0),
+                                              child: Container(
                                                 width: 300.0,
                                                 height: 150.0,
+                                                child:
+                                                    custom_widgets.PartSelector(
+                                                  width: 300.0,
+                                                  height: 150.0,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -559,7 +556,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                         TextEditingController(
                                                       text: columnPartRecord !=
                                                               null
-                                                          ? columnPartRecord!
+                                                          ? columnPartRecord
                                                               .description
                                                           : ' ',
                                                     ),
@@ -1010,7 +1007,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                             .text,
                                                         _model
                                                             .selectRequirementTypeValue!,
-                                                        columnPartRecord!
+                                                        columnPartRecord
                                                             .reference,
                                                       );
 
@@ -1023,6 +1020,17 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                       await currentUserReference!
                                                           .update(
                                                               usersUpdateData);
+                                                      FFAppState().update(() {
+                                                        FFAppState().totalRFQVendors = functions
+                                                            .combineStringLists(
+                                                                FFAppState()
+                                                                    .totalRFQVendors
+                                                                    .toList(),
+                                                                FFAppState()
+                                                                    .selectedVendors
+                                                                    .toList())
+                                                            .toList();
+                                                      });
                                                       context.pop();
                                                     }
 

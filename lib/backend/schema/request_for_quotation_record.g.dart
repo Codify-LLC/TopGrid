@@ -53,16 +53,6 @@ class _$RequestForQuotationRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.vendors;
-    if (value != null) {
-      result
-        ..add('vendors')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltList, const [
-              const FullType(
-                  DocumentReference, const [const FullType.nullable(Object)])
-            ])));
-    }
     value = object.rfqDescription;
     if (value != null) {
       result
@@ -92,6 +82,14 @@ class _$RequestForQuotationRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 BuiltList, const [const FullType(RequirementStruct)])));
+    }
+    value = object.vendors;
+    if (value != null) {
+      result
+        ..add('vendors')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -134,13 +132,6 @@ class _$RequestForQuotationRecordSerializer
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
-        case 'vendors':
-          result.vendors.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    DocumentReference, const [const FullType.nullable(Object)])
-              ]))! as BuiltList<Object?>);
-          break;
         case 'rfq_description':
           result.rfqDescription = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -159,6 +150,12 @@ class _$RequestForQuotationRecordSerializer
           result.partList.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(RequirementStruct)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'vendors':
+          result.vendors.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
@@ -184,8 +181,6 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
   @override
   final BuiltList<String>? attachments;
   @override
-  final BuiltList<DocumentReference<Object?>>? vendors;
-  @override
   final String? rfqDescription;
   @override
   final String? rfqStatus;
@@ -193,6 +188,8 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
   final DocumentReference<Object?>? customerCompanyRef;
   @override
   final BuiltList<RequirementStruct>? partList;
+  @override
+  final BuiltList<String>? vendors;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -205,11 +202,11 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
       this.quantity,
       this.partsDescription,
       this.attachments,
-      this.vendors,
       this.rfqDescription,
       this.rfqStatus,
       this.customerCompanyRef,
       this.partList,
+      this.vendors,
       this.ffRef})
       : super._();
 
@@ -230,11 +227,11 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
         quantity == other.quantity &&
         partsDescription == other.partsDescription &&
         attachments == other.attachments &&
-        vendors == other.vendors &&
         rfqDescription == other.rfqDescription &&
         rfqStatus == other.rfqStatus &&
         customerCompanyRef == other.customerCompanyRef &&
         partList == other.partList &&
+        vendors == other.vendors &&
         ffRef == other.ffRef;
   }
 
@@ -252,11 +249,11 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
                                         quantity.hashCode),
                                     partsDescription.hashCode),
                                 attachments.hashCode),
-                            vendors.hashCode),
-                        rfqDescription.hashCode),
-                    rfqStatus.hashCode),
-                customerCompanyRef.hashCode),
-            partList.hashCode),
+                            rfqDescription.hashCode),
+                        rfqStatus.hashCode),
+                    customerCompanyRef.hashCode),
+                partList.hashCode),
+            vendors.hashCode),
         ffRef.hashCode));
   }
 
@@ -267,11 +264,11 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
           ..add('quantity', quantity)
           ..add('partsDescription', partsDescription)
           ..add('attachments', attachments)
-          ..add('vendors', vendors)
           ..add('rfqDescription', rfqDescription)
           ..add('rfqStatus', rfqStatus)
           ..add('customerCompanyRef', customerCompanyRef)
           ..add('partList', partList)
+          ..add('vendors', vendors)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -301,12 +298,6 @@ class RequestForQuotationRecordBuilder
   set attachments(ListBuilder<String>? attachments) =>
       _$this._attachments = attachments;
 
-  ListBuilder<DocumentReference<Object?>>? _vendors;
-  ListBuilder<DocumentReference<Object?>> get vendors =>
-      _$this._vendors ??= new ListBuilder<DocumentReference<Object?>>();
-  set vendors(ListBuilder<DocumentReference<Object?>>? vendors) =>
-      _$this._vendors = vendors;
-
   String? _rfqDescription;
   String? get rfqDescription => _$this._rfqDescription;
   set rfqDescription(String? rfqDescription) =>
@@ -328,6 +319,11 @@ class RequestForQuotationRecordBuilder
   set partList(ListBuilder<RequirementStruct>? partList) =>
       _$this._partList = partList;
 
+  ListBuilder<String>? _vendors;
+  ListBuilder<String> get vendors =>
+      _$this._vendors ??= new ListBuilder<String>();
+  set vendors(ListBuilder<String>? vendors) => _$this._vendors = vendors;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -343,11 +339,11 @@ class RequestForQuotationRecordBuilder
       _quantity = $v.quantity;
       _partsDescription = $v.partsDescription;
       _attachments = $v.attachments?.toBuilder();
-      _vendors = $v.vendors?.toBuilder();
       _rfqDescription = $v.rfqDescription;
       _rfqStatus = $v.rfqStatus;
       _customerCompanyRef = $v.customerCompanyRef;
       _partList = $v.partList?.toBuilder();
+      _vendors = $v.vendors?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -377,22 +373,22 @@ class RequestForQuotationRecordBuilder
               quantity: quantity,
               partsDescription: partsDescription,
               attachments: _attachments?.build(),
-              vendors: _vendors?.build(),
               rfqDescription: rfqDescription,
               rfqStatus: rfqStatus,
               customerCompanyRef: customerCompanyRef,
               partList: _partList?.build(),
+              vendors: _vendors?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'attachments';
         _attachments?.build();
-        _$failedField = 'vendors';
-        _vendors?.build();
 
         _$failedField = 'partList';
         _partList?.build();
+        _$failedField = 'vendors';
+        _vendors?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'RequestForQuotationRecord', _$failedField, e.toString());

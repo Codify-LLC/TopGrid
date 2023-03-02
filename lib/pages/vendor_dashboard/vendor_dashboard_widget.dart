@@ -133,270 +133,261 @@ class _VendorDashboardWidgetState extends State<VendorDashboardWidget> {
                                                 setState(() {}),
                                             child: OrdersWidget(),
                                           ),
-                                          StreamBuilder<
-                                              List<RequestForQuotationRecord>>(
-                                            stream:
-                                                queryRequestForQuotationRecord(
-                                              queryBuilder:
-                                                  (requestForQuotationRecord) =>
-                                                      requestForQuotationRecord
-                                                          .where('vendors',
-                                                              arrayContains:
-                                                                  currentUserReference),
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryColor,
+                                          AuthUserStreamWidget(
+                                            builder: (context) => StreamBuilder<
+                                                List<
+                                                    RequestForQuotationRecord>>(
+                                              stream:
+                                                  queryRequestForQuotationRecord(
+                                                queryBuilder: (requestForQuotationRecord) =>
+                                                    requestForQuotationRecord.where(
+                                                        'vendors',
+                                                        arrayContains:
+                                                            currentUserDisplayName !=
+                                                                    ''
+                                                                ? currentUserDisplayName
+                                                                : null),
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                      ),
                                                     ),
+                                                  );
+                                                }
+                                                List<RequestForQuotationRecord>
+                                                    dataTableRequestForQuotationRecordList =
+                                                    snapshot.data!;
+                                                return DataTable2(
+                                                  columns: [
+                                                    DataColumn2(
+                                                      label: DefaultTextStyle
+                                                          .merge(
+                                                        softWrap: true,
+                                                        child: Text(
+                                                          'S.No',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      fixedWidth:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.06,
+                                                    ),
+                                                    DataColumn2(
+                                                      label: DefaultTextStyle
+                                                          .merge(
+                                                        softWrap: true,
+                                                        child: Text(
+                                                          'RFQ No.',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      fixedWidth:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.1,
+                                                    ),
+                                                    DataColumn2(
+                                                      label: DefaultTextStyle
+                                                          .merge(
+                                                        softWrap: true,
+                                                        child: Text(
+                                                          'RFQ Name',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    DataColumn2(
+                                                      label: DefaultTextStyle
+                                                          .merge(
+                                                        softWrap: true,
+                                                        child: Text(
+                                                          'Descriptions',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    DataColumn2(
+                                                      label: DefaultTextStyle
+                                                          .merge(
+                                                        softWrap: true,
+                                                        child: Text(
+                                                          'Status',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: 16.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      fixedWidth:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.08,
+                                                    ),
+                                                  ],
+                                                  rows:
+                                                      dataTableRequestForQuotationRecordList
+                                                          .mapIndexed((dataTableIndex,
+                                                                  dataTableRequestForQuotationRecord) =>
+                                                              [
+                                                                Text(
+                                                                  dataTableIndex
+                                                                      .toString(),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  dataTableRequestForQuotationRecord
+                                                                      .reference
+                                                                      .id,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  dataTableRequestForQuotationRecord
+                                                                      .rfqName!,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  dataTableRequestForQuotationRecord
+                                                                      .rfqDescription!,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  dataTableRequestForQuotationRecord
+                                                                      .rfqDescription!,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                      ),
+                                                                ),
+                                                              ]
+                                                                  .map((c) =>
+                                                                      DataCell(
+                                                                          c))
+                                                                  .toList())
+                                                          .map((e) =>
+                                                              DataRow(cells: e))
+                                                          .toList(),
+                                                  headingRowColor:
+                                                      MaterialStateProperty.all(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
                                                   ),
+                                                  headingRowHeight: 56.0,
+                                                  dataRowColor:
+                                                      MaterialStateProperty.all(
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                  ),
+                                                  dataRowHeight: 56.0,
+                                                  border: TableBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0.0),
+                                                  ),
+                                                  dividerThickness: 1.0,
+                                                  showBottomBorder: false,
+                                                  minWidth: 49.0,
                                                 );
-                                              }
-                                              List<RequestForQuotationRecord>
-                                                  dataTableRequestForQuotationRecordList =
-                                                  snapshot.data!;
-                                              return DataTable2(
-                                                columns: [
-                                                  DataColumn2(
-                                                    label:
-                                                        DefaultTextStyle.merge(
-                                                      softWrap: true,
-                                                      child: Text(
-                                                        'S.No',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    fixedWidth:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.06,
-                                                  ),
-                                                  DataColumn2(
-                                                    label:
-                                                        DefaultTextStyle.merge(
-                                                      softWrap: true,
-                                                      child: Text(
-                                                        'RFQ No.',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    fixedWidth:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.1,
-                                                  ),
-                                                  DataColumn2(
-                                                    label:
-                                                        DefaultTextStyle.merge(
-                                                      softWrap: true,
-                                                      child: Text(
-                                                        'RFQ Name',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  DataColumn2(
-                                                    label:
-                                                        DefaultTextStyle.merge(
-                                                      softWrap: true,
-                                                      child: Text(
-                                                        'Descriptions',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  DataColumn2(
-                                                    label:
-                                                        DefaultTextStyle.merge(
-                                                      softWrap: true,
-                                                      child: Text(
-                                                        'Status',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    fixedWidth:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.08,
-                                                  ),
-                                                ],
-                                                rows:
-                                                    dataTableRequestForQuotationRecordList
-                                                        .mapIndexed((dataTableIndex,
-                                                                dataTableRequestForQuotationRecord) =>
-                                                            [
-                                                              Text(
-                                                                dataTableIndex
-                                                                    .toString(),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                dataTableRequestForQuotationRecord
-                                                                    .reference
-                                                                    .id,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                dataTableRequestForQuotationRecord
-                                                                    .rfqName!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                dataTableRequestForQuotationRecord
-                                                                    .rfqDescription!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                dataTableRequestForQuotationRecord
-                                                                    .rfqDescription!,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                    ),
-                                                              ),
-                                                            ]
-                                                                .map((c) =>
-                                                                    DataCell(c))
-                                                                .toList())
-                                                        .map((e) =>
-                                                            DataRow(cells: e))
-                                                        .toList(),
-                                                headingRowColor:
-                                                    MaterialStateProperty.all(
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                                ),
-                                                headingRowHeight: 56.0,
-                                                dataRowColor:
-                                                    MaterialStateProperty.all(
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                                ),
-                                                dataRowHeight: 56.0,
-                                                border: TableBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          0.0),
-                                                ),
-                                                dividerThickness: 1.0,
-                                                showBottomBorder: false,
-                                                minWidth: 49.0,
-                                              );
-                                            },
+                                              },
+                                            ),
                                           ),
                                         ],
                                       ),

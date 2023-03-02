@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/lat_lng.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -62,9 +64,27 @@ class FFAppState extends ChangeNotifier {
     _selectedVendors.removeAt(_index);
   }
 
-  String _selectedPart = 'bvhvhhfggdfjf54545465465';
-  String get selectedPart => _selectedPart;
-  set selectedPart(String _value) {
+  List<String> _totalRFQVendors = [];
+  List<String> get totalRFQVendors => _totalRFQVendors;
+  set totalRFQVendors(List<String> _value) {
+    _totalRFQVendors = _value;
+  }
+
+  void addToTotalRFQVendors(String _value) {
+    _totalRFQVendors.add(_value);
+  }
+
+  void removeFromTotalRFQVendors(String _value) {
+    _totalRFQVendors.remove(_value);
+  }
+
+  void removeAtIndexFromTotalRFQVendors(int _index) {
+    _totalRFQVendors.removeAt(_index);
+  }
+
+  DocumentReference? _selectedPart;
+  DocumentReference? get selectedPart => _selectedPart;
+  set selectedPart(DocumentReference? _value) {
     _selectedPart = _value;
   }
 }

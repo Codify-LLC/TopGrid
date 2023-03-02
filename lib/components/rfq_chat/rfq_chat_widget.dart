@@ -139,15 +139,11 @@ class _RfqChatWidgetState extends State<RfqChatWidget> {
                     builder: (context) => StreamBuilder<List<UsersRecord>>(
                       stream: queryUsersRecord(
                         queryBuilder: (usersRecord) => usersRecord.whereIn(
-                            'uid',
+                            'display_name',
                             containerRequestForQuotationRecord.vendors!
-                                        .toList()
-                                        .map((e) => e.id)
                                         .toList() !=
                                     ''
                                 ? containerRequestForQuotationRecord.vendors!
-                                    .toList()
-                                    .map((e) => e.id)
                                     .toList()
                                 : null),
                       ),

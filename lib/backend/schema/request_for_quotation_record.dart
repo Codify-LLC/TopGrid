@@ -22,8 +22,6 @@ abstract class RequestForQuotationRecord
 
   BuiltList<String>? get attachments;
 
-  BuiltList<DocumentReference>? get vendors;
-
   @BuiltValueField(wireName: 'rfq_description')
   String? get rfqDescription;
 
@@ -36,6 +34,8 @@ abstract class RequestForQuotationRecord
   @BuiltValueField(wireName: 'part_list')
   BuiltList<RequirementStruct>? get partList;
 
+  BuiltList<String>? get vendors;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -46,10 +46,10 @@ abstract class RequestForQuotationRecord
         ..quantity = 0
         ..partsDescription = ''
         ..attachments = ListBuilder()
-        ..vendors = ListBuilder()
         ..rfqDescription = ''
         ..rfqStatus = ''
-        ..partList = ListBuilder();
+        ..partList = ListBuilder()
+        ..vendors = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('request_for_quotation');
@@ -90,11 +90,11 @@ Map<String, dynamic> createRequestForQuotationRecordData({
         ..quantity = quantity
         ..partsDescription = partsDescription
         ..attachments = null
-        ..vendors = null
         ..rfqDescription = rfqDescription
         ..rfqStatus = rfqStatus
         ..customerCompanyRef = customerCompanyRef
-        ..partList = null,
+        ..partList = null
+        ..vendors = null,
     ),
   );
 
