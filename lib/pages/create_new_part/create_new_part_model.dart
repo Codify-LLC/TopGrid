@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -61,8 +62,6 @@ class CreateNewPartModel extends FlutterFlowModel {
 
   // Stores action output result for [Custom Action - pickFile] action in Row widget.
   dynamic? newFile;
-  // Stores action output result for [Custom Action - generateUniqueNumber] action in CreateRFQ-PWP widget.
-  int? uniquePartId;
   // Stores action output result for [Backend Call - Create Document] action in CreateRFQ-PWP widget.
   PartRecord? newPartDoc;
 

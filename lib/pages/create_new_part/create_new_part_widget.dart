@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -716,152 +717,187 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             32.0, 0.0, 0.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            if (_model.formKey.currentState ==
-                                                    null ||
-                                                !_model.formKey.currentState!
-                                                    .validate()) {
-                                              return;
-                                            }
-                                            if (_model.partTypeDropDownValue ==
-                                                null) {
-                                              ScaffoldMessenger.of(context)
-                                                  .clearSnackBars();
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Please fil all the information',
-                                                    style: TextStyle(),
+                                        child: FutureBuilder<int>(
+                                          future: queryPartRecordCount(),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryColor,
                                                   ),
-                                                  duration: Duration(
-                                                      milliseconds: 4000),
-                                                  backgroundColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .alternate,
                                                 ),
                                               );
-                                              return;
                                             }
-                                            _model.uniquePartId = await actions
-                                                .generateUniqueNumber(
-                                              8,
-                                            );
-
-                                            final partCreateData = {
-                                              ...createPartRecordData(
-                                                partName: _model
-                                                    .partNameController.text,
-                                                partType: _model
-                                                    .partTypeDropDownValue,
-                                                description: _model
-                                                    .addDescriptionController
-                                                    .text,
-                                                encryption:
-                                                    FFAppState().encryptionFlag,
-                                                userRef: currentUserReference,
-                                                partNumber: _model.uniquePartId,
-                                                dateCreated:
-                                                    getCurrentTimestamp,
-                                              ),
-                                              'attachments': _model.fileData
-                                                  .map((e) => getJsonField(
-                                                        e,
-                                                        r'''$.filePath''',
-                                                      ))
-                                                  .toList(),
-                                            };
-                                            var partRecordReference =
-                                                PartRecord.collection.doc();
-                                            await partRecordReference
-                                                .set(partCreateData);
-                                            _model.newPartDoc =
-                                                PartRecord.getDocumentFromData(
-                                                    partCreateData,
-                                                    partRecordReference);
-                                            if (widget.addToRequirements) {
-                                              await actions.combineArrays(
-                                                (currentUserDocument
-                                                            ?.appStateRequirements
-                                                            ?.toList() ??
-                                                        [])
-                                                    .toList(),
-                                                0,
-                                                _model.addDescriptionController
-                                                    .text,
-                                                _model.partTypeDropDownValue!,
-                                                _model.newPartDoc!.reference,
-                                              );
-
-                                              final usersUpdateData = {
-                                                'app_state_requirements':
-                                                    FieldValue.arrayUnion([
-                                                  getRequirementFirestoreData(
-                                                    createRequirementStruct(
-                                                      requirementType: _model
-                                                          .partTypeDropDownValue,
-                                                      description: _model
-                                                          .addDescriptionController
-                                                          .text,
-                                                      part: _model.newPartDoc!
-                                                          .reference,
-                                                      clearUnsetFields: false,
+                                            int createRFQPWPCount =
+                                                snapshot.data!;
+                                            return FFButtonWidget(
+                                              onPressed: () async {
+                                                if (_model.formKey
+                                                            .currentState ==
+                                                        null ||
+                                                    !_model
+                                                        .formKey.currentState!
+                                                        .validate()) {
+                                                  return;
+                                                }
+                                                if (_model
+                                                        .partTypeDropDownValue ==
+                                                    null) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .clearSnackBars();
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Please fil all the information',
+                                                        style: TextStyle(),
+                                                      ),
+                                                      duration: Duration(
+                                                          milliseconds: 4000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                     ),
-                                                    true,
-                                                  )
-                                                ]),
-                                              };
-                                              await currentUserReference!
-                                                  .update(usersUpdateData);
-                                              if (Navigator.of(context)
-                                                  .canPop()) {
-                                                context.pop();
-                                              }
-                                              context.pushNamed(
-                                                'CreateNewRFQ',
-                                                queryParams: {
-                                                  'parts': serializeParam(
-                                                    true,
-                                                    ParamType.bool,
+                                                  );
+                                                  return;
+                                                }
+
+                                                final partCreateData = {
+                                                  ...createPartRecordData(
+                                                    partName: _model
+                                                        .partNameController
+                                                        .text,
+                                                    partType: _model
+                                                        .partTypeDropDownValue,
+                                                    description: _model
+                                                        .addDescriptionController
+                                                        .text,
+                                                    encryption: FFAppState()
+                                                        .encryptionFlag,
+                                                    userRef:
+                                                        currentUserReference,
+                                                    partNumber:
+                                                        valueOrDefault<int>(
+                                                      functions.addNumPadding(
+                                                          8, createRFQPWPCount),
+                                                      00000000,
+                                                    ),
+                                                    dateCreated:
+                                                        getCurrentTimestamp,
                                                   ),
-                                                }.withoutNulls,
-                                              );
-                                            } else {
-                                              context.pop();
-                                            }
+                                                  'attachments': _model.fileData
+                                                      .map((e) => getJsonField(
+                                                            e,
+                                                            r'''$.filePath''',
+                                                          ))
+                                                      .toList(),
+                                                };
+                                                var partRecordReference =
+                                                    PartRecord.collection.doc();
+                                                await partRecordReference
+                                                    .set(partCreateData);
+                                                _model.newPartDoc = PartRecord
+                                                    .getDocumentFromData(
+                                                        partCreateData,
+                                                        partRecordReference);
+                                                if (widget.addToRequirements) {
+                                                  await actions.combineArrays(
+                                                    (currentUserDocument
+                                                                ?.appStateRequirements
+                                                                ?.toList() ??
+                                                            [])
+                                                        .toList(),
+                                                    0,
+                                                    _model
+                                                        .addDescriptionController
+                                                        .text,
+                                                    _model
+                                                        .partTypeDropDownValue!,
+                                                    _model
+                                                        .newPartDoc!.reference,
+                                                  );
 
-                                            setState(() {});
+                                                  final usersUpdateData = {
+                                                    'app_state_requirements':
+                                                        FieldValue.arrayUnion([
+                                                      getRequirementFirestoreData(
+                                                        createRequirementStruct(
+                                                          requirementType: _model
+                                                              .partTypeDropDownValue,
+                                                          description: _model
+                                                              .addDescriptionController
+                                                              .text,
+                                                          part: _model
+                                                              .newPartDoc!
+                                                              .reference,
+                                                          clearUnsetFields:
+                                                              false,
+                                                        ),
+                                                        true,
+                                                      )
+                                                    ]),
+                                                  };
+                                                  await currentUserReference!
+                                                      .update(usersUpdateData);
+                                                  if (Navigator.of(context)
+                                                      .canPop()) {
+                                                    context.pop();
+                                                  }
+                                                  context.pushNamed(
+                                                    'CreateNewRFQ',
+                                                    queryParams: {
+                                                      'parts': serializeParam(
+                                                        true,
+                                                        ParamType.bool,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
+                                                } else {
+                                                  context.pop();
+                                                }
+
+                                                setState(() {});
+                                              },
+                                              text: 'Save',
+                                              options: FFButtonOptions(
+                                                width: 150.0,
+                                                height: 40.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .subtitle2
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            );
                                           },
-                                          text: 'Save',
-                                          options: FFButtonOptions(
-                                            width: 150.0,
-                                            height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle2
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
                                         ),
                                       ),
                                     ),

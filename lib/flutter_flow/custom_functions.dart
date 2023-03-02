@@ -17,3 +17,10 @@ List<String> combineStringLists(
 ) {
   return list1 + list2;
 }
+
+int addNumPadding(
+  int length,
+  int input,
+) {
+  return int.parse(input.toString().padLeft(length, '0'));
+}

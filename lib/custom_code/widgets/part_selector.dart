@@ -65,16 +65,21 @@ class _PartSelectorState extends State<PartSelector> {
             }
             List<PartRecord> selectPartsPartRecordList = snapshot.data!;
             return DropdownButton<PartRecord>(
+              value: selectedPart,
               icon: const Icon(Icons.arrow_drop_down),
               elevation: 16,
+              isExpanded: true,
               hint: Text("Select"),
               onChanged: (PartRecord? value) {
                 // This is called when the user selects an item.
                 setState(() {
                   selectedPart = value;
-                  FFAppState().update(() {
-                    FFAppState().selectedPart = value!.reference;
-                  });
+                  if (value != null)
+                    FFAppState().update(() {
+                      FFAppState().selectedPartNum = value.partNumber ?? 0;
+                      FFAppState().selectedPartDescription =
+                          value.description ?? "";
+                    });
                 });
               },
               style: FlutterFlowTheme.of(context).bodyText1.override(
