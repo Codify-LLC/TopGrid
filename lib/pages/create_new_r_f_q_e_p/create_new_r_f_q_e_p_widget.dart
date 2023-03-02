@@ -198,11 +198,11 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                         children: [
                                           Expanded(
                                             child: Container(
-                                              width: double.infinity,
+                                              width: 300.0,
                                               height: 150.0,
                                               child:
                                                   custom_widgets.PartSelector(
-                                                width: double.infinity,
+                                                width: 300.0,
                                                 height: 150.0,
                                               ),
                                             ),
