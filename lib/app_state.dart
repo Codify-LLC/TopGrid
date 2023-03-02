@@ -85,12 +85,6 @@ class FFAppState extends ChangeNotifier {
   set selectedPartNum(int _value) {
     _selectedPartNum = _value;
   }
-
-  String _selectedPartDescription = '';
-  String get selectedPartDescription => _selectedPartDescription;
-  set selectedPartDescription(String _value) {
-    _selectedPartDescription = _value;
-  }
 }
 
 LatLng? _latLngFromString(String? val) {

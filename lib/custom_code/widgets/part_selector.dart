@@ -68,18 +68,14 @@ class _PartSelectorState extends State<PartSelector> {
               value: selectedPart,
               icon: const Icon(Icons.arrow_drop_down),
               elevation: 16,
-              isExpanded: true,
               hint: Text("Select"),
               onChanged: (PartRecord? value) {
                 // This is called when the user selects an item.
                 setState(() {
                   selectedPart = value;
-                  if (value != null)
-                    FFAppState().update(() {
-                      FFAppState().selectedPartNum = value.partNumber ?? 0;
-                      FFAppState().selectedPartDescription =
-                          value.description ?? "";
-                    });
+                  FFAppState().update(() {
+                    FFAppState().selectedPartNum = value!.partNumber!;
+                  });
                 });
               },
               style: FlutterFlowTheme.of(context).bodyText1.override(
