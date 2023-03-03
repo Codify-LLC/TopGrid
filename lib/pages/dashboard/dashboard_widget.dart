@@ -37,20 +37,29 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (valueOrDefault(currentUserDocument?.userType, '') == 'topgrid') {
-        context.goNamed('TopGridDashboard');
-      } else {
-        if (valueOrDefault(currentUserDocument?.userType, '') == 'vendor') {
-          context.goNamed(
-            'VendorDashboard',
-            extra: <String, dynamic>{
-              kTransitionInfoKey: TransitionInfo(
-                hasTransition: true,
-                transitionType: PageTransitionType.fade,
-                duration: Duration(milliseconds: 0),
-              ),
-            },
-          );
-        }
+        context.goNamed(
+          'TopGridDashboard',
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
+      }
+      if ((valueOrDefault(currentUserDocument?.userType, '') == 'vendor') ||
+          (valueOrDefault(currentUserDocument?.userType, '') == 'vendors')) {
+        context.goNamed(
+          'VendorDashboard',
+          extra: <String, dynamic>{
+            kTransitionInfoKey: TransitionInfo(
+              hasTransition: true,
+              transitionType: PageTransitionType.fade,
+              duration: Duration(milliseconds: 0),
+            ),
+          },
+        );
       }
     });
 
