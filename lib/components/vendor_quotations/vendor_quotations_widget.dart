@@ -102,6 +102,7 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
           flex: 3,
           child: Container(
             width: 100.0,
+            height: MediaQuery.of(context).size.height * 1.0,
             decoration: BoxDecoration(
               color: Color(0x1A2F9DD9),
             ),

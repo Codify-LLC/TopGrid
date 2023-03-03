@@ -472,7 +472,7 @@ class _RCPtabbarWidgetState extends State<RCPtabbarWidget> {
                                   ((valueOrDefault(
                                               currentUserDocument?.userType,
                                               '') !=
-                                          'vendor') ||
+                                          'vendor') &&
                                       (valueOrDefault(
                                               currentUserDocument?.userType,
                                               '') !=
