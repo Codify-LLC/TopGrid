@@ -26,6 +26,9 @@ abstract class CompanyUsersRecord
   @BuiltValueField(wireName: 'user_type')
   String? get userType;
 
+  @BuiltValueField(wireName: 'user_doc')
+  DocumentReference? get userDoc;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -66,6 +69,7 @@ Map<String, dynamic> createCompanyUsersRecordData({
   int? mobileNumber,
   String? role,
   String? userType,
+  DocumentReference? userDoc,
 }) {
   final firestoreData = serializers.toFirestore(
     CompanyUsersRecord.serializer,
@@ -76,7 +80,8 @@ Map<String, dynamic> createCompanyUsersRecordData({
         ..companyRef = companyRef
         ..mobileNumber = mobileNumber
         ..role = role
-        ..userType = userType,
+        ..userType = userType
+        ..userDoc = userDoc,
     ),
   );
 

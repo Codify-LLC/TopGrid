@@ -24,3 +24,10 @@ int addNumPadding(
 ) {
   return int.parse(input.toString().padLeft(length, '0'));
 }
+
+List<DocumentReference> combineRefLists(
+  List<DocumentReference> list1,
+  List<DocumentReference> list2,
+) {
+  return list1 + list2;
+}

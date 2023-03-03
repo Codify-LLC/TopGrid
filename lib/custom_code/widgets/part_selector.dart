@@ -69,6 +69,7 @@ class _PartSelectorState extends State<PartSelector> {
               icon: const Icon(Icons.arrow_drop_down),
               elevation: 16,
               hint: Text("Select"),
+              isExpanded: true,
               onChanged: (PartRecord? value) {
                 // This is called when the user selects an item.
                 setState(() {

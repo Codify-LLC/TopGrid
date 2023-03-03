@@ -64,7 +64,7 @@ class _RfqRequirementsWidgetState extends State<RfqRequirementsWidget> {
                       ),
                 ),
               ),
-              fixedWidth: 65.0,
+              fixedWidth: 70.0,
             ),
             DataColumn2(
               label: DefaultTextStyle.merge(
@@ -119,7 +119,7 @@ class _RfqRequirementsWidgetState extends State<RfqRequirementsWidget> {
           rows: requirement
               .mapIndexed((requirementIndex, requirementItem) => [
                     Text(
-                      requirementIndex.toString(),
+                      (requirementIndex + 1).toString(),
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Poppins',
                             color: FlutterFlowTheme.of(context).secondaryText,

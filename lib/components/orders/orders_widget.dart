@@ -174,7 +174,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                           .mapIndexed(
                               (dataTableIndex, dataTableOrdersRecord) => [
                                     Text(
-                                      dataTableIndex.toString(),
+                                      (dataTableIndex + 1).toString(),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -344,7 +344,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                           .mapIndexed(
                               (dataTableIndex, dataTableOrdersRecord) => [
                                     Text(
-                                      dataTableIndex.toString(),
+                                      (dataTableIndex + 1).toString(),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(

@@ -1,30 +1,36 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'messages_record.dart';
+part of 'quotation_record.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<MessagesRecord> _$messagesRecordSerializer =
-    new _$MessagesRecordSerializer();
+Serializer<QuotationRecord> _$quotationRecordSerializer =
+    new _$QuotationRecordSerializer();
 
-class _$MessagesRecordSerializer
-    implements StructuredSerializer<MessagesRecord> {
+class _$QuotationRecordSerializer
+    implements StructuredSerializer<QuotationRecord> {
   @override
-  final Iterable<Type> types = const [MessagesRecord, _$MessagesRecord];
+  final Iterable<Type> types = const [QuotationRecord, _$QuotationRecord];
   @override
-  final String wireName = 'MessagesRecord';
+  final String wireName = 'QuotationRecord';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, MessagesRecord object,
+  Iterable<Object?> serialize(Serializers serializers, QuotationRecord object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.message;
+    value = object.deliverInDays;
     if (value != null) {
       result
-        ..add('message')
+        ..add('deliver_in_days')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.description;
+    if (value != null) {
+      result
+        ..add('description')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -36,13 +42,6 @@ class _$MessagesRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.timestamp;
-    if (value != null) {
-      result
-        ..add('timestamp')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
-    }
     value = object.rfqRef;
     if (value != null) {
       result
@@ -51,20 +50,20 @@ class _$MessagesRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
-    value = object.senderRef;
+    value = object.vendorRef;
     if (value != null) {
       result
-        ..add('sender_ref')
+        ..add('vendor_ref')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
-    value = object.quotation;
+    value = object.timestamp;
     if (value != null) {
       result
-        ..add('quotation')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+        ..add('timestamp')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(DateTime)));
     }
     value = object.ffRef;
     if (value != null) {
@@ -78,10 +77,10 @@ class _$MessagesRecordSerializer
   }
 
   @override
-  MessagesRecord deserialize(
+  QuotationRecord deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new MessagesRecordBuilder();
+    final result = new QuotationRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -89,8 +88,12 @@ class _$MessagesRecordSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'message':
-          result.message = serializers.deserialize(value,
+        case 'deliver_in_days':
+          result.deliverInDays = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'description':
+          result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'attachments':
@@ -99,25 +102,21 @@ class _$MessagesRecordSerializer
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
-        case 'timestamp':
-          result.timestamp = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime?;
-          break;
         case 'rfq_ref':
           result.rfqRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
-        case 'sender_ref':
-          result.senderRef = serializers.deserialize(value,
+        case 'vendor_ref':
+          result.vendorRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
-        case 'quotation':
-          result.quotation = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool?;
+        case 'timestamp':
+          result.timestamp = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -132,53 +131,53 @@ class _$MessagesRecordSerializer
   }
 }
 
-class _$MessagesRecord extends MessagesRecord {
+class _$QuotationRecord extends QuotationRecord {
   @override
-  final String? message;
+  final int? deliverInDays;
+  @override
+  final String? description;
   @override
   final BuiltList<String>? attachments;
   @override
-  final DateTime? timestamp;
-  @override
   final DocumentReference<Object?>? rfqRef;
   @override
-  final DocumentReference<Object?>? senderRef;
+  final DocumentReference<Object?>? vendorRef;
   @override
-  final bool? quotation;
+  final DateTime? timestamp;
   @override
   final DocumentReference<Object?>? ffRef;
 
-  factory _$MessagesRecord([void Function(MessagesRecordBuilder)? updates]) =>
-      (new MessagesRecordBuilder()..update(updates))._build();
+  factory _$QuotationRecord([void Function(QuotationRecordBuilder)? updates]) =>
+      (new QuotationRecordBuilder()..update(updates))._build();
 
-  _$MessagesRecord._(
-      {this.message,
+  _$QuotationRecord._(
+      {this.deliverInDays,
+      this.description,
       this.attachments,
-      this.timestamp,
       this.rfqRef,
-      this.senderRef,
-      this.quotation,
+      this.vendorRef,
+      this.timestamp,
       this.ffRef})
       : super._();
 
   @override
-  MessagesRecord rebuild(void Function(MessagesRecordBuilder) updates) =>
+  QuotationRecord rebuild(void Function(QuotationRecordBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  MessagesRecordBuilder toBuilder() =>
-      new MessagesRecordBuilder()..replace(this);
+  QuotationRecordBuilder toBuilder() =>
+      new QuotationRecordBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is MessagesRecord &&
-        message == other.message &&
+    return other is QuotationRecord &&
+        deliverInDays == other.deliverInDays &&
+        description == other.description &&
         attachments == other.attachments &&
-        timestamp == other.timestamp &&
         rfqRef == other.rfqRef &&
-        senderRef == other.senderRef &&
-        quotation == other.quotation &&
+        vendorRef == other.vendorRef &&
+        timestamp == other.timestamp &&
         ffRef == other.ffRef;
   }
 
@@ -188,35 +187,42 @@ class _$MessagesRecord extends MessagesRecord {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, message.hashCode), attachments.hashCode),
-                        timestamp.hashCode),
+                    $jc(
+                        $jc($jc(0, deliverInDays.hashCode),
+                            description.hashCode),
+                        attachments.hashCode),
                     rfqRef.hashCode),
-                senderRef.hashCode),
-            quotation.hashCode),
+                vendorRef.hashCode),
+            timestamp.hashCode),
         ffRef.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'MessagesRecord')
-          ..add('message', message)
+    return (newBuiltValueToStringHelper(r'QuotationRecord')
+          ..add('deliverInDays', deliverInDays)
+          ..add('description', description)
           ..add('attachments', attachments)
-          ..add('timestamp', timestamp)
           ..add('rfqRef', rfqRef)
-          ..add('senderRef', senderRef)
-          ..add('quotation', quotation)
+          ..add('vendorRef', vendorRef)
+          ..add('timestamp', timestamp)
           ..add('ffRef', ffRef))
         .toString();
   }
 }
 
-class MessagesRecordBuilder
-    implements Builder<MessagesRecord, MessagesRecordBuilder> {
-  _$MessagesRecord? _$v;
+class QuotationRecordBuilder
+    implements Builder<QuotationRecord, QuotationRecordBuilder> {
+  _$QuotationRecord? _$v;
 
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
+  int? _deliverInDays;
+  int? get deliverInDays => _$this._deliverInDays;
+  set deliverInDays(int? deliverInDays) =>
+      _$this._deliverInDays = deliverInDays;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   ListBuilder<String>? _attachments;
   ListBuilder<String> get attachments =>
@@ -224,40 +230,36 @@ class MessagesRecordBuilder
   set attachments(ListBuilder<String>? attachments) =>
       _$this._attachments = attachments;
 
-  DateTime? _timestamp;
-  DateTime? get timestamp => _$this._timestamp;
-  set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
-
   DocumentReference<Object?>? _rfqRef;
   DocumentReference<Object?>? get rfqRef => _$this._rfqRef;
   set rfqRef(DocumentReference<Object?>? rfqRef) => _$this._rfqRef = rfqRef;
 
-  DocumentReference<Object?>? _senderRef;
-  DocumentReference<Object?>? get senderRef => _$this._senderRef;
-  set senderRef(DocumentReference<Object?>? senderRef) =>
-      _$this._senderRef = senderRef;
+  DocumentReference<Object?>? _vendorRef;
+  DocumentReference<Object?>? get vendorRef => _$this._vendorRef;
+  set vendorRef(DocumentReference<Object?>? vendorRef) =>
+      _$this._vendorRef = vendorRef;
 
-  bool? _quotation;
-  bool? get quotation => _$this._quotation;
-  set quotation(bool? quotation) => _$this._quotation = quotation;
+  DateTime? _timestamp;
+  DateTime? get timestamp => _$this._timestamp;
+  set timestamp(DateTime? timestamp) => _$this._timestamp = timestamp;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
-  MessagesRecordBuilder() {
-    MessagesRecord._initializeBuilder(this);
+  QuotationRecordBuilder() {
+    QuotationRecord._initializeBuilder(this);
   }
 
-  MessagesRecordBuilder get _$this {
+  QuotationRecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _message = $v.message;
+      _deliverInDays = $v.deliverInDays;
+      _description = $v.description;
       _attachments = $v.attachments?.toBuilder();
-      _timestamp = $v.timestamp;
       _rfqRef = $v.rfqRef;
-      _senderRef = $v.senderRef;
-      _quotation = $v.quotation;
+      _vendorRef = $v.vendorRef;
+      _timestamp = $v.timestamp;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -265,30 +267,30 @@ class MessagesRecordBuilder
   }
 
   @override
-  void replace(MessagesRecord other) {
+  void replace(QuotationRecord other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$MessagesRecord;
+    _$v = other as _$QuotationRecord;
   }
 
   @override
-  void update(void Function(MessagesRecordBuilder)? updates) {
+  void update(void Function(QuotationRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  MessagesRecord build() => _build();
+  QuotationRecord build() => _build();
 
-  _$MessagesRecord _build() {
-    _$MessagesRecord _$result;
+  _$QuotationRecord _build() {
+    _$QuotationRecord _$result;
     try {
       _$result = _$v ??
-          new _$MessagesRecord._(
-              message: message,
+          new _$QuotationRecord._(
+              deliverInDays: deliverInDays,
+              description: description,
               attachments: _attachments?.build(),
-              timestamp: timestamp,
               rfqRef: rfqRef,
-              senderRef: senderRef,
-              quotation: quotation,
+              vendorRef: vendorRef,
+              timestamp: timestamp,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -297,7 +299,7 @@ class MessagesRecordBuilder
         _attachments?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'MessagesRecord', _$failedField, e.toString());
+            r'QuotationRecord', _$failedField, e.toString());
       }
       rethrow;
     }

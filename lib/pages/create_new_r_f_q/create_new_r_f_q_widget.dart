@@ -13,6 +13,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_new_r_f_q_model.dart';
@@ -40,6 +41,15 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CreateNewRFQModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (_model.parts == null) {
+        setState(() {
+          _model.parts = widget.parts;
+        });
+      }
+    });
 
     _model.rFQNameController ??= TextEditingController();
     _model.quantityController ??= TextEditingController();
@@ -151,7 +161,12 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                           ),
                                         ),
                                         if ((_model.parts != null) &&
-                                            _model.parts!)
+                                            _model.parts! &&
+                                            (createNewRFQUsersRecord
+                                                    .appStateRequirements!
+                                                    .toList()
+                                                    .length >
+                                                0))
                                           Expanded(
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -578,8 +593,8 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                             ),
                                       ),
                                     ),
-                                  if ((_model.parts != true) &&
-                                      (widget.parts != false))
+                                  if ((_model.parts == true) ||
+                                      (widget.parts == null))
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           4.0, 40.0, 4.0, 0.0),
@@ -892,7 +907,8 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                           )
                                                                         ]),
                                                                       };
-                                                                      await currentUserReference!
+                                                                      await createNewRFQUsersRecord
+                                                                          .reference
                                                                           .update(
                                                                               usersUpdateData);
                                                                     },
@@ -1019,13 +1035,59 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                         18.0,
                                                                   ),
                                                           enabledBorder:
-                                                              InputBorder.none,
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4.0),
+                                                          ),
                                                           focusedBorder:
-                                                              InputBorder.none,
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: Color(
+                                                                  0x00000000),
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4.0),
+                                                          ),
                                                           errorBorder:
-                                                              InputBorder.none,
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4.0),
+                                                          ),
                                                           focusedErrorBorder:
-                                                              InputBorder.none,
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4.0),
+                                                          ),
                                                         ),
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -1294,7 +1356,14 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                         ],
                                       ),
                                     ),
-                                  if (widget.parts != null)
+                                  if ((_model.parts != null) &&
+                                      (_model.parts!
+                                          ? (createNewRFQUsersRecord
+                                                  .appStateRequirements!
+                                                  .toList()
+                                                  .length >
+                                              0)
+                                          : true))
                                     Align(
                                       alignment: AlignmentDirectional(1.0, 0.0),
                                       child: Padding(
@@ -1413,6 +1482,12 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                 .quantityController
                                                                 .text),
                                                         partsDescription: '',
+                                                        rfqStatus: 'Ongoing',
+                                                        customerRef:
+                                                            currentUserReference,
+                                                        customerCompanyRef:
+                                                            currentUserDocument!
+                                                                .companyRef,
                                                       ),
                                                       'part_list':
                                                           getRequirementListFirestoreData(
@@ -1421,6 +1496,8 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                 ?.toList() ??
                                                             []),
                                                       ),
+                                                      'vendors': FFAppState()
+                                                          .totalRFQVendors,
                                                     };
                                                     await RequestForQuotationRecord
                                                         .collection
@@ -1446,6 +1523,9 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                           customerCompanyRef:
                                                               currentUserDocument!
                                                                   .companyRef,
+                                                          rfqStatus: 'Ongoing',
+                                                          customerRef:
+                                                              currentUserReference,
                                                         ),
                                                         'attachments': _model
                                                             .fileData
@@ -1455,6 +1535,8 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                   r'''$.filePath''',
                                                                 ))
                                                             .toList(),
+                                                        'vendors': FFAppState()
+                                                            .totalRFQVendors,
                                                       };
                                                       await RequestForQuotationRecord
                                                           .collection
@@ -1463,21 +1545,28 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                               requestForQuotationCreateData2);
                                                     } else {
                                                       final requestForQuotationCreateData3 =
-                                                          createRequestForQuotationRecordData(
-                                                        rfqName: _model
-                                                            .rFQNameController
-                                                            .text,
-                                                        quantity: int.tryParse(
-                                                            _model
-                                                                .quantityController
-                                                                .text),
-                                                        partsDescription: _model
-                                                            .addDescriptionController
-                                                            .text,
-                                                        customerCompanyRef:
-                                                            currentUserDocument!
-                                                                .companyRef,
-                                                      );
+                                                          {
+                                                        ...createRequestForQuotationRecordData(
+                                                          rfqName: _model
+                                                              .rFQNameController
+                                                              .text,
+                                                          quantity: int
+                                                              .tryParse(_model
+                                                                  .quantityController
+                                                                  .text),
+                                                          partsDescription: _model
+                                                              .addDescriptionController
+                                                              .text,
+                                                          customerCompanyRef:
+                                                              currentUserDocument!
+                                                                  .companyRef,
+                                                          rfqStatus: 'Ongoing',
+                                                          customerRef:
+                                                              currentUserReference,
+                                                        ),
+                                                        'vendors': FFAppState()
+                                                            .totalRFQVendors,
+                                                      };
                                                       await RequestForQuotationRecord
                                                           .collection
                                                           .doc()

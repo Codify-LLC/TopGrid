@@ -88,8 +88,18 @@ class _$RequestForQuotationRecordSerializer
       result
         ..add('vendors')
         ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
+    }
+    value = object.customerRef;
+    if (value != null) {
+      result
+        ..add('customer_ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -154,9 +164,16 @@ class _$RequestForQuotationRecordSerializer
           break;
         case 'vendors':
           result.vendors.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'customer_ref':
+          result.customerRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -189,7 +206,9 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
   @override
   final BuiltList<RequirementStruct>? partList;
   @override
-  final BuiltList<String>? vendors;
+  final BuiltList<DocumentReference<Object?>>? vendors;
+  @override
+  final DocumentReference<Object?>? customerRef;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -207,6 +226,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
       this.customerCompanyRef,
       this.partList,
       this.vendors,
+      this.customerRef,
       this.ffRef})
       : super._();
 
@@ -232,6 +252,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
         customerCompanyRef == other.customerCompanyRef &&
         partList == other.partList &&
         vendors == other.vendors &&
+        customerRef == other.customerRef &&
         ffRef == other.ffRef;
   }
 
@@ -245,15 +266,17 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, rfqName.hashCode),
-                                        quantity.hashCode),
-                                    partsDescription.hashCode),
-                                attachments.hashCode),
-                            rfqDescription.hashCode),
-                        rfqStatus.hashCode),
-                    customerCompanyRef.hashCode),
-                partList.hashCode),
-            vendors.hashCode),
+                                    $jc(
+                                        $jc($jc(0, rfqName.hashCode),
+                                            quantity.hashCode),
+                                        partsDescription.hashCode),
+                                    attachments.hashCode),
+                                rfqDescription.hashCode),
+                            rfqStatus.hashCode),
+                        customerCompanyRef.hashCode),
+                    partList.hashCode),
+                vendors.hashCode),
+            customerRef.hashCode),
         ffRef.hashCode));
   }
 
@@ -269,6 +292,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
           ..add('customerCompanyRef', customerCompanyRef)
           ..add('partList', partList)
           ..add('vendors', vendors)
+          ..add('customerRef', customerRef)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -319,10 +343,16 @@ class RequestForQuotationRecordBuilder
   set partList(ListBuilder<RequirementStruct>? partList) =>
       _$this._partList = partList;
 
-  ListBuilder<String>? _vendors;
-  ListBuilder<String> get vendors =>
-      _$this._vendors ??= new ListBuilder<String>();
-  set vendors(ListBuilder<String>? vendors) => _$this._vendors = vendors;
+  ListBuilder<DocumentReference<Object?>>? _vendors;
+  ListBuilder<DocumentReference<Object?>> get vendors =>
+      _$this._vendors ??= new ListBuilder<DocumentReference<Object?>>();
+  set vendors(ListBuilder<DocumentReference<Object?>>? vendors) =>
+      _$this._vendors = vendors;
+
+  DocumentReference<Object?>? _customerRef;
+  DocumentReference<Object?>? get customerRef => _$this._customerRef;
+  set customerRef(DocumentReference<Object?>? customerRef) =>
+      _$this._customerRef = customerRef;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -344,6 +374,7 @@ class RequestForQuotationRecordBuilder
       _customerCompanyRef = $v.customerCompanyRef;
       _partList = $v.partList?.toBuilder();
       _vendors = $v.vendors?.toBuilder();
+      _customerRef = $v.customerRef;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -378,6 +409,7 @@ class RequestForQuotationRecordBuilder
               customerCompanyRef: customerCompanyRef,
               partList: _partList?.build(),
               vendors: _vendors?.build(),
+              customerRef: customerRef,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

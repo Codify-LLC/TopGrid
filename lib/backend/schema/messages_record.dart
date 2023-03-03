@@ -11,17 +11,19 @@ abstract class MessagesRecord
   static Serializer<MessagesRecord> get serializer =>
       _$messagesRecordSerializer;
 
-  @BuiltValueField(wireName: 'chat_ref')
-  DocumentReference? get chatRef;
-
   String? get message;
 
   BuiltList<String>? get attachments;
 
-  @BuiltValueField(wireName: 'user_ref')
-  DocumentReference? get userRef;
-
   DateTime? get timestamp;
+
+  @BuiltValueField(wireName: 'rfq_ref')
+  DocumentReference? get rfqRef;
+
+  @BuiltValueField(wireName: 'sender_ref')
+  DocumentReference? get senderRef;
+
+  bool? get quotation;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -29,7 +31,8 @@ abstract class MessagesRecord
 
   static void _initializeBuilder(MessagesRecordBuilder builder) => builder
     ..message = ''
-    ..attachments = ListBuilder();
+    ..attachments = ListBuilder()
+    ..quotation = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('messages');
@@ -53,20 +56,22 @@ abstract class MessagesRecord
 }
 
 Map<String, dynamic> createMessagesRecordData({
-  DocumentReference? chatRef,
   String? message,
-  DocumentReference? userRef,
   DateTime? timestamp,
+  DocumentReference? rfqRef,
+  DocumentReference? senderRef,
+  bool? quotation,
 }) {
   final firestoreData = serializers.toFirestore(
     MessagesRecord.serializer,
     MessagesRecord(
       (m) => m
-        ..chatRef = chatRef
         ..message = message
         ..attachments = null
-        ..userRef = userRef
-        ..timestamp = timestamp,
+        ..timestamp = timestamp
+        ..rfqRef = rfqRef
+        ..senderRef = senderRef
+        ..quotation = quotation,
     ),
   );
 

@@ -98,6 +98,14 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
             specifiedType: const FullType(
                 BuiltList, const [const FullType(RequirementStruct)])));
     }
+    value = object.companyUserDoc;
+    if (value != null) {
+      result
+        ..add('company_user_doc')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -168,6 +176,12 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
                       BuiltList, const [const FullType(RequirementStruct)]))!
               as BuiltList<Object?>);
           break;
+        case 'company_user_doc':
+          result.companyUserDoc = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -205,6 +219,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final BuiltList<RequirementStruct>? appStateRequirements;
   @override
+  final DocumentReference<Object?>? companyUserDoc;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -222,6 +238,7 @@ class _$UsersRecord extends UsersRecord {
       this.companyRef,
       this.role,
       this.appStateRequirements,
+      this.companyUserDoc,
       this.ffRef})
       : super._();
 
@@ -247,6 +264,7 @@ class _$UsersRecord extends UsersRecord {
         companyRef == other.companyRef &&
         role == other.role &&
         appStateRequirements == other.appStateRequirements &&
+        companyUserDoc == other.companyUserDoc &&
         ffRef == other.ffRef;
   }
 
@@ -262,17 +280,19 @@ class _$UsersRecord extends UsersRecord {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(0, email.hashCode),
-                                                displayName.hashCode),
-                                            photoUrl.hashCode),
-                                        uid.hashCode),
-                                    createdTime.hashCode),
-                                phoneNumber.hashCode),
-                            userType.hashCode),
-                        encryption.hashCode),
-                    companyRef.hashCode),
-                role.hashCode),
-            appStateRequirements.hashCode),
+                                            $jc(
+                                                $jc($jc(0, email.hashCode),
+                                                    displayName.hashCode),
+                                                photoUrl.hashCode),
+                                            uid.hashCode),
+                                        createdTime.hashCode),
+                                    phoneNumber.hashCode),
+                                userType.hashCode),
+                            encryption.hashCode),
+                        companyRef.hashCode),
+                    role.hashCode),
+                appStateRequirements.hashCode),
+            companyUserDoc.hashCode),
         ffRef.hashCode));
   }
 
@@ -290,6 +310,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('companyRef', companyRef)
           ..add('role', role)
           ..add('appStateRequirements', appStateRequirements)
+          ..add('companyUserDoc', companyUserDoc)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -346,6 +367,11 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
           ListBuilder<RequirementStruct>? appStateRequirements) =>
       _$this._appStateRequirements = appStateRequirements;
 
+  DocumentReference<Object?>? _companyUserDoc;
+  DocumentReference<Object?>? get companyUserDoc => _$this._companyUserDoc;
+  set companyUserDoc(DocumentReference<Object?>? companyUserDoc) =>
+      _$this._companyUserDoc = companyUserDoc;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -368,6 +394,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _companyRef = $v.companyRef;
       _role = $v.role;
       _appStateRequirements = $v.appStateRequirements?.toBuilder();
+      _companyUserDoc = $v.companyUserDoc;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -404,6 +431,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               companyRef: companyRef,
               role: role,
               appStateRequirements: _appStateRequirements?.build(),
+              companyUserDoc: companyUserDoc,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

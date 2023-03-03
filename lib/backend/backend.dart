@@ -11,8 +11,8 @@ import 'schema/company_record.dart';
 import 'schema/users_record.dart';
 import 'schema/request_for_quotation_record.dart';
 import 'schema/company_users_record.dart';
-import 'schema/chat_record.dart';
 import 'schema/messages_record.dart';
+import 'schema/quotation_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -26,8 +26,8 @@ export 'schema/company_record.dart';
 export 'schema/users_record.dart';
 export 'schema/request_for_quotation_record.dart';
 export 'schema/company_users_record.dart';
-export 'schema/chat_record.dart';
 export 'schema/messages_record.dart';
+export 'schema/quotation_record.dart';
 
 /// Functions to query OrdersRecords (as a Stream and as a Future).
 Future<int> queryOrdersRecordCount({
@@ -342,58 +342,6 @@ Future<FFFirestorePage<CompanyUsersRecord>> queryCompanyUsersRecordPage({
       isStream: isStream,
     );
 
-/// Functions to query ChatRecords (as a Stream and as a Future).
-Future<int> queryChatRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      ChatRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<ChatRecord>> queryChatRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      ChatRecord.collection,
-      ChatRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<ChatRecord>> queryChatRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      ChatRecord.collection,
-      ChatRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<ChatRecord>> queryChatRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      ChatRecord.collection,
-      ChatRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
 /// Functions to query MessagesRecords (as a Stream and as a Future).
 Future<int> queryMessagesRecordCount({
   Query Function(Query)? queryBuilder,
@@ -440,6 +388,58 @@ Future<FFFirestorePage<MessagesRecord>> queryMessagesRecordPage({
     queryCollectionPage(
       MessagesRecord.collection,
       MessagesRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query QuotationRecords (as a Stream and as a Future).
+Future<int> queryQuotationRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      QuotationRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<QuotationRecord>> queryQuotationRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      QuotationRecord.collection,
+      QuotationRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<QuotationRecord>> queryQuotationRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      QuotationRecord.collection,
+      QuotationRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<QuotationRecord>> queryQuotationRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      QuotationRecord.collection,
+      QuotationRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

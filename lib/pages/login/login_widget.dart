@@ -394,9 +394,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   .email,
                                               role: columnCompanyUsersRecord!
                                                   .role,
+                                              companyUserDoc:
+                                                  columnCompanyUsersRecord!
+                                                      .reference,
                                             );
                                             await currentUserReference!
                                                 .update(usersUpdateData);
+
+                                            final companyUsersUpdateData =
+                                                createCompanyUsersRecordData(
+                                              userDoc: currentUserReference,
+                                            );
+                                            await columnCompanyUsersRecord!
+                                                .reference
+                                                .update(companyUsersUpdateData);
 
                                             context.goNamedAuth(
                                                 'Dashboard', mounted);

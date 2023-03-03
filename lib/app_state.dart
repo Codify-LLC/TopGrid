@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/lat_lng.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -44,17 +46,23 @@ class FFAppState extends ChangeNotifier {
     _encryptionFlag = _value;
   }
 
-  List<String> _selectedVendors = [];
-  List<String> get selectedVendors => _selectedVendors;
-  set selectedVendors(List<String> _value) {
+  int _selectedPartNum = 0;
+  int get selectedPartNum => _selectedPartNum;
+  set selectedPartNum(int _value) {
+    _selectedPartNum = _value;
+  }
+
+  List<DocumentReference> _selectedVendors = [];
+  List<DocumentReference> get selectedVendors => _selectedVendors;
+  set selectedVendors(List<DocumentReference> _value) {
     _selectedVendors = _value;
   }
 
-  void addToSelectedVendors(String _value) {
+  void addToSelectedVendors(DocumentReference _value) {
     _selectedVendors.add(_value);
   }
 
-  void removeFromSelectedVendors(String _value) {
+  void removeFromSelectedVendors(DocumentReference _value) {
     _selectedVendors.remove(_value);
   }
 
@@ -62,28 +70,22 @@ class FFAppState extends ChangeNotifier {
     _selectedVendors.removeAt(_index);
   }
 
-  List<String> _totalRFQVendors = [];
-  List<String> get totalRFQVendors => _totalRFQVendors;
-  set totalRFQVendors(List<String> _value) {
+  List<DocumentReference> _totalRFQVendors = [];
+  List<DocumentReference> get totalRFQVendors => _totalRFQVendors;
+  set totalRFQVendors(List<DocumentReference> _value) {
     _totalRFQVendors = _value;
   }
 
-  void addToTotalRFQVendors(String _value) {
+  void addToTotalRFQVendors(DocumentReference _value) {
     _totalRFQVendors.add(_value);
   }
 
-  void removeFromTotalRFQVendors(String _value) {
+  void removeFromTotalRFQVendors(DocumentReference _value) {
     _totalRFQVendors.remove(_value);
   }
 
   void removeAtIndexFromTotalRFQVendors(int _index) {
     _totalRFQVendors.removeAt(_index);
-  }
-
-  int _selectedPartNum = 0;
-  int get selectedPartNum => _selectedPartNum;
-  set selectedPartNum(int _value) {
-    _selectedPartNum = _value;
   }
 }
 

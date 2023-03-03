@@ -38,6 +38,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'app_state_requirements')
   BuiltList<RequirementStruct>? get appStateRequirements;
 
+  @BuiltValueField(wireName: 'company_user_doc')
+  DocumentReference? get companyUserDoc;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -85,6 +88,7 @@ Map<String, dynamic> createUsersRecordData({
   bool? encryption,
   DocumentReference? companyRef,
   String? role,
+  DocumentReference? companyUserDoc,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -100,7 +104,8 @@ Map<String, dynamic> createUsersRecordData({
         ..encryption = encryption
         ..companyRef = companyRef
         ..role = role
-        ..appStateRequirements = null,
+        ..appStateRequirements = null
+        ..companyUserDoc = companyUserDoc,
     ),
   );
 

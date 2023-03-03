@@ -1,4 +1,3 @@
-import '/auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/menu/menu_widget.dart';
 import '/components/orders/orders_widget.dart';

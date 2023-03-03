@@ -415,7 +415,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   );
                                                                 },
                                                                 child: Text(
-                                                                  dataTableIndex
+                                                                  (dataTableIndex +
+                                                                          1)
                                                                       .toString(),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
