@@ -456,14 +456,16 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 12.0, 0.0),
                             child: Text(
-                              _model.selectedQuotation != null
+                              (_model.selectedQuotation != null) &&
+                                      (_model.selectedQuotation!.timestamp !=
+                                          null)
                                   ? dateTimeFormat(
                                       'jm',
                                       _model.selectedQuotation!.timestamp!,
                                       locale: FFLocalizations.of(context)
                                           .languageCode,
                                     )
-                                  : ' ',
+                                  : '',
                               textAlign: TextAlign.end,
                               style: FlutterFlowTheme.of(context)
                                   .bodyText2

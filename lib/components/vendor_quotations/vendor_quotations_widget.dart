@@ -608,6 +608,8 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                           _model.addDescriptionController.text,
                                       rfqRef: widget.rfqDocument!.reference,
                                       vendorRef: currentUserReference,
+                                      timestamp: getCurrentTimestamp,
+                                      accepted: false,
                                     ),
                                     'attachments': _model.fileData
                                         .map((e) => getJsonField(
