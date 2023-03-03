@@ -40,8 +40,6 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
     super.initState();
     _model = createModel(context, () => VendorQuotationsModel());
 
-    _model.deliveryDaysController ??= TextEditingController();
-    _model.addDescriptionController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -140,31 +138,35 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (containerQuotationRecord != null)
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 8.0, 0.0),
-                              child: Icon(
-                                Icons.check_circle_outline_outlined,
-                                color:
-                                    FlutterFlowTheme.of(context).customColor1,
-                                size: 24.0,
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 12.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 8.0, 0.0),
+                                child: Icon(
+                                  Icons.check_circle_outline_outlined,
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor1,
+                                  size: 24.0,
+                                ),
                               ),
-                            ),
-                            Text(
-                              'Your Quotation is Submitted to the customer',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor1,
-                                  ),
-                            ),
-                          ],
+                              Text(
+                                'Your Quotation is Submitted to the customer',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .customColor1,
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       RichText(
                         text: TextSpan(
@@ -192,7 +194,13 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                         child: Container(
                           width: 300.0,
                           child: TextFormField(
-                            controller: _model.deliveryDaysController,
+                            controller: _model.deliveryDaysController ??=
+                                TextEditingController(
+                              text: containerQuotationRecord != null
+                                  ? containerQuotationRecord!.deliverInDays
+                                      ?.toString()
+                                  : '',
+                            ),
                             autofocus: true,
                             readOnly: containerQuotationRecord != null,
                             obscureText: false,
@@ -289,7 +297,13 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                     width: double.infinity,
                                     child: TextFormField(
                                       controller:
-                                          _model.addDescriptionController,
+                                          _model.addDescriptionController ??=
+                                              TextEditingController(
+                                        text: containerQuotationRecord != null
+                                            ? containerQuotationRecord!
+                                                .description
+                                            : '',
+                                      ),
                                       readOnly:
                                           containerQuotationRecord != null,
                                       obscureText: false,

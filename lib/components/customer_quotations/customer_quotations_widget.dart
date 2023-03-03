@@ -101,6 +101,7 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                         onTap: () async {
                           setState(() {
                             _model.selectedUser = listTileUsersRecord;
+                            _model.selectedQuotation = columnQuotationRecord;
                           });
                         },
                         child: ListTile(
@@ -189,7 +190,7 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                             child: Text(
                               _model.selectedQuotation != null
                                   ? _model.selectedQuotation!.description!
-                                  : ' ',
+                                  : '',
                               style: FlutterFlowTheme.of(context).bodyText1,
                             ),
                           ),
@@ -368,6 +369,7 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .customColor1,
                                         ),
+                                    elevation: 0.0,
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
@@ -399,6 +401,7 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .alternate,
                                         ),
+                                    elevation: 0.0,
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
@@ -435,6 +438,7 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryColor,
                                             ),
+                                        elevation: 0.0,
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
