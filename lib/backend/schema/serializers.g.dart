@@ -7,11 +7,11 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(ChatsRecord.serializer)
       ..add(CompanyRecord.serializer)
       ..add(CompanyUsersLocalStruct.serializer)
       ..add(CompanyUsersRecord.serializer)
       ..add(MessagesRecord.serializer)
-      ..add(OrdersRecord.serializer)
       ..add(PartRecord.serializer)
       ..add(QuotationRecord.serializer)
       ..add(RequestForQuotationRecord.serializer)
@@ -32,9 +32,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(RequirementStruct)]),
           () => new ListBuilder<RequirementStruct>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

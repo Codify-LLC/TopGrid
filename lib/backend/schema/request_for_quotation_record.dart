@@ -39,6 +39,14 @@ abstract class RequestForQuotationRecord
   @BuiltValueField(wireName: 'customer_ref')
   DocumentReference? get customerRef;
 
+  @BuiltValueField(wireName: 'accepted_quotation_ref')
+  DocumentReference? get acceptedQuotationRef;
+
+  @BuiltValueField(wireName: 'accepted_vendor_ref')
+  DocumentReference? get acceptedVendorRef;
+
+  bool? get delivered;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -52,7 +60,8 @@ abstract class RequestForQuotationRecord
         ..rfqDescription = ''
         ..rfqStatus = ''
         ..partList = ListBuilder()
-        ..vendors = ListBuilder();
+        ..vendors = ListBuilder()
+        ..delivered = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('request_for_quotation');
@@ -85,6 +94,9 @@ Map<String, dynamic> createRequestForQuotationRecordData({
   String? rfqStatus,
   DocumentReference? customerCompanyRef,
   DocumentReference? customerRef,
+  DocumentReference? acceptedQuotationRef,
+  DocumentReference? acceptedVendorRef,
+  bool? delivered,
 }) {
   final firestoreData = serializers.toFirestore(
     RequestForQuotationRecord.serializer,
@@ -99,7 +111,10 @@ Map<String, dynamic> createRequestForQuotationRecordData({
         ..customerCompanyRef = customerCompanyRef
         ..partList = null
         ..vendors = null
-        ..customerRef = customerRef,
+        ..customerRef = customerRef
+        ..acceptedQuotationRef = acceptedQuotationRef
+        ..acceptedVendorRef = acceptedVendorRef
+        ..delivered = delivered,
     ),
   );
 

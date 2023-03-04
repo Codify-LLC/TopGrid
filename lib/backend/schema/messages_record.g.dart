@@ -51,6 +51,13 @@ class _$MessagesRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.quotation;
+    if (value != null) {
+      result
+        ..add('quotation')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.senderRef;
     if (value != null) {
       result
@@ -59,12 +66,13 @@ class _$MessagesRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
-    value = object.quotation;
+    value = object.chat;
     if (value != null) {
       result
-        ..add('quotation')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+        ..add('chat')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -109,15 +117,21 @@ class _$MessagesRecordSerializer
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'quotation':
+          result.quotation = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'sender_ref':
           result.senderRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
-        case 'quotation':
-          result.quotation = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool?;
+        case 'chat':
+          result.chat = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -142,9 +156,11 @@ class _$MessagesRecord extends MessagesRecord {
   @override
   final DocumentReference<Object?>? rfqRef;
   @override
+  final bool? quotation;
+  @override
   final DocumentReference<Object?>? senderRef;
   @override
-  final bool? quotation;
+  final DocumentReference<Object?>? chat;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -156,8 +172,9 @@ class _$MessagesRecord extends MessagesRecord {
       this.attachments,
       this.timestamp,
       this.rfqRef,
-      this.senderRef,
       this.quotation,
+      this.senderRef,
+      this.chat,
       this.ffRef})
       : super._();
 
@@ -177,8 +194,9 @@ class _$MessagesRecord extends MessagesRecord {
         attachments == other.attachments &&
         timestamp == other.timestamp &&
         rfqRef == other.rfqRef &&
-        senderRef == other.senderRef &&
         quotation == other.quotation &&
+        senderRef == other.senderRef &&
+        chat == other.chat &&
         ffRef == other.ffRef;
   }
 
@@ -188,11 +206,13 @@ class _$MessagesRecord extends MessagesRecord {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, message.hashCode), attachments.hashCode),
-                        timestamp.hashCode),
-                    rfqRef.hashCode),
+                    $jc(
+                        $jc($jc($jc(0, message.hashCode), attachments.hashCode),
+                            timestamp.hashCode),
+                        rfqRef.hashCode),
+                    quotation.hashCode),
                 senderRef.hashCode),
-            quotation.hashCode),
+            chat.hashCode),
         ffRef.hashCode));
   }
 
@@ -203,8 +223,9 @@ class _$MessagesRecord extends MessagesRecord {
           ..add('attachments', attachments)
           ..add('timestamp', timestamp)
           ..add('rfqRef', rfqRef)
-          ..add('senderRef', senderRef)
           ..add('quotation', quotation)
+          ..add('senderRef', senderRef)
+          ..add('chat', chat)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -232,14 +253,18 @@ class MessagesRecordBuilder
   DocumentReference<Object?>? get rfqRef => _$this._rfqRef;
   set rfqRef(DocumentReference<Object?>? rfqRef) => _$this._rfqRef = rfqRef;
 
+  bool? _quotation;
+  bool? get quotation => _$this._quotation;
+  set quotation(bool? quotation) => _$this._quotation = quotation;
+
   DocumentReference<Object?>? _senderRef;
   DocumentReference<Object?>? get senderRef => _$this._senderRef;
   set senderRef(DocumentReference<Object?>? senderRef) =>
       _$this._senderRef = senderRef;
 
-  bool? _quotation;
-  bool? get quotation => _$this._quotation;
-  set quotation(bool? quotation) => _$this._quotation = quotation;
+  DocumentReference<Object?>? _chat;
+  DocumentReference<Object?>? get chat => _$this._chat;
+  set chat(DocumentReference<Object?>? chat) => _$this._chat = chat;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -256,8 +281,9 @@ class MessagesRecordBuilder
       _attachments = $v.attachments?.toBuilder();
       _timestamp = $v.timestamp;
       _rfqRef = $v.rfqRef;
-      _senderRef = $v.senderRef;
       _quotation = $v.quotation;
+      _senderRef = $v.senderRef;
+      _chat = $v.chat;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -287,8 +313,9 @@ class MessagesRecordBuilder
               attachments: _attachments?.build(),
               timestamp: timestamp,
               rfqRef: rfqRef,
-              senderRef: senderRef,
               quotation: quotation,
+              senderRef: senderRef,
+              chat: chat,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

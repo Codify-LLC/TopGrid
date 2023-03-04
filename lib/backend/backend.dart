@@ -5,7 +5,6 @@ import '../auth/auth_util.dart';
 
 import '../flutter_flow/flutter_flow_util.dart';
 
-import 'schema/orders_record.dart';
 import 'schema/part_record.dart';
 import 'schema/company_record.dart';
 import 'schema/users_record.dart';
@@ -13,6 +12,7 @@ import 'schema/request_for_quotation_record.dart';
 import 'schema/company_users_record.dart';
 import 'schema/messages_record.dart';
 import 'schema/quotation_record.dart';
+import 'schema/chats_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -20,7 +20,6 @@ export 'package:cloud_firestore/cloud_firestore.dart';
 export 'schema/index.dart';
 export 'schema/serializers.dart';
 
-export 'schema/orders_record.dart';
 export 'schema/part_record.dart';
 export 'schema/company_record.dart';
 export 'schema/users_record.dart';
@@ -28,58 +27,7 @@ export 'schema/request_for_quotation_record.dart';
 export 'schema/company_users_record.dart';
 export 'schema/messages_record.dart';
 export 'schema/quotation_record.dart';
-
-/// Functions to query OrdersRecords (as a Stream and as a Future).
-Future<int> queryOrdersRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      OrdersRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<OrdersRecord>> queryOrdersRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      OrdersRecord.collection,
-      OrdersRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<OrdersRecord>> queryOrdersRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      OrdersRecord.collection,
-      OrdersRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<OrdersRecord>> queryOrdersRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      OrdersRecord.collection,
-      OrdersRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
+export 'schema/chats_record.dart';
 
 /// Functions to query PartRecords (as a Stream and as a Future).
 Future<int> queryPartRecordCount({
@@ -440,6 +388,58 @@ Future<FFFirestorePage<QuotationRecord>> queryQuotationRecordPage({
     queryCollectionPage(
       QuotationRecord.collection,
       QuotationRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query ChatsRecords (as a Stream and as a Future).
+Future<int> queryChatsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      ChatsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<ChatsRecord>> queryChatsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      ChatsRecord.collection,
+      ChatsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<ChatsRecord>> queryChatsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      ChatsRecord.collection,
+      ChatsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<ChatsRecord>> queryChatsRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      ChatsRecord.collection,
+      ChatsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

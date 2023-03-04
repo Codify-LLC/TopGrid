@@ -1,8 +1,8 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/chat/chat_widget.dart';
 import '/components/customer_quotations/customer_quotations_widget.dart';
 import '/components/menu/menu_widget.dart';
-import '/components/rfq_chat/rfq_chat_widget.dart';
 import '/components/rfq_requirements/rfq_requirements_widget.dart';
 import '/components/vendor_quotations/vendor_quotations_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -24,8 +24,8 @@ class RCPtabbarModel extends FlutterFlowModel {
   late MenuModel menuModel;
   // Model for rfqRequirements component.
   late RfqRequirementsModel rfqRequirementsModel;
-  // Model for rfqChat component.
-  late RfqChatModel rfqChatModel;
+  // Model for Chat component.
+  late ChatModel chatModel;
   // Model for VendorQuotations component.
   late VendorQuotationsModel vendorQuotationsModel;
   // Model for CustomerQuotations component.
@@ -36,7 +36,7 @@ class RCPtabbarModel extends FlutterFlowModel {
   void initState(BuildContext context) {
     menuModel = createModel(context, () => MenuModel());
     rfqRequirementsModel = createModel(context, () => RfqRequirementsModel());
-    rfqChatModel = createModel(context, () => RfqChatModel());
+    chatModel = createModel(context, () => ChatModel());
     vendorQuotationsModel = createModel(context, () => VendorQuotationsModel());
     customerQuotationsModel =
         createModel(context, () => CustomerQuotationsModel());
@@ -45,7 +45,7 @@ class RCPtabbarModel extends FlutterFlowModel {
   void dispose() {
     menuModel.dispose();
     rfqRequirementsModel.dispose();
-    rfqChatModel.dispose();
+    chatModel.dispose();
     vendorQuotationsModel.dispose();
     customerQuotationsModel.dispose();
   }

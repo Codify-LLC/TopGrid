@@ -1,8 +1,8 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/chat/chat_widget.dart';
 import '/components/customer_quotations/customer_quotations_widget.dart';
 import '/components/menu/menu_widget.dart';
-import '/components/rfq_chat/rfq_chat_widget.dart';
 import '/components/rfq_requirements/rfq_requirements_widget.dart';
 import '/components/vendor_quotations/vendor_quotations_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -309,61 +309,122 @@ class _RCPtabbarWidgetState extends State<RCPtabbarWidget> {
                                               ),
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 12.0, 0.0),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  setState(() {
-                                                    _model.pageType =
-                                                        'quotation';
-                                                  });
-                                                },
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      'Quotation',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .title3
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                color: _model
-                                                                            .pageType ==
-                                                                        'quotation'
-                                                                    ? FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText
-                                                                    : FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                              ),
-                                                    ),
-                                                    if (_model.pageType ==
-                                                        'quotation')
-                                                      Divider(
-                                                        height: 10.0,
-                                                        thickness: 3.0,
-                                                        indent: 0.0,
-                                                        endIndent: 0.0,
-                                                        color:
+                                          if (rCPtabbarRequestForQuotationRecord
+                                                  .acceptedQuotationRef ==
+                                              null)
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 12.0, 0.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    setState(() {
+                                                      _model.pageType =
+                                                          'quotation';
+                                                    });
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        'Quotation',
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .title3
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: _model
+                                                                              .pageType ==
+                                                                          'quotation'
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                ),
                                                       ),
-                                                  ],
+                                                      if (_model.pageType ==
+                                                          'quotation')
+                                                        Divider(
+                                                          height: 10.0,
+                                                          thickness: 3.0,
+                                                          indent: 0.0,
+                                                          endIndent: 0.0,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                        ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                          if (rCPtabbarRequestForQuotationRecord
+                                                  .acceptedQuotationRef !=
+                                              null)
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 12.0, 0.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    setState(() {
+                                                      _model.pageType =
+                                                          'pending_actions';
+                                                    });
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        'Pending Actions',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .title3
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: _model
+                                                                              .pageType ==
+                                                                          'quotation'
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                ),
+                                                      ),
+                                                      if (_model.pageType ==
+                                                          'pending_actions')
+                                                        Divider(
+                                                          height: 10.0,
+                                                          thickness: 3.0,
+                                                          indent: 0.0,
+                                                          endIndent: 0.0,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                        ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                         ],
                                       ),
                                     ),
@@ -437,10 +498,10 @@ class _RCPtabbarWidgetState extends State<RCPtabbarWidget> {
                               if (_model.pageType == 'chats')
                                 Expanded(
                                   child: wrapWithModel(
-                                    model: _model.rfqChatModel,
+                                    model: _model.chatModel,
                                     updateCallback: () => setState(() {}),
                                     updateOnChange: true,
-                                    child: RfqChatWidget(
+                                    child: ChatWidget(
                                       rfqRef:
                                           rCPtabbarRequestForQuotationRecord,
                                     ),

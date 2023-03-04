@@ -7,26 +7,35 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
-class RfqChatModel extends FlutterFlowModel {
+class ChatModel extends FlutterFlowModel {
   ///  Local state fields for this component.
 
-  DocumentReference? selectedUser;
+  DocumentReference? selectedChat;
 
   ///  State fields for stateful widgets in this component.
 
-  Completer<List<UsersRecord>>? firestoreRequestCompleter;
-  // State field(s) for TextField widget.
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
+  Completer<List<ChatsRecord>>? firestoreRequestCompleter;
+  // State field(s) for ListView widget.
+  PagingController<DocumentSnapshot?, MessagesRecord>? pagingController;
+  Query? pagingQuery;
+  List<StreamSubscription?> streamSubscriptions = [];
+
+  // State field(s) for NewMessage widget.
+  TextEditingController? newMessageController;
+  String? Function(BuildContext, String?)? newMessageControllerValidator;
+  // Stores action output result for [Backend Call - Create Document] action in IconButton widget.
+  MessagesRecord? newMessage;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
 
   void dispose() {
-    textController?.dispose();
+    streamSubscriptions.forEach((s) => s?.cancel());
+    newMessageController?.dispose();
   }
 
   /// Additional helper methods are added here.

@@ -32,6 +32,12 @@ class VendorQuotationsModel extends FlutterFlowModel {
   dynamic? newFile;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   QuotationRecord? newQuotation;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  MessagesRecord? newMessage;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  ChatsRecord? newChat;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  MessagesRecord? newMessage2;
 
   /// Initialization and disposal methods.
 

@@ -101,6 +101,29 @@ class _$RequestForQuotationRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.acceptedQuotationRef;
+    if (value != null) {
+      result
+        ..add('accepted_quotation_ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.acceptedVendorRef;
+    if (value != null) {
+      result
+        ..add('accepted_vendor_ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.delivered;
+    if (value != null) {
+      result
+        ..add('delivered')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -175,6 +198,22 @@ class _$RequestForQuotationRecordSerializer
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'accepted_quotation_ref':
+          result.acceptedQuotationRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'accepted_vendor_ref':
+          result.acceptedVendorRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'delivered':
+          result.delivered = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -210,6 +249,12 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
   @override
   final DocumentReference<Object?>? customerRef;
   @override
+  final DocumentReference<Object?>? acceptedQuotationRef;
+  @override
+  final DocumentReference<Object?>? acceptedVendorRef;
+  @override
+  final bool? delivered;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$RequestForQuotationRecord(
@@ -227,6 +272,9 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
       this.partList,
       this.vendors,
       this.customerRef,
+      this.acceptedQuotationRef,
+      this.acceptedVendorRef,
+      this.delivered,
       this.ffRef})
       : super._();
 
@@ -253,6 +301,9 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
         partList == other.partList &&
         vendors == other.vendors &&
         customerRef == other.customerRef &&
+        acceptedQuotationRef == other.acceptedQuotationRef &&
+        acceptedVendorRef == other.acceptedVendorRef &&
+        delivered == other.delivered &&
         ffRef == other.ffRef;
   }
 
@@ -267,16 +318,24 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, rfqName.hashCode),
-                                            quantity.hashCode),
-                                        partsDescription.hashCode),
-                                    attachments.hashCode),
-                                rfqDescription.hashCode),
-                            rfqStatus.hashCode),
-                        customerCompanyRef.hashCode),
-                    partList.hashCode),
-                vendors.hashCode),
-            customerRef.hashCode),
+                                        $jc(
+                                            $jc(
+                                                $jc(
+                                                    $jc(
+                                                        $jc(0,
+                                                            rfqName.hashCode),
+                                                        quantity.hashCode),
+                                                    partsDescription.hashCode),
+                                                attachments.hashCode),
+                                            rfqDescription.hashCode),
+                                        rfqStatus.hashCode),
+                                    customerCompanyRef.hashCode),
+                                partList.hashCode),
+                            vendors.hashCode),
+                        customerRef.hashCode),
+                    acceptedQuotationRef.hashCode),
+                acceptedVendorRef.hashCode),
+            delivered.hashCode),
         ffRef.hashCode));
   }
 
@@ -293,6 +352,9 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
           ..add('partList', partList)
           ..add('vendors', vendors)
           ..add('customerRef', customerRef)
+          ..add('acceptedQuotationRef', acceptedQuotationRef)
+          ..add('acceptedVendorRef', acceptedVendorRef)
+          ..add('delivered', delivered)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -354,6 +416,22 @@ class RequestForQuotationRecordBuilder
   set customerRef(DocumentReference<Object?>? customerRef) =>
       _$this._customerRef = customerRef;
 
+  DocumentReference<Object?>? _acceptedQuotationRef;
+  DocumentReference<Object?>? get acceptedQuotationRef =>
+      _$this._acceptedQuotationRef;
+  set acceptedQuotationRef(DocumentReference<Object?>? acceptedQuotationRef) =>
+      _$this._acceptedQuotationRef = acceptedQuotationRef;
+
+  DocumentReference<Object?>? _acceptedVendorRef;
+  DocumentReference<Object?>? get acceptedVendorRef =>
+      _$this._acceptedVendorRef;
+  set acceptedVendorRef(DocumentReference<Object?>? acceptedVendorRef) =>
+      _$this._acceptedVendorRef = acceptedVendorRef;
+
+  bool? _delivered;
+  bool? get delivered => _$this._delivered;
+  set delivered(bool? delivered) => _$this._delivered = delivered;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -375,6 +453,9 @@ class RequestForQuotationRecordBuilder
       _partList = $v.partList?.toBuilder();
       _vendors = $v.vendors?.toBuilder();
       _customerRef = $v.customerRef;
+      _acceptedQuotationRef = $v.acceptedQuotationRef;
+      _acceptedVendorRef = $v.acceptedVendorRef;
+      _delivered = $v.delivered;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -410,6 +491,9 @@ class RequestForQuotationRecordBuilder
               partList: _partList?.build(),
               vendors: _vendors?.build(),
               customerRef: customerRef,
+              acceptedQuotationRef: acceptedQuotationRef,
+              acceptedVendorRef: acceptedVendorRef,
+              delivered: delivered,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

@@ -20,10 +20,12 @@ abstract class MessagesRecord
   @BuiltValueField(wireName: 'rfq_ref')
   DocumentReference? get rfqRef;
 
+  bool? get quotation;
+
   @BuiltValueField(wireName: 'sender_ref')
   DocumentReference? get senderRef;
 
-  bool? get quotation;
+  DocumentReference? get chat;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -59,8 +61,9 @@ Map<String, dynamic> createMessagesRecordData({
   String? message,
   DateTime? timestamp,
   DocumentReference? rfqRef,
-  DocumentReference? senderRef,
   bool? quotation,
+  DocumentReference? senderRef,
+  DocumentReference? chat,
 }) {
   final firestoreData = serializers.toFirestore(
     MessagesRecord.serializer,
@@ -70,8 +73,9 @@ Map<String, dynamic> createMessagesRecordData({
         ..attachments = null
         ..timestamp = timestamp
         ..rfqRef = rfqRef
+        ..quotation = quotation
         ..senderRef = senderRef
-        ..quotation = quotation,
+        ..chat = chat,
     ),
   );
 

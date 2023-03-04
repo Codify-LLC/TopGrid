@@ -68,8 +68,12 @@ class _OrdersWidgetState extends State<OrdersWidget> {
           Expanded(
             child: TabBarView(
               children: [
-                StreamBuilder<List<OrdersRecord>>(
-                  stream: queryOrdersRecord(),
+                StreamBuilder<List<RequestForQuotationRecord>>(
+                  stream: queryRequestForQuotationRecord(
+                    queryBuilder: (requestForQuotationRecord) =>
+                        requestForQuotationRecord.where('delivered',
+                            isEqualTo: false),
+                  ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
@@ -83,9 +87,9 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                         ),
                       );
                     }
-                    List<OrdersRecord> dataTableOrdersRecordList =
-                        snapshot.data!;
-                    if (dataTableOrdersRecordList.isEmpty) {
+                    List<RequestForQuotationRecord>
+                        dataTableRequestForQuotationRecordList = snapshot.data!;
+                    if (dataTableRequestForQuotationRecordList.isEmpty) {
                       return Center(
                         child: EmptyAnimationWidget(),
                       );
@@ -170,60 +174,63 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                           fixedWidth: MediaQuery.of(context).size.width * 0.12,
                         ),
                       ],
-                      rows: dataTableOrdersRecordList
-                          .mapIndexed(
-                              (dataTableIndex, dataTableOrdersRecord) => [
-                                    Text(
-                                      (dataTableIndex + 1).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Text(
-                                      dataTableOrdersRecord.orderNumber!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Text(
-                                      dataTableOrdersRecord.orderName!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Text(
-                                      dataTableOrdersRecord.orderDescription!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Text(
-                                      dataTableOrdersRecord.orderStatus!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                  ].map((c) => DataCell(c)).toList())
+                      rows: dataTableRequestForQuotationRecordList
+                          .mapIndexed((dataTableIndex,
+                                  dataTableRequestForQuotationRecord) =>
+                              [
+                                Text(
+                                  (dataTableIndex + 1).toString(),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                                Text(
+                                  dataTableRequestForQuotationRecord
+                                      .reference.id,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                                Text(
+                                  dataTableRequestForQuotationRecord.rfqName!,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                                Text(
+                                  dataTableRequestForQuotationRecord
+                                      .rfqDescription!,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                                Text(
+                                  dataTableRequestForQuotationRecord.rfqStatus!,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                              ].map((c) => DataCell(c)).toList())
                           .map((e) => DataRow(cells: e))
                           .toList(),
                       headingRowColor: MaterialStateProperty.all(
@@ -243,8 +250,12 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                     );
                   },
                 ),
-                StreamBuilder<List<OrdersRecord>>(
-                  stream: queryOrdersRecord(),
+                StreamBuilder<List<RequestForQuotationRecord>>(
+                  stream: queryRequestForQuotationRecord(
+                    queryBuilder: (requestForQuotationRecord) =>
+                        requestForQuotationRecord.where('delivered',
+                            isEqualTo: true),
+                  ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
@@ -258,9 +269,9 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                         ),
                       );
                     }
-                    List<OrdersRecord> dataTableOrdersRecordList =
-                        snapshot.data!;
-                    if (dataTableOrdersRecordList.isEmpty) {
+                    List<RequestForQuotationRecord>
+                        dataTableRequestForQuotationRecordList = snapshot.data!;
+                    if (dataTableRequestForQuotationRecordList.isEmpty) {
                       return Center(
                         child: EmptyAnimationWidget(),
                       );
@@ -340,60 +351,63 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                           fixedWidth: MediaQuery.of(context).size.width * 0.12,
                         ),
                       ],
-                      rows: dataTableOrdersRecordList
-                          .mapIndexed(
-                              (dataTableIndex, dataTableOrdersRecord) => [
-                                    Text(
-                                      (dataTableIndex + 1).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Text(
-                                      dataTableOrdersRecord.orderNumber!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Text(
-                                      dataTableOrdersRecord.orderName!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Text(
-                                      dataTableOrdersRecord.orderDescription!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                    Text(
-                                      dataTableOrdersRecord.orderStatus!,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                          ),
-                                    ),
-                                  ].map((c) => DataCell(c)).toList())
+                      rows: dataTableRequestForQuotationRecordList
+                          .mapIndexed((dataTableIndex,
+                                  dataTableRequestForQuotationRecord) =>
+                              [
+                                Text(
+                                  (dataTableIndex + 1).toString(),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                                Text(
+                                  dataTableRequestForQuotationRecord
+                                      .reference.id,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                                Text(
+                                  dataTableRequestForQuotationRecord.rfqName!,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                                Text(
+                                  dataTableRequestForQuotationRecord
+                                      .rfqDescription!,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                                Text(
+                                  dataTableRequestForQuotationRecord.rfqStatus!,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
+                                ),
+                              ].map((c) => DataCell(c)).toList())
                           .map((e) => DataRow(cells: e))
                           .toList(),
                       headingRowColor: MaterialStateProperty.all(
