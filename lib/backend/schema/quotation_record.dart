@@ -28,6 +28,8 @@ abstract class QuotationRecord
 
   bool? get accepted;
 
+  bool? get rejected;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -36,7 +38,8 @@ abstract class QuotationRecord
     ..deliverInDays = 0
     ..description = ''
     ..attachments = ListBuilder()
-    ..accepted = false;
+    ..accepted = false
+    ..rejected = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('quotation');
@@ -66,6 +69,7 @@ Map<String, dynamic> createQuotationRecordData({
   DocumentReference? vendorRef,
   DateTime? timestamp,
   bool? accepted,
+  bool? rejected,
 }) {
   final firestoreData = serializers.toFirestore(
     QuotationRecord.serializer,
@@ -77,7 +81,8 @@ Map<String, dynamic> createQuotationRecordData({
         ..rfqRef = rfqRef
         ..vendorRef = vendorRef
         ..timestamp = timestamp
-        ..accepted = accepted,
+        ..accepted = accepted
+        ..rejected = rejected,
     ),
   );
 

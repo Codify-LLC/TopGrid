@@ -72,6 +72,13 @@ class _$QuotationRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.rejected;
+    if (value != null) {
+      result
+        ..add('rejected')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -129,6 +136,10 @@ class _$QuotationRecordSerializer
           result.accepted = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'rejected':
+          result.rejected = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -158,6 +169,8 @@ class _$QuotationRecord extends QuotationRecord {
   @override
   final bool? accepted;
   @override
+  final bool? rejected;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$QuotationRecord([void Function(QuotationRecordBuilder)? updates]) =>
@@ -171,6 +184,7 @@ class _$QuotationRecord extends QuotationRecord {
       this.vendorRef,
       this.timestamp,
       this.accepted,
+      this.rejected,
       this.ffRef})
       : super._();
 
@@ -193,6 +207,7 @@ class _$QuotationRecord extends QuotationRecord {
         vendorRef == other.vendorRef &&
         timestamp == other.timestamp &&
         accepted == other.accepted &&
+        rejected == other.rejected &&
         ffRef == other.ffRef;
   }
 
@@ -204,13 +219,15 @@ class _$QuotationRecord extends QuotationRecord {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc(0, deliverInDays.hashCode),
-                                description.hashCode),
-                            attachments.hashCode),
-                        rfqRef.hashCode),
-                    vendorRef.hashCode),
-                timestamp.hashCode),
-            accepted.hashCode),
+                            $jc(
+                                $jc($jc(0, deliverInDays.hashCode),
+                                    description.hashCode),
+                                attachments.hashCode),
+                            rfqRef.hashCode),
+                        vendorRef.hashCode),
+                    timestamp.hashCode),
+                accepted.hashCode),
+            rejected.hashCode),
         ffRef.hashCode));
   }
 
@@ -224,6 +241,7 @@ class _$QuotationRecord extends QuotationRecord {
           ..add('vendorRef', vendorRef)
           ..add('timestamp', timestamp)
           ..add('accepted', accepted)
+          ..add('rejected', rejected)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -265,6 +283,10 @@ class QuotationRecordBuilder
   bool? get accepted => _$this._accepted;
   set accepted(bool? accepted) => _$this._accepted = accepted;
 
+  bool? _rejected;
+  bool? get rejected => _$this._rejected;
+  set rejected(bool? rejected) => _$this._rejected = rejected;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -283,6 +305,7 @@ class QuotationRecordBuilder
       _vendorRef = $v.vendorRef;
       _timestamp = $v.timestamp;
       _accepted = $v.accepted;
+      _rejected = $v.rejected;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -315,6 +338,7 @@ class QuotationRecordBuilder
               vendorRef: vendorRef,
               timestamp: timestamp,
               accepted: accepted,
+              rejected: rejected,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
