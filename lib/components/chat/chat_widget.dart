@@ -147,7 +147,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                       return InkWell(
                                         onTap: () async {
                                           setState(() {
-                                            _model.selectedUser =
+                                            _model.selectedChat =
                                                 chatItem.reference;
                                           });
                                         },
