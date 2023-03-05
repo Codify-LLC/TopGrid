@@ -47,6 +47,9 @@ abstract class RequestForQuotationRecord
 
   bool? get delivered;
 
+  @BuiltValueField(wireName: 'accepted_quotation')
+  bool? get acceptedQuotation;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -61,7 +64,8 @@ abstract class RequestForQuotationRecord
         ..rfqStatus = ''
         ..partList = ListBuilder()
         ..vendors = ListBuilder()
-        ..delivered = false;
+        ..delivered = false
+        ..acceptedQuotation = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('request_for_quotation');
@@ -97,6 +101,7 @@ Map<String, dynamic> createRequestForQuotationRecordData({
   DocumentReference? acceptedQuotationRef,
   DocumentReference? acceptedVendorRef,
   bool? delivered,
+  bool? acceptedQuotation,
 }) {
   final firestoreData = serializers.toFirestore(
     RequestForQuotationRecord.serializer,
@@ -114,7 +119,8 @@ Map<String, dynamic> createRequestForQuotationRecordData({
         ..customerRef = customerRef
         ..acceptedQuotationRef = acceptedQuotationRef
         ..acceptedVendorRef = acceptedVendorRef
-        ..delivered = delivered,
+        ..delivered = delivered
+        ..acceptedQuotation = acceptedQuotation,
     ),
   );
 

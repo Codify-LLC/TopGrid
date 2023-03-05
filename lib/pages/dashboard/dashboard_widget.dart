@@ -260,19 +260,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               List<RequestForQuotationRecord>>(
                                             stream:
                                                 queryRequestForQuotationRecord(
-                                              queryBuilder: (requestForQuotationRecord) =>
-                                                  requestForQuotationRecord
-                                                      .where(
-                                                          'accepted_quotation_ref',
-                                                          isEqualTo: FFAppState()
-                                                              .emptyQuotationRef)
-                                                      .where('customer_ref',
-                                                          isEqualTo:
-                                                              currentUserReference)
-                                                      .where(
-                                                          'accepted_vendor_ref',
-                                                          isEqualTo: FFAppState()
-                                                              .emptyUserRef),
+                                              queryBuilder:
+                                                  (requestForQuotationRecord) =>
+                                                      requestForQuotationRecord
+                                                          .where('customer_ref',
+                                                              isEqualTo:
+                                                                  currentUserReference)
+                                                          .where(
+                                                              'accepted_quotation',
+                                                              isNotEqualTo:
+                                                                  true),
                                             ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.

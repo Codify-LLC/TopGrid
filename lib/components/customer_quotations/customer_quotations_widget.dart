@@ -424,9 +424,21 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                             ),
                                           ),
                                         ),
-                                        if (widget.rfqDocument!
-                                                .acceptedQuotationRef ==
-                                            null)
+                                        if ((widget.rfqDocument!
+                                                    .acceptedQuotationRef ==
+                                                null) &&
+                                            (_model.selectedQuotation != null
+                                                ? !containerQuotationRecordList
+                                                    .where((e) =>
+                                                        e.reference ==
+                                                        _model
+                                                            .selectedQuotation!
+                                                            .reference)
+                                                    .toList()
+                                                    .first
+                                                    .rejected!
+                                                : !containerQuotationRecordList
+                                                    .first.rejected!))
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -452,6 +464,8 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                                       acceptedVendorRef:
                                                           containerUsersRecord
                                                               .reference,
+                                                      acceptedQuotation: true,
+                                                      delivered: false,
                                                     );
                                                     await widget
                                                         .rfqDocument!.reference

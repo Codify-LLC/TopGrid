@@ -124,6 +124,13 @@ class _$RequestForQuotationRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.acceptedQuotation;
+    if (value != null) {
+      result
+        ..add('accepted_quotation')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -214,6 +221,10 @@ class _$RequestForQuotationRecordSerializer
           result.delivered = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'accepted_quotation':
+          result.acceptedQuotation = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -255,6 +266,8 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
   @override
   final bool? delivered;
   @override
+  final bool? acceptedQuotation;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$RequestForQuotationRecord(
@@ -275,6 +288,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
       this.acceptedQuotationRef,
       this.acceptedVendorRef,
       this.delivered,
+      this.acceptedQuotation,
       this.ffRef})
       : super._();
 
@@ -304,6 +318,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
         acceptedQuotationRef == other.acceptedQuotationRef &&
         acceptedVendorRef == other.acceptedVendorRef &&
         delivered == other.delivered &&
+        acceptedQuotation == other.acceptedQuotation &&
         ffRef == other.ffRef;
   }
 
@@ -322,20 +337,25 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
                                             $jc(
                                                 $jc(
                                                     $jc(
-                                                        $jc(0,
-                                                            rfqName.hashCode),
-                                                        quantity.hashCode),
-                                                    partsDescription.hashCode),
-                                                attachments.hashCode),
-                                            rfqDescription.hashCode),
-                                        rfqStatus.hashCode),
-                                    customerCompanyRef.hashCode),
-                                partList.hashCode),
-                            vendors.hashCode),
-                        customerRef.hashCode),
-                    acceptedQuotationRef.hashCode),
-                acceptedVendorRef.hashCode),
-            delivered.hashCode),
+                                                        $jc(
+                                                            $jc(
+                                                                0,
+                                                                rfqName
+                                                                    .hashCode),
+                                                            quantity.hashCode),
+                                                        partsDescription
+                                                            .hashCode),
+                                                    attachments.hashCode),
+                                                rfqDescription.hashCode),
+                                            rfqStatus.hashCode),
+                                        customerCompanyRef.hashCode),
+                                    partList.hashCode),
+                                vendors.hashCode),
+                            customerRef.hashCode),
+                        acceptedQuotationRef.hashCode),
+                    acceptedVendorRef.hashCode),
+                delivered.hashCode),
+            acceptedQuotation.hashCode),
         ffRef.hashCode));
   }
 
@@ -355,6 +375,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
           ..add('acceptedQuotationRef', acceptedQuotationRef)
           ..add('acceptedVendorRef', acceptedVendorRef)
           ..add('delivered', delivered)
+          ..add('acceptedQuotation', acceptedQuotation)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -432,6 +453,11 @@ class RequestForQuotationRecordBuilder
   bool? get delivered => _$this._delivered;
   set delivered(bool? delivered) => _$this._delivered = delivered;
 
+  bool? _acceptedQuotation;
+  bool? get acceptedQuotation => _$this._acceptedQuotation;
+  set acceptedQuotation(bool? acceptedQuotation) =>
+      _$this._acceptedQuotation = acceptedQuotation;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -456,6 +482,7 @@ class RequestForQuotationRecordBuilder
       _acceptedQuotationRef = $v.acceptedQuotationRef;
       _acceptedVendorRef = $v.acceptedVendorRef;
       _delivered = $v.delivered;
+      _acceptedQuotation = $v.acceptedQuotation;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -494,6 +521,7 @@ class RequestForQuotationRecordBuilder
               acceptedQuotationRef: acceptedQuotationRef,
               acceptedVendorRef: acceptedVendorRef,
               delivered: delivered,
+              acceptedQuotation: acceptedQuotation,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

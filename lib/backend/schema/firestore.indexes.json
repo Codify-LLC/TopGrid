@@ -15,6 +15,20 @@
       ]
     },
     {
+      "collectionGroup": "request_for_quotation",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "customer_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "accepted_quotation",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "part",
       "queryScope": "COLLECTION",
       "fields": [
@@ -33,7 +47,7 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "delivered",
+          "fieldPath": "accepted_quotation",
           "order": "ASCENDING"
         },
         {
@@ -41,7 +55,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "accepted_quotation_ref",
+          "fieldPath": "delivered",
           "order": "ASCENDING"
         }
       ]
@@ -51,15 +65,11 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "delivered",
-          "order": "ASCENDING"
-        },
-        {
           "fieldPath": "accepted_vendor_ref",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "accepted_quotation_ref",
+          "fieldPath": "delivered",
           "order": "ASCENDING"
         }
       ]

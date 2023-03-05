@@ -78,9 +78,9 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                           stream: queryRequestForQuotationRecord(
                             queryBuilder: (requestForQuotationRecord) =>
                                 requestForQuotationRecord
-                                    .where('delivered', isEqualTo: false)
-                                    .where('accepted_quotation_ref',
-                                        isNotEqualTo: null)
+                                    .where('delivered', isNotEqualTo: true)
+                                    .where('accepted_quotation',
+                                        isEqualTo: true)
                                     .where('customer_ref',
                                         isEqualTo: currentUserReference),
                           ),
@@ -284,6 +284,8 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                             queryBuilder: (requestForQuotationRecord) =>
                                 requestForQuotationRecord
                                     .where('delivered', isEqualTo: true)
+                                    .where('accepted_quotation',
+                                        isEqualTo: true)
                                     .where('customer_ref',
                                         isEqualTo: currentUserReference),
                           ),
@@ -509,9 +511,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                           stream: queryRequestForQuotationRecord(
                             queryBuilder: (requestForQuotationRecord) =>
                                 requestForQuotationRecord
-                                    .where('delivered', isEqualTo: false)
-                                    .where('accepted_quotation_ref',
-                                        isNotEqualTo: null)
+                                    .where('delivered', isNotEqualTo: true)
                                     .where('accepted_vendor_ref',
                                         isEqualTo: currentUserReference),
                           ),
