@@ -87,6 +87,18 @@ class FFAppState extends ChangeNotifier {
   void removeAtIndexFromTotalRFQVendors(int _index) {
     _totalRFQVendors.removeAt(_index);
   }
+
+  DocumentReference? _emptyUserRef;
+  DocumentReference? get emptyUserRef => _emptyUserRef;
+  set emptyUserRef(DocumentReference? _value) {
+    _emptyUserRef = _value;
+  }
+
+  DocumentReference? _emptyQuotationRef;
+  DocumentReference? get emptyQuotationRef => _emptyQuotationRef;
+  set emptyQuotationRef(DocumentReference? _value) {
+    _emptyQuotationRef = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

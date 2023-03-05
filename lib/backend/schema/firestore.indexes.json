@@ -29,6 +29,42 @@
       ]
     },
     {
+      "collectionGroup": "request_for_quotation",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "delivered",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "customer_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "accepted_quotation_ref",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "request_for_quotation",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "delivered",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "accepted_vendor_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "accepted_quotation_ref",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "messages",
       "queryScope": "COLLECTION",
       "fields": [

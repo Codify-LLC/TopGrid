@@ -135,7 +135,14 @@ class _VendorDashboardWidgetState extends State<VendorDashboardWidget> {
                                           StreamBuilder<
                                               List<RequestForQuotationRecord>>(
                                             stream:
-                                                queryRequestForQuotationRecord(),
+                                                queryRequestForQuotationRecord(
+                                              queryBuilder:
+                                                  (requestForQuotationRecord) =>
+                                                      requestForQuotationRecord
+                                                          .where(
+                                                              'accepted_quotation_ref',
+                                                              isEqualTo: null),
+                                            ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
@@ -281,7 +288,8 @@ class _VendorDashboardWidgetState extends State<VendorDashboardWidget> {
                                                                 dataTableRequestForQuotationRecord) =>
                                                             [
                                                               Text(
-                                                                dataTableIndex
+                                                                (dataTableIndex +
+                                                                        1)
                                                                     .toString(),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)

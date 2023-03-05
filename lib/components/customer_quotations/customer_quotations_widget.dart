@@ -75,9 +75,7 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
         return Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
-          ),
+          decoration: BoxDecoration(),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -497,8 +495,22 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                                   ),
                                                 ),
                                                 FFButtonWidget(
-                                                  onPressed: () {
-                                                    print('Button pressed ...');
+                                                  onPressed: () async {
+                                                    final quotationUpdateData =
+                                                        createQuotationRecordData(
+                                                      rejected: true,
+                                                      accepted: false,
+                                                    );
+                                                    await containerQuotationRecordList
+                                                        .where((e) =>
+                                                            e.vendorRef ==
+                                                            containerUsersRecord
+                                                                .reference)
+                                                        .toList()
+                                                        .first
+                                                        .reference
+                                                        .update(
+                                                            quotationUpdateData);
                                                   },
                                                   text: 'Reject',
                                                   icon: Icon(

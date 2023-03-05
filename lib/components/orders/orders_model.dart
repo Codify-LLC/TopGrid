@@ -1,3 +1,4 @@
+import '/auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/empty_animation/empty_animation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -11,6 +12,8 @@ class OrdersModel extends FlutterFlowModel {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    dataTableShowLogs = false; // Disables noisy DataTable2 debug statements.
+    dataTableShowLogs = false; // Disables noisy DataTable2 debug statements.
     dataTableShowLogs = false; // Disables noisy DataTable2 debug statements.
     dataTableShowLogs = false; // Disables noisy DataTable2 debug statements.
   }

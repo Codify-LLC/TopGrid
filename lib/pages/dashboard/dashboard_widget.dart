@@ -259,7 +259,21 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                           StreamBuilder<
                                               List<RequestForQuotationRecord>>(
                                             stream:
-                                                queryRequestForQuotationRecord(),
+                                                queryRequestForQuotationRecord(
+                                              queryBuilder: (requestForQuotationRecord) =>
+                                                  requestForQuotationRecord
+                                                      .where(
+                                                          'accepted_quotation_ref',
+                                                          isEqualTo: FFAppState()
+                                                              .emptyQuotationRef)
+                                                      .where('customer_ref',
+                                                          isEqualTo:
+                                                              currentUserReference)
+                                                      .where(
+                                                          'accepted_vendor_ref',
+                                                          isEqualTo: FFAppState()
+                                                              .emptyUserRef),
+                                            ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {
