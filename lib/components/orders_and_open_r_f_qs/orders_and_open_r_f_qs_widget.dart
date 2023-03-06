@@ -77,7 +77,9 @@ class _OrdersAndOpenRFQsWidgetState extends State<OrdersAndOpenRFQsWidget> {
                     queryBuilder: (requestForQuotationRecord) =>
                         requestForQuotationRecord.whereIn('rfq_status', [
                       'Negotiate',
-                      'Ongoing'
+                      'Ongoing',
+                      'ongoing',
+                      'negotiate'
                     ]).where('accepted_quotation', isNotEqualTo: true),
                   ),
                   builder: (context, snapshot) {

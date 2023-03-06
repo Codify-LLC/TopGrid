@@ -569,7 +569,13 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                 requestForQuotationRecord
                                     .where('delivered', isNotEqualTo: true)
                                     .where('accepted_vendor_ref',
-                                        isEqualTo: currentUserReference),
+                                        isEqualTo: valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.userType,
+                                                    '') ==
+                                                'topgrid'
+                                            ? null
+                                            : currentUserReference),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -800,7 +806,13 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                 requestForQuotationRecord
                                     .where('delivered', isEqualTo: true)
                                     .where('accepted_vendor_ref',
-                                        isEqualTo: currentUserReference),
+                                        isEqualTo: valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.userType,
+                                                    '') ==
+                                                'topgrid'
+                                            ? null
+                                            : currentUserReference),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.

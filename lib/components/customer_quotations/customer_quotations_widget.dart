@@ -253,136 +253,173 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   12.0, 12.0, 12.0, 12.0),
-                                          child: Builder(
-                                            builder: (context) {
-                                              final file =
-                                                  _model.fileData.toList();
-                                              return Wrap(
-                                                spacing: 0.0,
-                                                runSpacing: 4.0,
-                                                alignment: WrapAlignment.start,
-                                                crossAxisAlignment:
-                                                    WrapCrossAlignment.start,
-                                                direction: Axis.horizontal,
-                                                runAlignment:
-                                                    WrapAlignment.start,
-                                                verticalDirection:
-                                                    VerticalDirection.down,
-                                                clipBehavior: Clip.none,
-                                                children: List.generate(
-                                                    file.length, (fileIndex) {
-                                                  final fileItem =
-                                                      file[fileIndex];
-                                                  return Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                10.0, 0.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(24.0),
-                                                        border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                          child: FutureBuilder<QuotationRecord>(
+                                            future: QuotationRecord
+                                                .getDocumentOnce(_model
+                                                            .selectedQuotation !=
+                                                        null
+                                                    ? _model.selectedQuotation!
+                                                        .reference
+                                                    : containerQuotationRecordList
+                                                        .first.reference),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .primaryColor,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              final wrapQuotationRecord =
+                                                  snapshot.data!;
+                                              return Builder(
+                                                builder: (context) {
+                                                  final file =
+                                                      wrapQuotationRecord
+                                                          .attachments!
+                                                          .toList();
+                                                  return Wrap(
+                                                    spacing: 0.0,
+                                                    runSpacing: 4.0,
+                                                    alignment:
+                                                        WrapAlignment.start,
+                                                    crossAxisAlignment:
+                                                        WrapCrossAlignment
+                                                            .start,
+                                                    direction: Axis.horizontal,
+                                                    runAlignment:
+                                                        WrapAlignment.start,
+                                                    verticalDirection:
+                                                        VerticalDirection.down,
+                                                    clipBehavior: Clip.none,
+                                                    children: List.generate(
+                                                        file.length,
+                                                        (fileIndex) {
+                                                      final fileItem =
+                                                          file[fileIndex];
+                                                      return Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    4.0,
-                                                                    2.0,
-                                                                    4.0,
-                                                                    2.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Icon(
-                                                              Icons
-                                                                  .insert_drive_file_outlined,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0),
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24.0),
+                                                            border: Border.all(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .primaryColor,
-                                                              size: 18.0,
                                                             ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          4.0,
-                                                                          0.0,
-                                                                          4.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                getJsonField(
-                                                                  fileItem,
-                                                                  r'''$.fileName''',
-                                                                ).toString(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                      decoration:
-                                                                          TextDecoration
-                                                                              .underline,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                            Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      1.0, 0.0),
-                                                              child: InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  setState(() {
-                                                                    _model.removeFromFileData(
-                                                                        fileItem);
-                                                                  });
-                                                                  await FirebaseStorage
-                                                                      .instance
-                                                                      .refFromURL(
-                                                                          getJsonField(
-                                                                        fileItem,
-                                                                        r'''$.filePath''',
-                                                                      ).toString())
-                                                                      .delete();
-                                                                },
-                                                                child: Icon(
-                                                                  Icons.close,
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        4.0,
+                                                                        2.0,
+                                                                        4.0,
+                                                                        2.0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .insert_drive_file_outlined,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .primaryColor,
                                                                   size: 18.0,
                                                                 ),
-                                                              ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          4.0,
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    fileItem
+                                                                        .fileName!,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                          fontSize:
+                                                                              12.0,
+                                                                          fontWeight:
+                                                                              FontWeight.normal,
+                                                                          decoration:
+                                                                              TextDecoration.underline,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          1.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      setState(
+                                                                          () {
+                                                                        _model.removeFromFileData(
+                                                                            fileItem);
+                                                                      });
+                                                                      await FirebaseStorage
+                                                                          .instance
+                                                                          .refFromURL(
+                                                                              fileItem.filePath!)
+                                                                          .delete();
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .close,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryColor,
+                                                                      size:
+                                                                          18.0,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
+                                                      );
+                                                    }),
                                                   );
-                                                }),
+                                                },
                                               );
                                             },
                                           ),

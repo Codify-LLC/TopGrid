@@ -648,11 +648,6 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                   10.0,
                                                                   0.0),
                                                       child: Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.12,
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
@@ -676,76 +671,75 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
-                                                                    .max,
+                                                                    .min,
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
-                                                              Expanded(
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .insert_drive_file_outlined,
-                                                                  color: FlutterFlowTheme.of(
+                                                              Icon(
+                                                                Icons
+                                                                    .insert_drive_file_outlined,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                size: 18.0,
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            4.0,
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0),
+                                                                child: Text(
+                                                                  fileItem
+                                                                      .fileName!,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primaryColor,
-                                                                  size: 18.0,
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryColor,
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                        decoration:
+                                                                            TextDecoration.underline,
+                                                                      ),
                                                                 ),
                                                               ),
-                                                              Text(
-                                                                fileItem
-                                                                    .fileName!,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                      decoration:
-                                                                          TextDecoration
-                                                                              .underline,
-                                                                    ),
-                                                              ),
-                                                              Expanded(
-                                                                child: Align(
-                                                                  alignment:
-                                                                      AlignmentDirectional(
-                                                                          1.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      InkWell(
-                                                                    onTap:
-                                                                        () async {
-                                                                      setState(
-                                                                          () {
-                                                                        _model.removeFromFileData(
-                                                                            fileItem);
-                                                                      });
-                                                                      await FirebaseStorage
-                                                                          .instance
-                                                                          .refFromURL(
-                                                                              fileItem.filePath!)
-                                                                          .delete();
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .close,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                      size:
-                                                                          18.0,
-                                                                    ),
+                                                              Align(
+                                                                alignment:
+                                                                    AlignmentDirectional(
+                                                                        1.0,
+                                                                        0.0),
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    setState(
+                                                                        () {
+                                                                      _model.removeFromFileData(
+                                                                          fileItem);
+                                                                    });
+                                                                    await FirebaseStorage
+                                                                        .instance
+                                                                        .refFromURL(
+                                                                            fileItem.filePath!)
+                                                                        .delete();
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons.close,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryColor,
+                                                                    size: 18.0,
                                                                   ),
                                                                 ),
                                                               ),
