@@ -692,10 +692,8 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                getJsonField(
-                                                                  fileItem,
-                                                                  r'''$.fileName''',
-                                                                ).toString(),
+                                                                fileItem
+                                                                    .fileName!,
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -736,10 +734,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                       await FirebaseStorage
                                                                           .instance
                                                                           .refFromURL(
-                                                                              getJsonField(
-                                                                            fileItem,
-                                                                            r'''$.filePath''',
-                                                                          ).toString())
+                                                                              fileItem.filePath!)
                                                                           .delete();
                                                                     },
                                                                     child: Icon(

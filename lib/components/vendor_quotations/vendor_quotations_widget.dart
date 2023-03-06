@@ -466,10 +466,7 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          getJsonField(
-                                                            fileItem,
-                                                            r'''$.fileName''',
-                                                          ).toString(),
+                                                          fileItem.fileName!,
                                                           textAlign:
                                                               TextAlign.center,
                                                           style: FlutterFlowTheme
@@ -504,10 +501,8 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                                                 await FirebaseStorage
                                                                     .instance
                                                                     .refFromURL(
-                                                                        getJsonField(
-                                                                      fileItem,
-                                                                      r'''$.filePath''',
-                                                                    ).toString())
+                                                                        fileItem
+                                                                            .filePath!)
                                                                     .delete();
                                                               },
                                                               child: Icon(
@@ -659,12 +654,7 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                           rejected: false,
                                         ),
                                         'attachments': getFileListFirestoreData(
-                                          _model.fileData
-                                              .map((e) => getJsonField(
-                                                    e,
-                                                    r'''$.filePath''',
-                                                  ))
-                                              .toList(),
+                                          _model.fileData,
                                         ),
                                       };
                                       var quotationRecordReference =

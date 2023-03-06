@@ -508,10 +508,8 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                                         4.0,
                                                                         0.0),
                                                             child: Text(
-                                                              getJsonField(
-                                                                fileItem,
-                                                                r'''$.fileName''',
-                                                              ).toString(),
+                                                              fileItem
+                                                                  .fileName!,
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -548,10 +546,8 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                                 await FirebaseStorage
                                                                     .instance
                                                                     .refFromURL(
-                                                                        getJsonField(
-                                                                      fileItem,
-                                                                      r'''$.filePath''',
-                                                                    ).toString())
+                                                                        fileItem
+                                                                            .filePath!)
                                                                     .delete();
                                                               },
                                                               child: Icon(
@@ -795,13 +791,7 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                   ),
                                                   'attachments':
                                                       getFileListFirestoreData(
-                                                    _model.fileData
-                                                        .map(
-                                                            (e) => getJsonField(
-                                                                  e,
-                                                                  r'''$.filePath''',
-                                                                ))
-                                                        .toList(),
+                                                    _model.fileData,
                                                   ),
                                                 };
                                                 var partRecordReference =

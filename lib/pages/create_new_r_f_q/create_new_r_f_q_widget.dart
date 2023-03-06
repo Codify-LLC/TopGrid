@@ -1163,10 +1163,8 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                 onTap:
                                                                     () async {
                                                                   await launchURL(
-                                                                      getJsonField(
-                                                                    fileItem,
-                                                                    r'''$.filePath''',
-                                                                  ).toString());
+                                                                      fileItem
+                                                                          .filePath!);
                                                                 },
                                                                 child:
                                                                     Container(
@@ -1215,10 +1213,8 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          getJsonField(
-                                                                            fileItem,
-                                                                            r'''$.fileName''',
-                                                                          ).toString(),
+                                                                          fileItem
+                                                                              .fileName!,
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: FlutterFlowTheme.of(context)
@@ -1248,12 +1244,7 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                                 setState(() {
                                                                                   _model.removeFromFileData(fileItem);
                                                                                 });
-                                                                                await FirebaseStorage.instance
-                                                                                    .refFromURL(getJsonField(
-                                                                                      fileItem,
-                                                                                      r'''$.filePath''',
-                                                                                    ).toString())
-                                                                                    .delete();
+                                                                                await FirebaseStorage.instance.refFromURL(fileItem.filePath!).delete();
                                                                               },
                                                                               child: Icon(
                                                                                 Icons.close,
@@ -1535,13 +1526,7 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                         ),
                                                         'attachments':
                                                             getFileListFirestoreData(
-                                                          _model.fileData
-                                                              .map((e) =>
-                                                                  getJsonField(
-                                                                    e,
-                                                                    r'''$.filePath''',
-                                                                  ))
-                                                              .toList(),
+                                                          _model.fileData,
                                                         ),
                                                         'vendors': FFAppState()
                                                             .totalRFQVendors,

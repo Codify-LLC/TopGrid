@@ -15,9 +15,9 @@ import 'package:provider/provider.dart';
 class VendorQuotationsModel extends FlutterFlowModel {
   ///  Local state fields for this component.
 
-  List<dynamic> fileData = [];
-  void addToFileData(dynamic item) => fileData.add(item);
-  void removeFromFileData(dynamic item) => fileData.remove(item);
+  List<FileStruct> fileData = [];
+  void addToFileData(FileStruct item) => fileData.add(item);
+  void removeFromFileData(FileStruct item) => fileData.remove(item);
   void removeAtIndexFromFileData(int index) => fileData.removeAt(index);
 
   ///  State fields for stateful widgets in this component.

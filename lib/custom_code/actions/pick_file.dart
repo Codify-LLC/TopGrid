@@ -15,7 +15,7 @@ import 'package:crypto/crypto.dart';
 import 'package:pointycastle/pointycastle.dart';
 import '/backend/schema/structs/file_struct.dart';
 
-Future<FileStruct> pickFile(
+Future<FileStruct?> pickFile(
     BuildContext context, bool encryption, String password) async {
   // Add your function code here!
 
@@ -47,8 +47,8 @@ Future<FileStruct> pickFile(
         duration: const Duration(seconds: 60),
       ));
       final passwordBytes = utf8.encode(password);
-      final key = KeyParameter(
-          await Uint8List.fromList(sha256.convert(passwordBytes).bytes));
+      final key =
+          KeyParameter(Uint8List.fromList(sha256.convert(passwordBytes).bytes));
 
       final encryptor = BlockCipher('AES');
       encryptor.init(true, key);
@@ -69,4 +69,5 @@ Future<FileStruct> pickFile(
       fileName: fileName,
     );
   }
+  return null;
 }

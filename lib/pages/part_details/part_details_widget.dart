@@ -503,10 +503,7 @@ class _PartDetailsWidgetState extends State<PartDetailsWidget> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            getJsonField(
-                                                              fileItem,
-                                                              r'''$.fileName''',
-                                                            ).toString(),
+                                                            fileItem.fileName!,
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: FlutterFlowTheme
@@ -543,10 +540,8 @@ class _PartDetailsWidgetState extends State<PartDetailsWidget> {
                                                                   await FirebaseStorage
                                                                       .instance
                                                                       .refFromURL(
-                                                                          getJsonField(
-                                                                        fileItem,
-                                                                        r'''$.filePath''',
-                                                                      ).toString())
+                                                                          fileItem
+                                                                              .filePath!)
                                                                       .delete();
                                                                 },
                                                                 child: Icon(
