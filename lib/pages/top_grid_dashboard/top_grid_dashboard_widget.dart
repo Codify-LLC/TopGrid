@@ -128,14 +128,21 @@ class _TopGridDashboardWidgetState extends State<TopGridDashboardWidget> {
                                                 _model.ordersAndOpenRFQsModel1,
                                             updateCallback: () =>
                                                 setState(() {}),
-                                            child: OrdersAndOpenRFQsWidget(),
+                                            child: OrdersAndOpenRFQsWidget(
+                                              purchases: true,
+                                              sales: false,
+                                            ),
                                           ),
                                           wrapWithModel(
                                             model:
                                                 _model.ordersAndOpenRFQsModel2,
                                             updateCallback: () =>
                                                 setState(() {}),
-                                            child: OrdersAndOpenRFQsWidget(),
+                                            updateOnChange: true,
+                                            child: OrdersAndOpenRFQsWidget(
+                                              purchases: false,
+                                              sales: true,
+                                            ),
                                           ),
                                         ],
                                       ),

@@ -11,7 +11,14 @@ import 'orders_and_open_r_f_qs_model.dart';
 export 'orders_and_open_r_f_qs_model.dart';
 
 class OrdersAndOpenRFQsWidget extends StatefulWidget {
-  const OrdersAndOpenRFQsWidget({Key? key}) : super(key: key);
+  const OrdersAndOpenRFQsWidget({
+    Key? key,
+    this.purchases,
+    this.sales,
+  }) : super(key: key);
+
+  final bool? purchases;
+  final bool? sales;
 
   @override
   _OrdersAndOpenRFQsWidgetState createState() =>
@@ -70,7 +77,11 @@ class _OrdersAndOpenRFQsWidgetState extends State<OrdersAndOpenRFQsWidget> {
                 wrapWithModel(
                   model: _model.ordersModel,
                   updateCallback: () => setState(() {}),
-                  child: OrdersWidget(),
+                  updateOnChange: true,
+                  child: OrdersWidget(
+                    purchases: widget.purchases,
+                    sales: widget.sales,
+                  ),
                 ),
                 StreamBuilder<List<RequestForQuotationRecord>>(
                   stream: queryRequestForQuotationRecord(

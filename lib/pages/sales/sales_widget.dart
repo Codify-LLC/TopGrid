@@ -109,7 +109,11 @@ class _SalesWidgetState extends State<SalesWidget> {
                                     child: wrapWithModel(
                                       model: _model.ordersAndOpenRFQsModel,
                                       updateCallback: () => setState(() {}),
-                                      child: OrdersAndOpenRFQsWidget(),
+                                      updateOnChange: true,
+                                      child: OrdersAndOpenRFQsWidget(
+                                        purchases: false,
+                                        sales: true,
+                                      ),
                                     ),
                                   ),
                                 ),

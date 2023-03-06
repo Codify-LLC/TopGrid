@@ -11,7 +11,16 @@ import 'orders_model.dart';
 export 'orders_model.dart';
 
 class OrdersWidget extends StatefulWidget {
-  const OrdersWidget({Key? key}) : super(key: key);
+  const OrdersWidget({
+    Key? key,
+    bool? purchases,
+    bool? sales,
+  })  : this.purchases = purchases ?? false,
+        this.sales = sales ?? false,
+        super(key: key);
+
+  final bool purchases;
+  final bool sales;
 
   @override
   _OrdersWidgetState createState() => _OrdersWidgetState();
@@ -47,8 +56,13 @@ class _OrdersWidgetState extends State<OrdersWidget> {
 
     return Stack(
       children: [
-        if ((valueOrDefault(currentUserDocument?.userType, '') != 'vendor') &&
-            (valueOrDefault(currentUserDocument?.userType, '') != 'vendors'))
+        if (((valueOrDefault(currentUserDocument?.userType, '') != 'vendor') &&
+                (valueOrDefault(currentUserDocument?.userType, '') !=
+                    'vendors') &&
+                (valueOrDefault(currentUserDocument?.userType, '') !=
+                    'topgrid')) ||
+            ((valueOrDefault(currentUserDocument?.userType, '') == 'topgrid') &&
+                widget.purchases))
           AuthUserStreamWidget(
             builder: (context) => DefaultTabController(
               length: 2,
@@ -82,7 +96,13 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                     .where('accepted_quotation',
                                         isEqualTo: true)
                                     .where('customer_ref',
-                                        isEqualTo: currentUserReference),
+                                        isEqualTo: valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.userType,
+                                                    '') ==
+                                                'topgrid'
+                                            ? null
+                                            : currentUserReference),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -315,7 +335,13 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                                     .where('accepted_quotation',
                                         isEqualTo: true)
                                     .where('customer_ref',
-                                        isEqualTo: currentUserReference),
+                                        isEqualTo: valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.userType,
+                                                    '') ==
+                                                'topgrid'
+                                            ? null
+                                            : currentUserReference),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -537,7 +563,9 @@ class _OrdersWidgetState extends State<OrdersWidget> {
             ),
           ),
         if ((valueOrDefault(currentUserDocument?.userType, '') == 'vendor') ||
-            (valueOrDefault(currentUserDocument?.userType, '') == 'vendors'))
+            (valueOrDefault(currentUserDocument?.userType, '') == 'vendors') ||
+            ((valueOrDefault(currentUserDocument?.userType, '') == 'topgrid') &&
+                widget.sales))
           AuthUserStreamWidget(
             builder: (context) => DefaultTabController(
               length: 2,
