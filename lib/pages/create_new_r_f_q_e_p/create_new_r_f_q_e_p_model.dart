@@ -68,7 +68,7 @@ class CreateNewRFQEPModel extends FlutterFlowModel {
   }
 
   // Stores action output result for [Custom Action - pickFile] action in Row widget.
-  dynamic? newFile;
+  FileStruct? newFile;
   // Stores action output result for [Custom Action - combineArrays] action in CreateRFQ-PWP widget.
   List<RequirementStruct>? finalArray;
 

@@ -140,8 +140,9 @@ class _VendorDashboardWidgetState extends State<VendorDashboardWidget> {
                                                   (requestForQuotationRecord) =>
                                                       requestForQuotationRecord
                                                           .where(
-                                                              'accepted_quotation_ref',
-                                                              isEqualTo: null),
+                                                              'accepted_quotation',
+                                                              isNotEqualTo:
+                                                                  true),
                                             ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.

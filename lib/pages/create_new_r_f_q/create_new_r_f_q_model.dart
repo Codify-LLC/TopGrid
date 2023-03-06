@@ -50,7 +50,7 @@ class CreateNewRFQModel extends FlutterFlowModel {
   TextEditingController? addDescriptionController;
   String? Function(BuildContext, String?)? addDescriptionControllerValidator;
   // Stores action output result for [Custom Action - pickFile] action in Row widget.
-  dynamic? newFile;
+  FileStruct? newFile;
 
   /// Initialization and disposal methods.
 

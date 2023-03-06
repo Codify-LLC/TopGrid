@@ -45,14 +45,6 @@ class _$RequestForQuotationRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.attachments;
-    if (value != null) {
-      result
-        ..add('attachments')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
     value = object.rfqDescription;
     if (value != null) {
       result
@@ -131,6 +123,14 @@ class _$RequestForQuotationRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.attachments;
+    if (value != null) {
+      result
+        ..add('attachments')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(FileStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -165,12 +165,6 @@ class _$RequestForQuotationRecordSerializer
         case 'parts_description':
           result.partsDescription = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
-          break;
-        case 'attachments':
-          result.attachments.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
           break;
         case 'rfq_description':
           result.rfqDescription = serializers.deserialize(value,
@@ -225,6 +219,12 @@ class _$RequestForQuotationRecordSerializer
           result.acceptedQuotation = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'attachments':
+          result.attachments.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(FileStruct)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -246,8 +246,6 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
   @override
   final String? partsDescription;
   @override
-  final BuiltList<String>? attachments;
-  @override
   final String? rfqDescription;
   @override
   final String? rfqStatus;
@@ -268,6 +266,8 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
   @override
   final bool? acceptedQuotation;
   @override
+  final BuiltList<FileStruct>? attachments;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$RequestForQuotationRecord(
@@ -278,7 +278,6 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
       {this.rfqName,
       this.quantity,
       this.partsDescription,
-      this.attachments,
       this.rfqDescription,
       this.rfqStatus,
       this.customerCompanyRef,
@@ -289,6 +288,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
       this.acceptedVendorRef,
       this.delivered,
       this.acceptedQuotation,
+      this.attachments,
       this.ffRef})
       : super._();
 
@@ -308,7 +308,6 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
         rfqName == other.rfqName &&
         quantity == other.quantity &&
         partsDescription == other.partsDescription &&
-        attachments == other.attachments &&
         rfqDescription == other.rfqDescription &&
         rfqStatus == other.rfqStatus &&
         customerCompanyRef == other.customerCompanyRef &&
@@ -319,6 +318,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
         acceptedVendorRef == other.acceptedVendorRef &&
         delivered == other.delivered &&
         acceptedQuotation == other.acceptedQuotation &&
+        attachments == other.attachments &&
         ffRef == other.ffRef;
   }
 
@@ -345,17 +345,17 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
                                                             quantity.hashCode),
                                                         partsDescription
                                                             .hashCode),
-                                                    attachments.hashCode),
-                                                rfqDescription.hashCode),
-                                            rfqStatus.hashCode),
-                                        customerCompanyRef.hashCode),
-                                    partList.hashCode),
-                                vendors.hashCode),
-                            customerRef.hashCode),
-                        acceptedQuotationRef.hashCode),
-                    acceptedVendorRef.hashCode),
-                delivered.hashCode),
-            acceptedQuotation.hashCode),
+                                                    rfqDescription.hashCode),
+                                                rfqStatus.hashCode),
+                                            customerCompanyRef.hashCode),
+                                        partList.hashCode),
+                                    vendors.hashCode),
+                                customerRef.hashCode),
+                            acceptedQuotationRef.hashCode),
+                        acceptedVendorRef.hashCode),
+                    delivered.hashCode),
+                acceptedQuotation.hashCode),
+            attachments.hashCode),
         ffRef.hashCode));
   }
 
@@ -365,7 +365,6 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
           ..add('rfqName', rfqName)
           ..add('quantity', quantity)
           ..add('partsDescription', partsDescription)
-          ..add('attachments', attachments)
           ..add('rfqDescription', rfqDescription)
           ..add('rfqStatus', rfqStatus)
           ..add('customerCompanyRef', customerCompanyRef)
@@ -376,6 +375,7 @@ class _$RequestForQuotationRecord extends RequestForQuotationRecord {
           ..add('acceptedVendorRef', acceptedVendorRef)
           ..add('delivered', delivered)
           ..add('acceptedQuotation', acceptedQuotation)
+          ..add('attachments', attachments)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -398,12 +398,6 @@ class RequestForQuotationRecordBuilder
   String? get partsDescription => _$this._partsDescription;
   set partsDescription(String? partsDescription) =>
       _$this._partsDescription = partsDescription;
-
-  ListBuilder<String>? _attachments;
-  ListBuilder<String> get attachments =>
-      _$this._attachments ??= new ListBuilder<String>();
-  set attachments(ListBuilder<String>? attachments) =>
-      _$this._attachments = attachments;
 
   String? _rfqDescription;
   String? get rfqDescription => _$this._rfqDescription;
@@ -458,6 +452,12 @@ class RequestForQuotationRecordBuilder
   set acceptedQuotation(bool? acceptedQuotation) =>
       _$this._acceptedQuotation = acceptedQuotation;
 
+  ListBuilder<FileStruct>? _attachments;
+  ListBuilder<FileStruct> get attachments =>
+      _$this._attachments ??= new ListBuilder<FileStruct>();
+  set attachments(ListBuilder<FileStruct>? attachments) =>
+      _$this._attachments = attachments;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -472,7 +472,6 @@ class RequestForQuotationRecordBuilder
       _rfqName = $v.rfqName;
       _quantity = $v.quantity;
       _partsDescription = $v.partsDescription;
-      _attachments = $v.attachments?.toBuilder();
       _rfqDescription = $v.rfqDescription;
       _rfqStatus = $v.rfqStatus;
       _customerCompanyRef = $v.customerCompanyRef;
@@ -483,6 +482,7 @@ class RequestForQuotationRecordBuilder
       _acceptedVendorRef = $v.acceptedVendorRef;
       _delivered = $v.delivered;
       _acceptedQuotation = $v.acceptedQuotation;
+      _attachments = $v.attachments?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -511,7 +511,6 @@ class RequestForQuotationRecordBuilder
               rfqName: rfqName,
               quantity: quantity,
               partsDescription: partsDescription,
-              attachments: _attachments?.build(),
               rfqDescription: rfqDescription,
               rfqStatus: rfqStatus,
               customerCompanyRef: customerCompanyRef,
@@ -522,17 +521,18 @@ class RequestForQuotationRecordBuilder
               acceptedVendorRef: acceptedVendorRef,
               delivered: delivered,
               acceptedQuotation: acceptedQuotation,
+              attachments: _attachments?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'attachments';
-        _attachments?.build();
-
         _$failedField = 'partList';
         _partList?.build();
         _$failedField = 'vendors';
         _vendors?.build();
+
+        _$failedField = 'attachments';
+        _attachments?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'RequestForQuotationRecord', _$failedField, e.toString());

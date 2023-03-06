@@ -16,8 +16,6 @@ abstract class QuotationRecord
 
   String? get description;
 
-  BuiltList<String>? get attachments;
-
   @BuiltValueField(wireName: 'rfq_ref')
   DocumentReference? get rfqRef;
 
@@ -30,6 +28,8 @@ abstract class QuotationRecord
 
   bool? get rejected;
 
+  BuiltList<FileStruct>? get attachments;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -37,9 +37,9 @@ abstract class QuotationRecord
   static void _initializeBuilder(QuotationRecordBuilder builder) => builder
     ..deliverInDays = 0
     ..description = ''
-    ..attachments = ListBuilder()
     ..accepted = false
-    ..rejected = false;
+    ..rejected = false
+    ..attachments = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('quotation');
@@ -77,12 +77,12 @@ Map<String, dynamic> createQuotationRecordData({
       (q) => q
         ..deliverInDays = deliverInDays
         ..description = description
-        ..attachments = null
         ..rfqRef = rfqRef
         ..vendorRef = vendorRef
         ..timestamp = timestamp
         ..accepted = accepted
-        ..rejected = rejected,
+        ..rejected = rejected
+        ..attachments = null,
     ),
   );
 

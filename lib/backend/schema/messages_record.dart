@@ -13,8 +13,6 @@ abstract class MessagesRecord
 
   String? get message;
 
-  BuiltList<String>? get attachments;
-
   DateTime? get timestamp;
 
   @BuiltValueField(wireName: 'rfq_ref')
@@ -27,14 +25,16 @@ abstract class MessagesRecord
 
   DocumentReference? get chat;
 
+  BuiltList<FileStruct>? get attachments;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(MessagesRecordBuilder builder) => builder
     ..message = ''
-    ..attachments = ListBuilder()
-    ..quotation = false;
+    ..quotation = false
+    ..attachments = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('messages');
@@ -70,12 +70,12 @@ Map<String, dynamic> createMessagesRecordData({
     MessagesRecord(
       (m) => m
         ..message = message
-        ..attachments = null
         ..timestamp = timestamp
         ..rfqRef = rfqRef
         ..quotation = quotation
         ..senderRef = senderRef
-        ..chat = chat,
+        ..chat = chat
+        ..attachments = null,
     ),
   );
 

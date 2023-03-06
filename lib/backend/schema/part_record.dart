@@ -15,8 +15,6 @@ abstract class PartRecord implements Built<PartRecord, PartRecordBuilder> {
   @BuiltValueField(wireName: 'part_type')
   String? get partType;
 
-  BuiltList<String>? get attachments;
-
   String? get description;
 
   @BuiltValueField(wireName: 'user_ref')
@@ -33,6 +31,8 @@ abstract class PartRecord implements Built<PartRecord, PartRecordBuilder> {
   @BuiltValueField(wireName: 'part_number')
   int? get partNumber;
 
+  BuiltList<FileStruct>? get attachments;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -40,11 +40,11 @@ abstract class PartRecord implements Built<PartRecord, PartRecordBuilder> {
   static void _initializeBuilder(PartRecordBuilder builder) => builder
     ..partName = ''
     ..partType = ''
-    ..attachments = ListBuilder()
     ..description = ''
     ..requirementType = ''
     ..encryption = false
-    ..partNumber = 0;
+    ..partNumber = 0
+    ..attachments = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('part');
@@ -82,13 +82,13 @@ Map<String, dynamic> createPartRecordData({
       (p) => p
         ..partName = partName
         ..partType = partType
-        ..attachments = null
         ..description = description
         ..userRef = userRef
         ..requirementType = requirementType
         ..encryption = encryption
         ..dateCreated = dateCreated
-        ..partNumber = partNumber,
+        ..partNumber = partNumber
+        ..attachments = null,
     ),
   );
 

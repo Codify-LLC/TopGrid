@@ -16,9 +16,11 @@ class CustomerQuotationsWidget extends StatefulWidget {
   const CustomerQuotationsWidget({
     Key? key,
     this.rfqDocument,
+    this.switchToChat,
   }) : super(key: key);
 
   final RequestForQuotationRecord? rfqDocument;
+  final Future<dynamic> Function()? switchToChat;
 
   @override
   _CustomerQuotationsWidgetState createState() =>

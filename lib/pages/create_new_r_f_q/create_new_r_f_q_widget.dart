@@ -1488,6 +1488,9 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                         customerCompanyRef:
                                                             currentUserDocument!
                                                                 .companyRef,
+                                                        delivered: false,
+                                                        acceptedQuotation:
+                                                            false,
                                                       ),
                                                       'part_list':
                                                           getRequirementListFirestoreData(
@@ -1526,15 +1529,20 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                           rfqStatus: 'Ongoing',
                                                           customerRef:
                                                               currentUserReference,
+                                                          delivered: false,
+                                                          acceptedQuotation:
+                                                              false,
                                                         ),
-                                                        'attachments': _model
-                                                            .fileData
-                                                            .map((e) =>
-                                                                getJsonField(
-                                                                  e,
-                                                                  r'''$.filePath''',
-                                                                ))
-                                                            .toList(),
+                                                        'attachments':
+                                                            getFileListFirestoreData(
+                                                          _model.fileData
+                                                              .map((e) =>
+                                                                  getJsonField(
+                                                                    e,
+                                                                    r'''$.filePath''',
+                                                                  ))
+                                                              .toList(),
+                                                        ),
                                                         'vendors': FFAppState()
                                                             .totalRFQVendors,
                                                       };
@@ -1563,6 +1571,9 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                           rfqStatus: 'Ongoing',
                                                           customerRef:
                                                               currentUserReference,
+                                                          delivered: false,
+                                                          acceptedQuotation:
+                                                              false,
                                                         ),
                                                         'vendors': FFAppState()
                                                             .totalRFQVendors,

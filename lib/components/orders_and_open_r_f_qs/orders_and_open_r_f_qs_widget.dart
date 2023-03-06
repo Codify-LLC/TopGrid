@@ -75,8 +75,10 @@ class _OrdersAndOpenRFQsWidgetState extends State<OrdersAndOpenRFQsWidget> {
                 StreamBuilder<List<RequestForQuotationRecord>>(
                   stream: queryRequestForQuotationRecord(
                     queryBuilder: (requestForQuotationRecord) =>
-                        requestForQuotationRecord
-                            .whereIn('rfq_status', ['Negotiate', 'Ongoing']),
+                        requestForQuotationRecord.whereIn('rfq_status', [
+                      'Negotiate',
+                      'Ongoing'
+                    ]).where('accepted_quotation', isNotEqualTo: true),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.

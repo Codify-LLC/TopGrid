@@ -793,12 +793,16 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                     dateCreated:
                                                         getCurrentTimestamp,
                                                   ),
-                                                  'attachments': _model.fileData
-                                                      .map((e) => getJsonField(
-                                                            e,
-                                                            r'''$.filePath''',
-                                                          ))
-                                                      .toList(),
+                                                  'attachments':
+                                                      getFileListFirestoreData(
+                                                    _model.fileData
+                                                        .map(
+                                                            (e) => getJsonField(
+                                                                  e,
+                                                                  r'''$.filePath''',
+                                                                ))
+                                                        .toList(),
+                                                  ),
                                                 };
                                                 var partRecordReference =
                                                     PartRecord.collection.doc();

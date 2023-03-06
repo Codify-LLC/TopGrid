@@ -29,7 +29,7 @@ class VendorQuotationsModel extends FlutterFlowModel {
   TextEditingController? addDescriptionController;
   String? Function(BuildContext, String?)? addDescriptionControllerValidator;
   // Stores action output result for [Custom Action - pickFile] action in Row widget.
-  dynamic? newFile;
+  FileStruct? newFile;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   QuotationRecord? newQuotation;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.

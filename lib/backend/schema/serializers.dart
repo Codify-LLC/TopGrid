@@ -29,6 +29,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   ChatsRecord,
   CompanyUsersLocalStruct,
   RequirementStruct,
+  FileStruct,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

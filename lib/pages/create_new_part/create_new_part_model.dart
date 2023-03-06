@@ -61,7 +61,7 @@ class CreateNewPartModel extends FlutterFlowModel {
   }
 
   // Stores action output result for [Custom Action - pickFile] action in Row widget.
-  dynamic? newFile;
+  FileStruct? newFile;
   // Stores action output result for [Backend Call - Create Document] action in CreateRFQ-PWP widget.
   PartRecord? newPartDoc;
 

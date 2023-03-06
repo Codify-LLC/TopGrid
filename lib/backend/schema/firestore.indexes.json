@@ -47,6 +47,20 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "rfq_status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "accepted_quotation",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "request_for_quotation",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
           "fieldPath": "accepted_quotation",
           "order": "ASCENDING"
         },

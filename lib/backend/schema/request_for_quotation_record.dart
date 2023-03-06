@@ -20,8 +20,6 @@ abstract class RequestForQuotationRecord
   @BuiltValueField(wireName: 'parts_description')
   String? get partsDescription;
 
-  BuiltList<String>? get attachments;
-
   @BuiltValueField(wireName: 'rfq_description')
   String? get rfqDescription;
 
@@ -50,6 +48,8 @@ abstract class RequestForQuotationRecord
   @BuiltValueField(wireName: 'accepted_quotation')
   bool? get acceptedQuotation;
 
+  BuiltList<FileStruct>? get attachments;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -59,13 +59,13 @@ abstract class RequestForQuotationRecord
         ..rfqName = ''
         ..quantity = 0
         ..partsDescription = ''
-        ..attachments = ListBuilder()
         ..rfqDescription = ''
         ..rfqStatus = ''
         ..partList = ListBuilder()
         ..vendors = ListBuilder()
         ..delivered = false
-        ..acceptedQuotation = false;
+        ..acceptedQuotation = false
+        ..attachments = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('request_for_quotation');
@@ -110,7 +110,6 @@ Map<String, dynamic> createRequestForQuotationRecordData({
         ..rfqName = rfqName
         ..quantity = quantity
         ..partsDescription = partsDescription
-        ..attachments = null
         ..rfqDescription = rfqDescription
         ..rfqStatus = rfqStatus
         ..customerCompanyRef = customerCompanyRef
@@ -120,7 +119,8 @@ Map<String, dynamic> createRequestForQuotationRecordData({
         ..acceptedQuotationRef = acceptedQuotationRef
         ..acceptedVendorRef = acceptedVendorRef
         ..delivered = delivered
-        ..acceptedQuotation = acceptedQuotation,
+        ..acceptedQuotation = acceptedQuotation
+        ..attachments = null,
     ),
   );
 

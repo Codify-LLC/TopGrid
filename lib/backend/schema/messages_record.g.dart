@@ -28,14 +28,6 @@ class _$MessagesRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.attachments;
-    if (value != null) {
-      result
-        ..add('attachments')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
     value = object.timestamp;
     if (value != null) {
       result
@@ -74,6 +66,14 @@ class _$MessagesRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType.nullable(Object)])));
     }
+    value = object.attachments;
+    if (value != null) {
+      result
+        ..add('attachments')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(FileStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -101,12 +101,6 @@ class _$MessagesRecordSerializer
           result.message = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'attachments':
-          result.attachments.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
         case 'timestamp':
           result.timestamp = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime?;
@@ -133,6 +127,12 @@ class _$MessagesRecordSerializer
                 const FullType.nullable(Object)
               ])) as DocumentReference<Object?>?;
           break;
+        case 'attachments':
+          result.attachments.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(FileStruct)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -150,8 +150,6 @@ class _$MessagesRecord extends MessagesRecord {
   @override
   final String? message;
   @override
-  final BuiltList<String>? attachments;
-  @override
   final DateTime? timestamp;
   @override
   final DocumentReference<Object?>? rfqRef;
@@ -162,6 +160,8 @@ class _$MessagesRecord extends MessagesRecord {
   @override
   final DocumentReference<Object?>? chat;
   @override
+  final BuiltList<FileStruct>? attachments;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$MessagesRecord([void Function(MessagesRecordBuilder)? updates]) =>
@@ -169,12 +169,12 @@ class _$MessagesRecord extends MessagesRecord {
 
   _$MessagesRecord._(
       {this.message,
-      this.attachments,
       this.timestamp,
       this.rfqRef,
       this.quotation,
       this.senderRef,
       this.chat,
+      this.attachments,
       this.ffRef})
       : super._();
 
@@ -191,12 +191,12 @@ class _$MessagesRecord extends MessagesRecord {
     if (identical(other, this)) return true;
     return other is MessagesRecord &&
         message == other.message &&
-        attachments == other.attachments &&
         timestamp == other.timestamp &&
         rfqRef == other.rfqRef &&
         quotation == other.quotation &&
         senderRef == other.senderRef &&
         chat == other.chat &&
+        attachments == other.attachments &&
         ffRef == other.ffRef;
   }
 
@@ -207,12 +207,12 @@ class _$MessagesRecord extends MessagesRecord {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, message.hashCode), attachments.hashCode),
-                            timestamp.hashCode),
-                        rfqRef.hashCode),
-                    quotation.hashCode),
-                senderRef.hashCode),
-            chat.hashCode),
+                        $jc($jc($jc(0, message.hashCode), timestamp.hashCode),
+                            rfqRef.hashCode),
+                        quotation.hashCode),
+                    senderRef.hashCode),
+                chat.hashCode),
+            attachments.hashCode),
         ffRef.hashCode));
   }
 
@@ -220,12 +220,12 @@ class _$MessagesRecord extends MessagesRecord {
   String toString() {
     return (newBuiltValueToStringHelper(r'MessagesRecord')
           ..add('message', message)
-          ..add('attachments', attachments)
           ..add('timestamp', timestamp)
           ..add('rfqRef', rfqRef)
           ..add('quotation', quotation)
           ..add('senderRef', senderRef)
           ..add('chat', chat)
+          ..add('attachments', attachments)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -238,12 +238,6 @@ class MessagesRecordBuilder
   String? _message;
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
-
-  ListBuilder<String>? _attachments;
-  ListBuilder<String> get attachments =>
-      _$this._attachments ??= new ListBuilder<String>();
-  set attachments(ListBuilder<String>? attachments) =>
-      _$this._attachments = attachments;
 
   DateTime? _timestamp;
   DateTime? get timestamp => _$this._timestamp;
@@ -266,6 +260,12 @@ class MessagesRecordBuilder
   DocumentReference<Object?>? get chat => _$this._chat;
   set chat(DocumentReference<Object?>? chat) => _$this._chat = chat;
 
+  ListBuilder<FileStruct>? _attachments;
+  ListBuilder<FileStruct> get attachments =>
+      _$this._attachments ??= new ListBuilder<FileStruct>();
+  set attachments(ListBuilder<FileStruct>? attachments) =>
+      _$this._attachments = attachments;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -278,12 +278,12 @@ class MessagesRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _message = $v.message;
-      _attachments = $v.attachments?.toBuilder();
       _timestamp = $v.timestamp;
       _rfqRef = $v.rfqRef;
       _quotation = $v.quotation;
       _senderRef = $v.senderRef;
       _chat = $v.chat;
+      _attachments = $v.attachments?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -310,12 +310,12 @@ class MessagesRecordBuilder
       _$result = _$v ??
           new _$MessagesRecord._(
               message: message,
-              attachments: _attachments?.build(),
               timestamp: timestamp,
               rfqRef: rfqRef,
               quotation: quotation,
               senderRef: senderRef,
               chat: chat,
+              attachments: _attachments?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

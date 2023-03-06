@@ -10,13 +10,12 @@ import 'package:flutter/material.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:pointycastle/pointycastle.dart';
+import '/backend/schema/structs/file_struct.dart';
 
-Future<dynamic> pickFile(
+Future<FileStruct> pickFile(
     BuildContext context, bool encryption, String password) async {
   // Add your function code here!
 
@@ -63,11 +62,11 @@ Future<dynamic> pickFile(
     await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes);
 
     ScaffoldMessenger.of(context).clearSnackBars();
-    return {
-      "filePath": await FirebaseStorage.instance
+    return createFileStruct(
+      filePath: await FirebaseStorage.instance
           .ref('uploads/$fileName')
           .getDownloadURL(),
-      "fileName": fileName,
-    };
+      fileName: fileName,
+    );
   }
 }

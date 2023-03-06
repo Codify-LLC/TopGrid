@@ -547,6 +547,11 @@ class _RCPtabbarWidgetState extends State<RCPtabbarWidget> {
                                       child: CustomerQuotationsWidget(
                                         rfqDocument:
                                             rCPtabbarRequestForQuotationRecord,
+                                        switchToChat: () async {
+                                          setState(() {
+                                            _model.pageType = 'chats';
+                                          });
+                                        },
                                       ),
                                     ),
                                   ),

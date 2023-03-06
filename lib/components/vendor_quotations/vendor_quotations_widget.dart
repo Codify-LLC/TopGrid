@@ -656,13 +656,16 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                           vendorRef: currentUserReference,
                                           timestamp: getCurrentTimestamp,
                                           accepted: false,
+                                          rejected: false,
                                         ),
-                                        'attachments': _model.fileData
-                                            .map((e) => getJsonField(
-                                                  e,
-                                                  r'''$.filePath''',
-                                                ))
-                                            .toList(),
+                                        'attachments': getFileListFirestoreData(
+                                          _model.fileData
+                                              .map((e) => getJsonField(
+                                                    e,
+                                                    r'''$.filePath''',
+                                                  ))
+                                              .toList(),
+                                        ),
                                       };
                                       var quotationRecordReference =
                                           QuotationRecord.collection.doc();
@@ -683,9 +686,11 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                             senderRef: currentUserReference,
                                             chat: rowChatsRecord!.reference,
                                           ),
-                                          'attachments': _model
-                                              .newQuotation!.attachments!
-                                              .toList(),
+                                          'attachments':
+                                              getFileListFirestoreData(
+                                            _model.newQuotation!.attachments!
+                                                .toList(),
+                                          ),
                                         };
                                         var messagesRecordReference1 =
                                             MessagesRecord.collection.doc();
@@ -722,9 +727,11 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                             senderRef: currentUserReference,
                                             chat: _model.newChat!.reference,
                                           ),
-                                          'attachments': _model
-                                              .newQuotation!.attachments!
-                                              .toList(),
+                                          'attachments':
+                                              getFileListFirestoreData(
+                                            _model.newQuotation!.attachments!
+                                                .toList(),
+                                          ),
                                         };
                                         var messagesRecordReference2 =
                                             MessagesRecord.collection.doc();

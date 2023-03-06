@@ -33,14 +33,6 @@ class _$PartRecordSerializer implements StructuredSerializer<PartRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.attachments;
-    if (value != null) {
-      result
-        ..add('attachments')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
     value = object.description;
     if (value != null) {
       result
@@ -83,6 +75,14 @@ class _$PartRecordSerializer implements StructuredSerializer<PartRecord> {
         ..add('part_number')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.attachments;
+    if (value != null) {
+      result
+        ..add('attachments')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(FileStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -113,12 +113,6 @@ class _$PartRecordSerializer implements StructuredSerializer<PartRecord> {
           result.partType = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'attachments':
-          result.attachments.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
         case 'description':
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -145,6 +139,12 @@ class _$PartRecordSerializer implements StructuredSerializer<PartRecord> {
           result.partNumber = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'attachments':
+          result.attachments.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(FileStruct)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -164,8 +164,6 @@ class _$PartRecord extends PartRecord {
   @override
   final String? partType;
   @override
-  final BuiltList<String>? attachments;
-  @override
   final String? description;
   @override
   final DocumentReference<Object?>? userRef;
@@ -178,6 +176,8 @@ class _$PartRecord extends PartRecord {
   @override
   final int? partNumber;
   @override
+  final BuiltList<FileStruct>? attachments;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$PartRecord([void Function(PartRecordBuilder)? updates]) =>
@@ -186,13 +186,13 @@ class _$PartRecord extends PartRecord {
   _$PartRecord._(
       {this.partName,
       this.partType,
-      this.attachments,
       this.description,
       this.userRef,
       this.requirementType,
       this.encryption,
       this.dateCreated,
       this.partNumber,
+      this.attachments,
       this.ffRef})
       : super._();
 
@@ -209,13 +209,13 @@ class _$PartRecord extends PartRecord {
     return other is PartRecord &&
         partName == other.partName &&
         partType == other.partType &&
-        attachments == other.attachments &&
         description == other.description &&
         userRef == other.userRef &&
         requirementType == other.requirementType &&
         encryption == other.encryption &&
         dateCreated == other.dateCreated &&
         partNumber == other.partNumber &&
+        attachments == other.attachments &&
         ffRef == other.ffRef;
   }
 
@@ -231,13 +231,13 @@ class _$PartRecord extends PartRecord {
                                 $jc(
                                     $jc($jc(0, partName.hashCode),
                                         partType.hashCode),
-                                    attachments.hashCode),
-                                description.hashCode),
-                            userRef.hashCode),
-                        requirementType.hashCode),
-                    encryption.hashCode),
-                dateCreated.hashCode),
-            partNumber.hashCode),
+                                    description.hashCode),
+                                userRef.hashCode),
+                            requirementType.hashCode),
+                        encryption.hashCode),
+                    dateCreated.hashCode),
+                partNumber.hashCode),
+            attachments.hashCode),
         ffRef.hashCode));
   }
 
@@ -246,13 +246,13 @@ class _$PartRecord extends PartRecord {
     return (newBuiltValueToStringHelper(r'PartRecord')
           ..add('partName', partName)
           ..add('partType', partType)
-          ..add('attachments', attachments)
           ..add('description', description)
           ..add('userRef', userRef)
           ..add('requirementType', requirementType)
           ..add('encryption', encryption)
           ..add('dateCreated', dateCreated)
           ..add('partNumber', partNumber)
+          ..add('attachments', attachments)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -268,12 +268,6 @@ class PartRecordBuilder implements Builder<PartRecord, PartRecordBuilder> {
   String? _partType;
   String? get partType => _$this._partType;
   set partType(String? partType) => _$this._partType = partType;
-
-  ListBuilder<String>? _attachments;
-  ListBuilder<String> get attachments =>
-      _$this._attachments ??= new ListBuilder<String>();
-  set attachments(ListBuilder<String>? attachments) =>
-      _$this._attachments = attachments;
 
   String? _description;
   String? get description => _$this._description;
@@ -300,6 +294,12 @@ class PartRecordBuilder implements Builder<PartRecord, PartRecordBuilder> {
   int? get partNumber => _$this._partNumber;
   set partNumber(int? partNumber) => _$this._partNumber = partNumber;
 
+  ListBuilder<FileStruct>? _attachments;
+  ListBuilder<FileStruct> get attachments =>
+      _$this._attachments ??= new ListBuilder<FileStruct>();
+  set attachments(ListBuilder<FileStruct>? attachments) =>
+      _$this._attachments = attachments;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -313,13 +313,13 @@ class PartRecordBuilder implements Builder<PartRecord, PartRecordBuilder> {
     if ($v != null) {
       _partName = $v.partName;
       _partType = $v.partType;
-      _attachments = $v.attachments?.toBuilder();
       _description = $v.description;
       _userRef = $v.userRef;
       _requirementType = $v.requirementType;
       _encryption = $v.encryption;
       _dateCreated = $v.dateCreated;
       _partNumber = $v.partNumber;
+      _attachments = $v.attachments?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -347,13 +347,13 @@ class PartRecordBuilder implements Builder<PartRecord, PartRecordBuilder> {
           new _$PartRecord._(
               partName: partName,
               partType: partType,
-              attachments: _attachments?.build(),
               description: description,
               userRef: userRef,
               requirementType: requirementType,
               encryption: encryption,
               dateCreated: dateCreated,
               partNumber: partNumber,
+              attachments: _attachments?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
