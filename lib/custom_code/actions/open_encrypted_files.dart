@@ -12,7 +12,8 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:pointycastle/export.dart';
 import 'package:pointycastle/paddings/pkcs7.dart';
-import 'package:pointycastle/modes/gcm.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 Future openEncryptedFiles(
   String fileURL,
@@ -20,7 +21,7 @@ Future openEncryptedFiles(
   String password,
 ) async {
   // Add your function code here!
-  final encryptedData = await fileURL.getData();
+  final encryptedData = await FirebaseStorage.instance.ref(fileURL).getData();
   final passwordBytes = utf8.encode(password);
   final key =
       KeyParameter(Uint8List.fromList(sha256.convert(passwordBytes).bytes));
@@ -28,5 +29,5 @@ Future openEncryptedFiles(
   final encryptor = BlockCipher('AES');
   encryptor.init(true, key);
 
-  fileBytes = encryptor.process(Uint8List.fromList(encryptedData));
+  final fileBytes = encryptor.process(encryptedData!);
 }

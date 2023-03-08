@@ -1,11 +1,8 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/place.dart';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,8 +59,18 @@ class SignUpModel extends FlutterFlowModel {
     return null;
   }
 
-  // State field(s) for PlacePicker widget.
-  var placePickerValue = FFPlace();
+  // State field(s) for Address widget.
+  TextEditingController? addressController;
+  String? Function(BuildContext, String?)? addressControllerValidator;
+  // State field(s) for City widget.
+  TextEditingController? cityController;
+  String? Function(BuildContext, String?)? cityControllerValidator;
+  // State field(s) for State widget.
+  TextEditingController? stateController;
+  String? Function(BuildContext, String?)? stateControllerValidator;
+  // State field(s) for PinCode widget.
+  TextEditingController? pinCodeController;
+  String? Function(BuildContext, String?)? pinCodeControllerValidator;
   // State field(s) for Email widget.
   TextEditingController? emailController;
   String? Function(BuildContext, String?)? emailControllerValidator;
@@ -149,6 +156,10 @@ class SignUpModel extends FlutterFlowModel {
     legalNameOfTheCompanyController?.dispose();
     nameController?.dispose();
     gSTNumberController?.dispose();
+    addressController?.dispose();
+    cityController?.dispose();
+    stateController?.dispose();
+    pinCodeController?.dispose();
     emailController?.dispose();
     buyerContactNumberController?.dispose();
     passwordController?.dispose();
