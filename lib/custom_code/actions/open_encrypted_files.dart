@@ -23,18 +23,18 @@ Future openEncryptedFiles(
   String password,
 ) async {
   // Add your function code here!
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Row(
+      children: [
+        const Text(' Decrypting File '),
+        SizedBox(height: 50, width: 50, child: CircularProgressIndicator())
+      ],
+    ),
+    duration: const Duration(seconds: 60),
+  ));
   Uint8List? fileBytes;
   final encryptedData = await FirebaseStorage.instance.ref(fileURL).getData();
   if (fileURL.contains('.aes')) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Row(
-        children: [
-          const Text(' Decrypting File '),
-          SizedBox(height: 50, width: 50, child: CircularProgressIndicator())
-        ],
-      ),
-      duration: const Duration(seconds: 60),
-    ));
     fileName = fileName.replaceAll('.aes', '');
     final passwordBytes = utf8.encode(password);
     final key =
@@ -56,4 +56,5 @@ Future openEncryptedFiles(
   anchor.click();
   html.document.body?.children.remove(anchor);
   html.Url.revokeObjectUrl(url);
+  ScaffoldMessenger.of(context).clearSnackBars();
 }
