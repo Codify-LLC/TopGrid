@@ -54,8 +54,7 @@ Future<FileStruct?> pickFile(
       encryptor.init(true, key);
 
       fileBytes = encryptor.process(fileBytes);
-      fileName =
-          fileName.replaceFirst(result.files.first.extension ?? "", "") + "aes";
+      fileName = fileName + ".aes";
     }
 
     // Upload file
