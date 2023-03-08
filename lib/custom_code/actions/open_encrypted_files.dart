@@ -14,6 +14,7 @@ import 'package:pointycastle/export.dart';
 import 'package:pointycastle/paddings/pkcs7.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'dart:html' as html;
 
 Future openEncryptedFiles(
   String fileURL,
@@ -30,4 +31,14 @@ Future openEncryptedFiles(
   encryptor.init(true, key);
 
   final fileBytes = encryptor.process(encryptedData!);
+
+  final blob = html.Blob([fileBytes]);
+  final url = html.Url.createObjectUrlFromBlob(blob);
+  final anchor = html.document.createElement('a') as html.AnchorElement
+    ..href = url
+    ..download = fileName;
+  html.document.body?.append(anchor);
+  anchor.click();
+  html.document.body?.children.remove(anchor);
+  html.Url.revokeObjectUrl(url);
 }

@@ -1159,60 +1159,63 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                           0.0,
                                                                           10.0,
                                                                           0.0),
-                                                              child: InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  await launchURL(
-                                                                      fileItem
-                                                                          .filePath!);
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            24.0),
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                    ),
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              24.0),
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryColor,
                                                                   ),
-                                                                  child:
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          4.0,
+                                                                          2.0,
+                                                                          4.0,
+                                                                          2.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
                                                                       Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            4.0,
-                                                                            2.0,
-                                                                            4.0,
-                                                                            2.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              0.0,
-                                                                              0.0,
-                                                                              8.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Icon(
-                                                                            Icons.insert_drive_file_outlined,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryColor,
-                                                                            size:
-                                                                                18.0,
-                                                                          ),
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .insert_drive_file_outlined,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                          size:
+                                                                              18.0,
                                                                         ),
-                                                                        Text(
+                                                                      ),
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          await actions
+                                                                              .openEncryptedFiles(
+                                                                            fileItem.filePath!,
+                                                                            fileItem.fileName!,
+                                                                            FFAppState().EncryptionPassword,
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Text(
                                                                           fileItem
                                                                               .fileName!,
                                                                           textAlign:
@@ -1227,35 +1230,37 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                                 decoration: TextDecoration.underline,
                                                                               ),
                                                                         ),
-                                                                        Align(
-                                                                          alignment: AlignmentDirectional(
-                                                                              1.0,
+                                                                      ),
+                                                                      Align(
+                                                                        alignment: AlignmentDirectional(
+                                                                            1.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8.0,
+                                                                              0.0,
+                                                                              0.0,
                                                                               0.0),
                                                                           child:
-                                                                              Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                8.0,
-                                                                                0.0,
-                                                                                0.0,
-                                                                                0.0),
+                                                                              InkWell(
+                                                                            onTap:
+                                                                                () async {
+                                                                              setState(() {
+                                                                                _model.removeFromFileData(fileItem);
+                                                                              });
+                                                                              await FirebaseStorage.instance.refFromURL(fileItem.filePath!).delete();
+                                                                            },
                                                                             child:
-                                                                                InkWell(
-                                                                              onTap: () async {
-                                                                                setState(() {
-                                                                                  _model.removeFromFileData(fileItem);
-                                                                                });
-                                                                                await FirebaseStorage.instance.refFromURL(fileItem.filePath!).delete();
-                                                                              },
-                                                                              child: Icon(
-                                                                                Icons.close,
-                                                                                color: FlutterFlowTheme.of(context).primaryColor,
-                                                                                size: 18.0,
-                                                                              ),
+                                                                                Icon(
+                                                                              Icons.close,
+                                                                              color: FlutterFlowTheme.of(context).primaryColor,
+                                                                              size: 18.0,
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      ],
-                                                                    ),
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 ),
                                                               ),
@@ -1288,8 +1293,8 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                 currentUserDocument
                                                                     ?.encryption,
                                                                 false),
-                                                            currentUserDocument!
-                                                                .companyRef!.id,
+                                                            FFAppState()
+                                                                .EncryptionPassword,
                                                           );
                                                           setState(() {
                                                             _model.addToFileData(

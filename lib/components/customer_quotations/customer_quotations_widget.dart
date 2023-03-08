@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
@@ -358,27 +359,42 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                                                           0.0,
                                                                           4.0,
                                                                           0.0),
-                                                                  child: Text(
-                                                                    fileItem
-                                                                        .fileName!,
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText1
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Poppins',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
-                                                                          fontSize:
-                                                                              12.0,
-                                                                          fontWeight:
-                                                                              FontWeight.normal,
-                                                                          decoration:
-                                                                              TextDecoration.underline,
-                                                                        ),
+                                                                  child:
+                                                                      InkWell(
+                                                                    onTap:
+                                                                        () async {
+                                                                      await actions
+                                                                          .openEncryptedFiles(
+                                                                        fileItem
+                                                                            .filePath!,
+                                                                        fileItem
+                                                                            .fileName!,
+                                                                        FFAppState()
+                                                                            .EncryptionPassword,
+                                                                      );
+                                                                    },
+                                                                    child: Text(
+                                                                      fileItem
+                                                                          .fileName!,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Poppins',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryColor,
+                                                                            fontSize:
+                                                                                12.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                            decoration:
+                                                                                TextDecoration.underline,
+                                                                          ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                                 Align(

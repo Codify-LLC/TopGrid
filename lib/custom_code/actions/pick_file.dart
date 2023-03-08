@@ -63,9 +63,7 @@ Future<FileStruct?> pickFile(
 
     ScaffoldMessenger.of(context).clearSnackBars();
     return createFileStruct(
-      filePath: await FirebaseStorage.instance
-          .ref('uploads/$fileName')
-          .getDownloadURL(),
+      filePath: 'uploads/$fileName',
       fileName: fileName,
     );
   }

@@ -692,27 +692,41 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                             0.0,
                                                                             4.0,
                                                                             0.0),
-                                                                child: Text(
-                                                                  fileItem
-                                                                      .fileName!,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
-                                                                        fontSize:
-                                                                            12.0,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                        decoration:
-                                                                            TextDecoration.underline,
-                                                                      ),
+                                                                child: InkWell(
+                                                                  onTap:
+                                                                      () async {
+                                                                    await actions
+                                                                        .openEncryptedFiles(
+                                                                      fileItem
+                                                                          .filePath!,
+                                                                      fileItem
+                                                                          .fileName!,
+                                                                      FFAppState()
+                                                                          .EncryptionPassword,
+                                                                    );
+                                                                  },
+                                                                  child: Text(
+                                                                    fileItem
+                                                                        .fileName!,
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                          fontSize:
+                                                                              12.0,
+                                                                          fontWeight:
+                                                                              FontWeight.normal,
+                                                                          decoration:
+                                                                              TextDecoration.underline,
+                                                                        ),
+                                                                  ),
                                                                 ),
                                                               ),
                                                               Align(
@@ -769,8 +783,8 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                         currentUserDocument
                                                             ?.encryption,
                                                         false),
-                                                    currentUserDocument!
-                                                        .companyRef!.id,
+                                                    FFAppState()
+                                                        .EncryptionPassword,
                                                   );
                                                   setState(() {
                                                     _model.addToFileData(

@@ -20,6 +20,9 @@ class FFAppState extends ChangeNotifier {
     secureStorage = FlutterSecureStorage();
     _showDrawerFull =
         await secureStorage.getBool('ff_showDrawerFull') ?? _showDrawerFull;
+    _EncryptionPassword =
+        await secureStorage.getString('ff_EncryptionPassword') ??
+            _EncryptionPassword;
   }
 
   void update(VoidCallback callback) {
@@ -86,6 +89,17 @@ class FFAppState extends ChangeNotifier {
 
   void removeAtIndexFromTotalRFQVendors(int _index) {
     _totalRFQVendors.removeAt(_index);
+  }
+
+  String _EncryptionPassword = '6CV@z@4WF2n#2ap\'';
+  String get EncryptionPassword => _EncryptionPassword;
+  set EncryptionPassword(String _value) {
+    _EncryptionPassword = _value;
+    secureStorage.setString('ff_EncryptionPassword', _value);
+  }
+
+  void deleteEncryptionPassword() {
+    secureStorage.delete(key: 'ff_EncryptionPassword');
   }
 }
 
