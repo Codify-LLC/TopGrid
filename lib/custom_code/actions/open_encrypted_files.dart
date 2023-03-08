@@ -25,7 +25,7 @@ Future openEncryptedFiles(
   Uint8List? fileBytes;
   final encryptedData = await FirebaseStorage.instance.ref(fileURL).getData();
   if (fileURL.contains('.aes')) {
-    fileName.replaceAll('.aes', '');
+    fileName = fileName.replaceAll('.aes', '');
     final passwordBytes = utf8.encode(password);
     final key =
         KeyParameter(Uint8List.fromList(sha256.convert(passwordBytes).bytes));
