@@ -22,15 +22,20 @@ Future openEncryptedFiles(
   String password,
 ) async {
   // Add your function code here!
+  Uint8List? fileBytes;
   final encryptedData = await FirebaseStorage.instance.ref(fileURL).getData();
-  final passwordBytes = utf8.encode(password);
-  final key =
-      KeyParameter(Uint8List.fromList(sha256.convert(passwordBytes).bytes));
+  if (fileURL.contains('.aes')) {
+    final passwordBytes = utf8.encode(password);
+    final key =
+        KeyParameter(Uint8List.fromList(sha256.convert(passwordBytes).bytes));
 
-  final encryptor = BlockCipher('AES');
-  encryptor.init(true, key);
+    final encryptor = BlockCipher('AES');
+    encryptor.init(true, key);
 
-  final fileBytes = encryptor.process(encryptedData!);
+    fileBytes = encryptor.process(encryptedData!);
+  } else {
+    fileBytes = encryptedData;
+  }
 
   final blob = html.Blob([fileBytes]);
   final url = html.Url.createObjectUrlFromBlob(blob);
