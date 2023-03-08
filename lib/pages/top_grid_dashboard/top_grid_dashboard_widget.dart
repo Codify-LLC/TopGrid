@@ -64,6 +64,7 @@ class _TopGridDashboardWidgetState extends State<TopGridDashboardWidget> {
                       purchase: false,
                       parts: false,
                       vendors: false,
+                      customers: false,
                     ),
                   ),
                   Expanded(

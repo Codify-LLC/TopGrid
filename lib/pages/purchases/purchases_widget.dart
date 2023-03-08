@@ -70,7 +70,21 @@ class _PurchasesWidgetState extends State<PurchasesWidget> {
                   Expanded(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 24.0, 0.0, 0.0),
+                          child: Text(
+                            'Purchases',
+                            style: FlutterFlowTheme.of(context).title1.override(
+                                  fontFamily: 'Poppins',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               20.0, 20.0, 20.0, 20.0),
@@ -109,11 +123,16 @@ class _PurchasesWidgetState extends State<PurchasesWidget> {
                                         wrapWithModel(
                                           model: _model.ordersModel,
                                           updateCallback: () => setState(() {}),
-                                          child: OrdersWidget(),
+                                          updateOnChange: true,
+                                          child: OrdersWidget(
+                                            purchases: true,
+                                            sales: false,
+                                          ),
                                         ),
                                         wrapWithModel(
                                           model: _model.ongoingPastRFQsModel,
                                           updateCallback: () => setState(() {}),
+                                          updateOnChange: true,
                                           child: OngoingPastRFQsWidget(),
                                         ),
                                       ],
