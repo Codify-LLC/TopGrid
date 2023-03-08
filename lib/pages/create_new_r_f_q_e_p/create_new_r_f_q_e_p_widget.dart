@@ -697,6 +697,7 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                                       () async {
                                                                     await actions
                                                                         .openEncryptedFiles(
+                                                                      context,
                                                                       fileItem
                                                                           .filePath!,
                                                                       fileItem

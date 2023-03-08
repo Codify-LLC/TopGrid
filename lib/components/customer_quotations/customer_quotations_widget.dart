@@ -365,6 +365,7 @@ class _CustomerQuotationsWidgetState extends State<CustomerQuotationsWidget> {
                                                                         () async {
                                                                       await actions
                                                                           .openEncryptedFiles(
+                                                                        context,
                                                                         fileItem
                                                                             .filePath!,
                                                                         fileItem

@@ -17,6 +17,7 @@ import 'package:crypto/crypto.dart';
 import 'dart:html' as html;
 
 Future openEncryptedFiles(
+  BuildContext context,
   String fileURL,
   String fileName,
   String password,
@@ -25,14 +26,22 @@ Future openEncryptedFiles(
   Uint8List? fileBytes;
   final encryptedData = await FirebaseStorage.instance.ref(fileURL).getData();
   if (fileURL.contains('.aes')) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        children: [
+          const Text(' Decrypting File '),
+          SizedBox(height: 50, width: 50, child: CircularProgressIndicator())
+        ],
+      ),
+      duration: const Duration(seconds: 60),
+    ));
     fileName = fileName.replaceAll('.aes', '');
     final passwordBytes = utf8.encode(password);
     final key =
         KeyParameter(Uint8List.fromList(sha256.convert(passwordBytes).bytes));
 
-    final encryptor = BlockCipher('AES');
-    encryptor.init(true, key);
-
+    final encryptor = PaddedBlockCipher('AES/ECB/PKCS7');
+    encryptor.init(false, PaddedBlockCipherParameters(key, null));
     fileBytes = encryptor.process(encryptedData!);
   } else {
     fileBytes = encryptedData;

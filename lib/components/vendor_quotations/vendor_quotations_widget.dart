@@ -471,6 +471,7 @@ class _VendorQuotationsWidgetState extends State<VendorQuotationsWidget> {
                                                             onTap: () async {
                                                               await actions
                                                                   .openEncryptedFiles(
+                                                                context,
                                                                 fileItem
                                                                     .filePath!,
                                                                 fileItem

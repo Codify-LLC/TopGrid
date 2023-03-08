@@ -1209,6 +1209,7 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                             () async {
                                                                           await actions
                                                                               .openEncryptedFiles(
+                                                                            context,
                                                                             fileItem.filePath!,
                                                                             fileItem.fileName!,
                                                                             FFAppState().EncryptionPassword,

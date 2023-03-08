@@ -50,10 +50,10 @@ Future<FileStruct?> pickFile(
       final key =
           KeyParameter(Uint8List.fromList(sha256.convert(passwordBytes).bytes));
 
-      final encryptor = BlockCipher('AES');
-      encryptor.init(true, key);
-
+      final encryptor = PaddedBlockCipher('AES/ECB/PKCS7');
+      encryptor.init(true, PaddedBlockCipherParameters(key, null));
       fileBytes = encryptor.process(fileBytes);
+
       fileName = fileName + ".aes";
     }
 

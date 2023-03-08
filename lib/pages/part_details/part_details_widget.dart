@@ -510,6 +510,7 @@ class _PartDetailsWidgetState extends State<PartDetailsWidget> {
                                                               onTap: () async {
                                                                 await actions
                                                                     .openEncryptedFiles(
+                                                                  context,
                                                                   fileItem
                                                                       .filePath!,
                                                                   fileItem

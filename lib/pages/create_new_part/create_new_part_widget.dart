@@ -511,6 +511,7 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                               onTap: () async {
                                                                 await actions
                                                                     .openEncryptedFiles(
+                                                                  context,
                                                                   fileItem
                                                                       .filePath!,
                                                                   fileItem
