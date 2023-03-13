@@ -1639,7 +1639,7 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                             []),
                                                       ),
                                                       'vendors': FFAppState()
-                                                          .totalRFQVendors,
+                                                          .selectedVendors,
                                                     };
                                                     await RequestForQuotationRecord
                                                         .collection
@@ -1677,7 +1677,7 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                           _model.fileData,
                                                         ),
                                                         'vendors': FFAppState()
-                                                            .totalRFQVendors,
+                                                            .selectedVendors,
                                                       };
                                                       await RequestForQuotationRecord
                                                           .collection
@@ -1709,7 +1709,7 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                               false,
                                                         ),
                                                         'vendors': FFAppState()
-                                                            .totalRFQVendors,
+                                                            .selectedVendors,
                                                       };
                                                       await RequestForQuotationRecord
                                                           .collection
@@ -1719,6 +1719,17 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                     }
                                                   }
 
+                                                  setState(() {
+                                                    FFAppState()
+                                                        .selectedVendors = [];
+                                                  });
+
+                                                  final usersUpdateData = {
+                                                    'app_state_requirements':
+                                                        FieldValue.delete(),
+                                                  };
+                                                  await currentUserReference!
+                                                      .update(usersUpdateData);
                                                   context.pop();
                                                 },
                                                 text: 'Submit RFQ',

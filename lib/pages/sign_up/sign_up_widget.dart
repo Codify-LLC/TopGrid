@@ -36,8 +36,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     _model.cityController ??= TextEditingController();
     _model.stateController ??= TextEditingController();
     _model.pinCodeController ??= TextEditingController();
-    _model.emailController ??= TextEditingController();
-    _model.buyerContactNumberController ??= TextEditingController();
+    _model.adminEmailAddressController ??= TextEditingController();
+    _model.adminContactNumberController ??= TextEditingController();
     _model.passwordController ??= TextEditingController();
     _model.confirmpasswordController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -672,7 +672,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           child: Container(
                             width: 600.0,
                             child: TextFormField(
-                              controller: _model.emailController,
+                              controller: _model.adminEmailAddressController,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -727,7 +727,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         .secondaryText,
                                   ),
                               keyboardType: TextInputType.emailAddress,
-                              validator: _model.emailControllerValidator
+                              validator: _model
+                                  .adminEmailAddressControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -738,7 +739,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           child: Container(
                             width: 600.0,
                             child: TextFormField(
-                              controller: _model.buyerContactNumberController,
+                              controller: _model.adminContactNumberController,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -794,7 +795,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   ),
                               keyboardType: TextInputType.phone,
                               validator: _model
-                                  .buyerContactNumberControllerValidator
+                                  .adminContactNumberControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -971,6 +972,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                             label: 'Create Account',
                             child: FFButtonWidget(
                               onPressed: () async {
+                                if (_model.formKey.currentState == null ||
+                                    !_model.formKey.currentState!.validate()) {
+                                  return;
+                                }
+
                                 final companyCreateData =
                                     createCompanyRecordData(
                                   companyName:
@@ -1007,7 +1013,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
                                 final user = await createAccountWithEmail(
                                   context,
-                                  _model.emailController.text,
+                                  _model.adminEmailAddressController.text,
                                   _model.passwordController.text,
                                 );
                                 if (user == null) {
@@ -1016,6 +1022,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
                                 final usersUpdateData = createUsersRecordData(
                                   companyRef: _model.newCompanyDoc!.reference,
+                                  displayName: _model.nameController.text,
+                                  email:
+                                      _model.adminEmailAddressController.text,
+                                  phoneNumber:
+                                      _model.adminContactNumberController.text,
+                                  userType: 'customer',
+                                  encryption: true,
+                                  role: 'Admin',
                                 );
                                 await currentUserReference!
                                     .update(usersUpdateData);

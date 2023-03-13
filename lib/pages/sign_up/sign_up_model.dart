@@ -62,19 +62,52 @@ class SignUpModel extends FlutterFlowModel {
   // State field(s) for Address widget.
   TextEditingController? addressController;
   String? Function(BuildContext, String?)? addressControllerValidator;
+  String? _addressControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for City widget.
   TextEditingController? cityController;
   String? Function(BuildContext, String?)? cityControllerValidator;
+  String? _cityControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for State widget.
   TextEditingController? stateController;
   String? Function(BuildContext, String?)? stateControllerValidator;
+  String? _stateControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for PinCode widget.
   TextEditingController? pinCodeController;
   String? Function(BuildContext, String?)? pinCodeControllerValidator;
-  // State field(s) for Email widget.
-  TextEditingController? emailController;
-  String? Function(BuildContext, String?)? emailControllerValidator;
-  String? _emailControllerValidator(BuildContext context, String? val) {
+  String? _pinCodeControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
+  // State field(s) for AdminEmailAddress widget.
+  TextEditingController? adminEmailAddressController;
+  String? Function(BuildContext, String?)? adminEmailAddressControllerValidator;
+  String? _adminEmailAddressControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -85,11 +118,11 @@ class SignUpModel extends FlutterFlowModel {
     return null;
   }
 
-  // State field(s) for BuyerContactNumber widget.
-  TextEditingController? buyerContactNumberController;
+  // State field(s) for AdminContactNumber widget.
+  TextEditingController? adminContactNumberController;
   String? Function(BuildContext, String?)?
-      buyerContactNumberControllerValidator;
-  String? _buyerContactNumberControllerValidator(
+      adminContactNumberControllerValidator;
+  String? _adminContactNumberControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
@@ -142,9 +175,14 @@ class SignUpModel extends FlutterFlowModel {
         _legalNameOfTheCompanyControllerValidator;
     nameControllerValidator = _nameControllerValidator;
     gSTNumberControllerValidator = _gSTNumberControllerValidator;
-    emailControllerValidator = _emailControllerValidator;
-    buyerContactNumberControllerValidator =
-        _buyerContactNumberControllerValidator;
+    addressControllerValidator = _addressControllerValidator;
+    cityControllerValidator = _cityControllerValidator;
+    stateControllerValidator = _stateControllerValidator;
+    pinCodeControllerValidator = _pinCodeControllerValidator;
+    adminEmailAddressControllerValidator =
+        _adminEmailAddressControllerValidator;
+    adminContactNumberControllerValidator =
+        _adminContactNumberControllerValidator;
     passwordVisibility = false;
     passwordControllerValidator = _passwordControllerValidator;
     confirmpasswordVisibility = false;
@@ -160,8 +198,8 @@ class SignUpModel extends FlutterFlowModel {
     cityController?.dispose();
     stateController?.dispose();
     pinCodeController?.dispose();
-    emailController?.dispose();
-    buyerContactNumberController?.dispose();
+    adminEmailAddressController?.dispose();
+    adminContactNumberController?.dispose();
     passwordController?.dispose();
     confirmpasswordController?.dispose();
   }

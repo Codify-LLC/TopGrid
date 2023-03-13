@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -1023,19 +1022,6 @@ class _CreateNewRFQEPWidgetState extends State<CreateNewRFQEPWidget> {
                                                   };
                                                   await currentUserReference!
                                                       .update(usersUpdateData);
-                                                  FFAppState().update(() {
-                                                    FFAppState()
-                                                            .totalRFQVendors =
-                                                        functions
-                                                            .combineRefLists(
-                                                                FFAppState()
-                                                                    .totalRFQVendors
-                                                                    .toList(),
-                                                                FFAppState()
-                                                                    .selectedVendors
-                                                                    .toList())
-                                                            .toList();
-                                                  });
                                                   if (Navigator.of(context)
                                                       .canPop()) {
                                                     context.pop();

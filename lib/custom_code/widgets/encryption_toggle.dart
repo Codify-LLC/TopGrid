@@ -56,6 +56,9 @@ class _EncryptionToggleState extends State<EncryptionToggle> {
                       return AlertDialog(
                         title: Text(
                             'Are you sure, You want to Turn off Encryption?'),
+                        content: widget.onToggleAction != null
+                            ? Text('It will delete all uploaded files?')
+                            : null,
                         actions: [
                           TextButton(
                             onPressed: () =>

@@ -325,7 +325,11 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                         width: 200.0,
                                         height: 30.0,
                                         encryption: FFAppState().encryptionFlag,
-                                        onToggleAction: () async {},
+                                        onToggleAction: () async {
+                                          setState(() {
+                                            _model.fileData = [];
+                                          });
+                                        },
                                       ),
                                     ),
                                   ],

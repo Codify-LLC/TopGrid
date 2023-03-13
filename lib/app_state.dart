@@ -73,24 +73,6 @@ class FFAppState extends ChangeNotifier {
     _selectedVendors.removeAt(_index);
   }
 
-  List<DocumentReference> _totalRFQVendors = [];
-  List<DocumentReference> get totalRFQVendors => _totalRFQVendors;
-  set totalRFQVendors(List<DocumentReference> _value) {
-    _totalRFQVendors = _value;
-  }
-
-  void addToTotalRFQVendors(DocumentReference _value) {
-    _totalRFQVendors.add(_value);
-  }
-
-  void removeFromTotalRFQVendors(DocumentReference _value) {
-    _totalRFQVendors.remove(_value);
-  }
-
-  void removeAtIndexFromTotalRFQVendors(int _index) {
-    _totalRFQVendors.removeAt(_index);
-  }
-
   String _EncryptionPassword = '6CV@z@4WF2n#2ap\'';
   String get EncryptionPassword => _EncryptionPassword;
   set EncryptionPassword(String _value) {
