@@ -1,10 +1,8 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/menu/menu_widget.dart';
-import '/components/multiple_selection_drop_down/multiple_selection_drop_down_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -32,8 +30,6 @@ class CreateNewRFQEPModel extends FlutterFlowModel {
   final formKey = GlobalKey<FormState>();
   // Model for Menu component.
   late MenuModel menuModel;
-  // Model for multipleSelectionDropDown component.
-  late MultipleSelectionDropDownModel multipleSelectionDropDownModel;
   // State field(s) for Quantity widget.
   TextEditingController? quantityController;
   String? Function(BuildContext, String?)? quantityControllerValidator;
@@ -76,15 +72,12 @@ class CreateNewRFQEPModel extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     menuModel = createModel(context, () => MenuModel());
-    multipleSelectionDropDownModel =
-        createModel(context, () => MultipleSelectionDropDownModel());
     quantityControllerValidator = _quantityControllerValidator;
     addDescriptionControllerValidator = _addDescriptionControllerValidator;
   }
 
   void dispose() {
     menuModel.dispose();
-    multipleSelectionDropDownModel.dispose();
     quantityController?.dispose();
     addDescriptionController?.dispose();
   }

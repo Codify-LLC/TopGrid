@@ -1014,6 +1014,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   return;
                                 }
 
+                                final usersUpdateData = createUsersRecordData(
+                                  companyRef: _model.newCompanyDoc!.reference,
+                                );
+                                await currentUserReference!
+                                    .update(usersUpdateData);
                                 await sendEmailVerification();
 
                                 context.pushNamedAuth(
