@@ -1,4 +1,5 @@
 import '/auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -320,6 +321,12 @@ class _AddNewUserWidgetState extends State<AddNewUserWidget> {
                               await CompanyUsersRecord.collection
                                   .doc()
                                   .set(companyUsersCreateData);
+                              await SendInBlueGroup.sendATransactionalEmailCall
+                                  .call(
+                                recieverEmail:
+                                    _model.emailAddressController.text,
+                                recieverName: _model.userNameController.text,
+                              );
                               Navigator.pop(context);
                             },
                             text: 'Add',

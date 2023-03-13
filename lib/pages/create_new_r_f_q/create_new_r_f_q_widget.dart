@@ -3,7 +3,9 @@ import '/backend/backend.dart';
 import '/components/choose_types_of_parts/choose_types_of_parts_widget.dart';
 import '/components/empty_requirements_list/empty_requirements_list_widget.dart';
 import '/components/menu/menu_widget.dart';
+import '/components/multiple_selection_drop_down/multiple_selection_drop_down_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -441,7 +443,7 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      12.0, 0.0, 0.0, 0.0),
+                                                      12.0, 0.0, 12.0, 0.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 crossAxisAlignment:
@@ -573,6 +575,146 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                               ),
                                             ),
                                           ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12.0, 0.0, 0.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 12.0),
+                                                  child: Text(
+                                                    'Assign Vendors',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 16.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    if (_model.vendorDropDown) {
+                                                      setState(() {
+                                                        _model.vendorDropDown =
+                                                            false;
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        _model.vendorDropDown =
+                                                            true;
+                                                      });
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    height: 50.0,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                0.0),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                0.0),
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                4.0),
+                                                        topRight:
+                                                            Radius.circular(
+                                                                0.0),
+                                                      ),
+                                                      border: Border.all(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        width: 0.5,
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      8.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            FFAppState()
+                                                                        .selectedVendors
+                                                                        .length >
+                                                                    0
+                                                                ? '${FFAppState().selectedVendors.length.toString()} Vendor Selected'
+                                                                : 'Select Vendors',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        ToggleIcon(
+                                                          onPressed: () async {
+                                                            setState(() => _model
+                                                                    .vendorDropDown =
+                                                                !_model
+                                                                    .vendorDropDown);
+                                                          },
+                                                          value: _model
+                                                              .vendorDropDown,
+                                                          onIcon: Icon(
+                                                            Icons.arrow_drop_up,
+                                                            color: Colors.black,
+                                                            size: 25.0,
+                                                          ),
+                                                          offIcon: Icon(
+                                                            Icons
+                                                                .arrow_drop_down,
+                                                            color: Colors.black,
+                                                            size: 25.0,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                if (_model.vendorDropDown)
+                                                  wrapWithModel(
+                                                    model: _model
+                                                        .multipleSelectionDropDownModel,
+                                                    updateCallback: () =>
+                                                        setState(() {}),
+                                                    updateOnChange: true,
+                                                    child:
+                                                        MultipleSelectionDropDownWidget(
+                                                      height: 100.0,
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -978,7 +1120,7 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Parts Description',
+                                            'RFQ Description',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1,
                                           ),

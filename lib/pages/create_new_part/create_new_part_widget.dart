@@ -592,12 +592,16 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                   0.0, 0.0, 12.0, 12.0),
                                           child: InkWell(
                                             onTap: () async {
+                                              // Document will get attach.
+                                              // Attach File
                                               _model.newFile =
                                                   await actions.pickFile(
                                                 context,
                                                 FFAppState().encryptionFlag,
                                                 FFAppState().EncryptionPassword,
                                               );
+                                              // Document is getting updated
+                                              // Document Updated
                                               setState(() {
                                                 _model.addToFileData(
                                                     _model.newFile!);
@@ -654,6 +658,8 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                           AlignmentDirectional(-1.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          // User will get pop up "Are you sure want to exit" Once user will confirm it, weather user want to exit it will get navigate back
+                                          // Alert Dialog With Condition
                                           var confirmDialogResponse =
                                               await showDialog<bool>(
                                                     context: context,
@@ -748,6 +754,8 @@ class _CreateNewPartWidgetState extends State<CreateNewPartWidget> {
                                                 snapshot.data!;
                                             return FFButtonWidget(
                                               onPressed: () async {
+                                                // Form is getting validate weather user has filled all details or not.
+                                                // Validate Form
                                                 if (_model.formKey
                                                             .currentState ==
                                                         null ||

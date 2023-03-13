@@ -89,20 +89,24 @@ class _LoginWidgetState extends State<LoginWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            // Log In Header Text
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 20.0, 0.0, 20.0),
-                              child: Text(
-                                'Log In',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      fontSize: 30.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                              child: Semantics(
+                                label: 'Log In',
+                                child: Text(
+                                  'Log In',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        fontSize: 30.0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
                               ),
                             ),
                             Padding(
@@ -292,155 +296,164 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 return Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
+                                    // Login Button if User is already oboarded.
                                     if (columnUsersRecord != null)
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 12.0, 0.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            GoRouter.of(context)
-                                                .prepareAuthEvent();
+                                        child: Semantics(
+                                          label: 'Login Button',
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              GoRouter.of(context)
+                                                  .prepareAuthEvent();
 
-                                            final user = await signInWithEmail(
-                                              context,
-                                              _model.emailController.text,
-                                              _model.passwordController.text,
-                                            );
-                                            if (user == null) {
-                                              return;
-                                            }
+                                              final user =
+                                                  await signInWithEmail(
+                                                context,
+                                                _model.emailController.text,
+                                                _model.passwordController.text,
+                                              );
+                                              if (user == null) {
+                                                return;
+                                              }
 
-                                            context.goNamedAuth(
-                                                'Dashboard', mounted);
-                                          },
-                                          text: 'Login',
-                                          options: FFButtonOptions(
-                                            width: 200.0,
-                                            height: 35.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      fontSize: 16.0,
-                                                    ),
-                                            elevation: 4.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2.0,
+                                              context.goNamedAuth(
+                                                  'Dashboard', mounted);
+                                            },
+                                            text: 'Login',
+                                            options: FFButtonOptions(
+                                              width: 200.0,
+                                              height: 35.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        fontSize: 16.0,
+                                                      ),
+                                              elevation: 4.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
                                           ),
                                         ),
                                       ),
+
+                                    // Login Button if the User is not already onboarded.
                                     if (!(columnUsersRecord != null) &&
                                         (columnCompanyUsersRecord != null))
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 12.0, 0.0, 0.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            GoRouter.of(context)
-                                                .prepareAuthEvent();
-                                            if (_model
-                                                    .passwordController.text !=
-                                                _model
-                                                    .passwordController.text) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Passwords don\'t match!',
-                                                  ),
-                                                ),
-                                              );
-                                              return;
-                                            }
-
-                                            final user =
-                                                await createAccountWithEmail(
-                                              context,
-                                              _model.emailController.text,
-                                              _model.passwordController.text,
-                                            );
-                                            if (user == null) {
-                                              return;
-                                            }
-
-                                            final usersUpdateData =
-                                                createUsersRecordData(
-                                              companyRef:
-                                                  columnCompanyUsersRecord!
-                                                      .companyRef,
-                                              userType:
-                                                  columnCompanyUsersRecord!
-                                                      .userType,
-                                              displayName:
-                                                  columnCompanyUsersRecord!
-                                                      .name,
-                                              email: columnCompanyUsersRecord!
-                                                  .email,
-                                              role: columnCompanyUsersRecord!
-                                                  .role,
-                                              companyUserDoc:
-                                                  columnCompanyUsersRecord!
-                                                      .reference,
-                                            );
-                                            await currentUserReference!
-                                                .update(usersUpdateData);
-
-                                            final companyUsersUpdateData =
-                                                createCompanyUsersRecordData(
-                                              userDoc: currentUserReference,
-                                            );
-                                            await columnCompanyUsersRecord!
-                                                .reference
-                                                .update(companyUsersUpdateData);
-
-                                            context.goNamedAuth(
-                                                'Dashboard', mounted);
-                                          },
-                                          text: 'Login',
-                                          options: FFButtonOptions(
-                                            width: 200.0,
-                                            height: 35.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle1
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      fontSize: 16.0,
+                                        child: Semantics(
+                                          label: 'Login Button',
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              GoRouter.of(context)
+                                                  .prepareAuthEvent();
+                                              if (_model.passwordController
+                                                      .text !=
+                                                  _model.passwordController
+                                                      .text) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Passwords don\'t match!',
                                                     ),
-                                            elevation: 4.0,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 2.0,
+                                                  ),
+                                                );
+                                                return;
+                                              }
+
+                                              final user =
+                                                  await createAccountWithEmail(
+                                                context,
+                                                _model.emailController.text,
+                                                _model.passwordController.text,
+                                              );
+                                              if (user == null) {
+                                                return;
+                                              }
+
+                                              final usersUpdateData =
+                                                  createUsersRecordData(
+                                                companyRef:
+                                                    columnCompanyUsersRecord!
+                                                        .companyRef,
+                                                userType:
+                                                    columnCompanyUsersRecord!
+                                                        .userType,
+                                                displayName:
+                                                    columnCompanyUsersRecord!
+                                                        .name,
+                                                email: columnCompanyUsersRecord!
+                                                    .email,
+                                                role: columnCompanyUsersRecord!
+                                                    .role,
+                                                companyUserDoc:
+                                                    columnCompanyUsersRecord!
+                                                        .reference,
+                                              );
+                                              await currentUserReference!
+                                                  .update(usersUpdateData);
+
+                                              final companyUsersUpdateData =
+                                                  createCompanyUsersRecordData(
+                                                userDoc: currentUserReference,
+                                              );
+                                              await columnCompanyUsersRecord!
+                                                  .reference
+                                                  .update(
+                                                      companyUsersUpdateData);
+
+                                              context.goNamedAuth(
+                                                  'Dashboard', mounted);
+                                            },
+                                            text: 'Login',
+                                            options: FFButtonOptions(
+                                              width: 200.0,
+                                              height: 35.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        fontSize: 16.0,
+                                                      ),
+                                              elevation: 4.0,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
                                           ),
                                         ),
                                       ),

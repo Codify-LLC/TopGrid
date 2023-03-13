@@ -1,8 +1,12 @@
+import '/auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/components/menu/menu_widget.dart';
 import '/components/orders_and_open_r_f_qs/orders_and_open_r_f_qs_widget.dart';
 import '/components/userwidget/userwidget_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -82,6 +86,96 @@ class _TopGridDashboardWidgetState extends State<TopGridDashboardWidget> {
                             ),
                           ),
                         ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  final usersUpdateData = {
+                                    'app_state_requirements':
+                                        FieldValue.delete(),
+                                  };
+                                  await currentUserReference!
+                                      .update(usersUpdateData);
+
+                                  context.pushNamed('CreateNewPart');
+                                },
+                                text: 'Create New Part',
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 15.0,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 230.0,
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                      ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  final usersUpdateData = {
+                                    'app_state_requirements':
+                                        FieldValue.delete(),
+                                  };
+                                  await currentUserReference!
+                                      .update(usersUpdateData);
+
+                                  context.pushNamed('CreateNewRFQ');
+                                },
+                                text: 'Create New RFQ',
+                                icon: Icon(
+                                  Icons.add,
+                                  size: 15.0,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 230.0,
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                      ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               20.0, 20.0, 20.0, 20.0),
@@ -99,56 +193,12 @@ class _TopGridDashboardWidgetState extends State<TopGridDashboardWidget> {
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
-                              child: DefaultTabController(
-                                length: 2,
-                                initialIndex: 0,
-                                child: Column(
-                                  children: [
-                                    TabBar(
-                                      labelColor: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      labelStyle:
-                                          FlutterFlowTheme.of(context).title2,
-                                      indicatorColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryColor,
-                                      tabs: [
-                                        Tab(
-                                          text: 'Purchases',
-                                        ),
-                                        Tab(
-                                          text: 'Sales',
-                                        ),
-                                      ],
-                                    ),
-                                    Expanded(
-                                      child: TabBarView(
-                                        children: [
-                                          wrapWithModel(
-                                            model:
-                                                _model.ordersAndOpenRFQsModel1,
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            child: OrdersAndOpenRFQsWidget(
-                                              purchases: true,
-                                              sales: false,
-                                            ),
-                                          ),
-                                          wrapWithModel(
-                                            model:
-                                                _model.ordersAndOpenRFQsModel2,
-                                            updateCallback: () =>
-                                                setState(() {}),
-                                            updateOnChange: true,
-                                            child: OrdersAndOpenRFQsWidget(
-                                              purchases: false,
-                                              sales: true,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                              child: wrapWithModel(
+                                model: _model.ordersAndOpenRFQsModel,
+                                updateCallback: () => setState(() {}),
+                                child: OrdersAndOpenRFQsWidget(
+                                  purchases: true,
+                                  sales: false,
                                 ),
                               ),
                             ),

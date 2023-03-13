@@ -171,75 +171,86 @@ class _MenuWidgetState extends State<MenuWidget> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
-                      child: InkWell(
-                        onTap: () async {
-                          if (valueOrDefault(
-                                  currentUserDocument?.userType, '') ==
-                              'topgrid') {
-                            context.goNamed('TopGridUsers');
-                          } else {
-                            context.goNamed('CompanyProfile');
-                          }
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.location_history,
-                              color: widget.companyProfile!
-                                  ? FlutterFlowTheme.of(context).primaryColor
-                                  : FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                            if (FFAppState().showDrawerFull)
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 0.0, 0.0, 0.0),
-                                  child: AuthUserStreamWidget(
-                                    builder: (context) => AutoSizeText(
-                                      () {
-                                        if (valueOrDefault(
-                                                currentUserDocument?.userType,
-                                                '') ==
-                                            'vendor') {
-                                          return 'Company Profile';
-                                        } else if (valueOrDefault(
-                                                currentUserDocument?.userType,
-                                                '') ==
-                                            'topgrid') {
-                                          return 'Topgrid Users';
-                                        } else {
-                                          return 'Company Profile';
-                                        }
-                                      }(),
-                                      textAlign: TextAlign.start,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: widget.companyProfile!
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primaryColor
-                                                : FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                    if (((valueOrDefault(currentUserDocument?.role, '') ==
+                                'Admin') &&
+                            (valueOrDefault(
+                                    currentUserDocument?.userType, '') ==
+                                'topgrid')) ||
+                        (valueOrDefault(currentUserDocument?.userType, '') !=
+                            'topgrid'))
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
+                        child: AuthUserStreamWidget(
+                          builder: (context) => InkWell(
+                            onTap: () async {
+                              if (valueOrDefault(
+                                      currentUserDocument?.userType, '') ==
+                                  'topgrid') {
+                                context.goNamed('TopGridUsers');
+                              } else {
+                                context.goNamed('CompanyProfile');
+                              }
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.location_history,
+                                  color: widget.companyProfile!
+                                      ? FlutterFlowTheme.of(context)
+                                          .primaryColor
+                                      : FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                  size: 24.0,
+                                ),
+                                if (FFAppState().showDrawerFull)
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20.0, 0.0, 0.0, 0.0),
+                                      child: AutoSizeText(
+                                        () {
+                                          if (valueOrDefault(
+                                                  currentUserDocument?.userType,
+                                                  '') ==
+                                              'vendor') {
+                                            return 'Company Profile';
+                                          } else if (valueOrDefault(
+                                                  currentUserDocument?.userType,
+                                                  '') ==
+                                              'topgrid') {
+                                            return 'Topgrid Users';
+                                          } else {
+                                            return 'Company Profile';
+                                          }
+                                        }(),
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: widget.companyProfile!
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primaryColor
+                                                  : FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                          ],
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    if (valueOrDefault(currentUserDocument?.userType, '') ==
-                        'topgrid')
+                    if ((valueOrDefault(currentUserDocument?.role, '') ==
+                            'Admin') &&
+                        (valueOrDefault(currentUserDocument?.userType, '') ==
+                            'topgrid'))
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
@@ -289,64 +300,74 @@ class _MenuWidgetState extends State<MenuWidget> {
                           ),
                         ),
                       ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
-                      child: InkWell(
-                        onTap: () async {
-                          if (valueOrDefault(
-                                  currentUserDocument?.userType, '') ==
-                              'vendor') {
-                            context.goNamed('Sales');
-                          } else {
-                            context.goNamed('Purchases');
-                          }
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.point_of_sale,
-                              color: widget.purchase!
-                                  ? FlutterFlowTheme.of(context).primaryColor
-                                  : FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                            if (FFAppState().showDrawerFull)
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 0.0, 0.0, 0.0),
-                                  child: AuthUserStreamWidget(
-                                    builder: (context) => AutoSizeText(
-                                      valueOrDefault(
-                                                  currentUserDocument?.userType,
-                                                  '') ==
-                                              'vendor'
-                                          ? 'Sales'
-                                          : 'Purchases',
-                                      textAlign: TextAlign.start,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: widget.purchase!
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primaryColor
-                                                : FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                    if (((valueOrDefault(currentUserDocument?.role, '') ==
+                                'Admin') &&
+                            (valueOrDefault(
+                                    currentUserDocument?.userType, '') ==
+                                'topgrid')) ||
+                        (valueOrDefault(currentUserDocument?.userType, '') !=
+                            'topgrid'))
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
+                        child: AuthUserStreamWidget(
+                          builder: (context) => InkWell(
+                            onTap: () async {
+                              if (valueOrDefault(
+                                      currentUserDocument?.userType, '') ==
+                                  'vendor') {
+                                context.goNamed('Sales');
+                              } else {
+                                context.goNamed('Purchases');
+                              }
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.point_of_sale,
+                                  color: widget.purchase!
+                                      ? FlutterFlowTheme.of(context)
+                                          .primaryColor
+                                      : FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                  size: 24.0,
+                                ),
+                                if (FFAppState().showDrawerFull)
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20.0, 0.0, 0.0, 0.0),
+                                      child: AutoSizeText(
+                                        valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.userType,
+                                                    '') ==
+                                                'vendor'
+                                            ? 'Sales'
+                                            : 'Purchases',
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: widget.purchase!
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primaryColor
+                                                  : FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                          ],
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
                     if (valueOrDefault(currentUserDocument?.userType, '') !=
                         'vendor')
                       Padding(
@@ -398,8 +419,10 @@ class _MenuWidgetState extends State<MenuWidget> {
                           ),
                         ),
                       ),
-                    if (valueOrDefault(currentUserDocument?.userType, '') !=
-                        'vendor')
+                    if ((valueOrDefault(currentUserDocument?.userType, '') !=
+                            'vendor') &&
+                        (valueOrDefault(currentUserDocument?.role, '') ==
+                            'Admin'))
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 15.0),

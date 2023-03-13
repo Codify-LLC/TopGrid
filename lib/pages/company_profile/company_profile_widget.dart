@@ -129,6 +129,8 @@ class _CompanyProfileWidgetState extends State<CompanyProfileWidget> {
                                         ),
                                         FFButtonWidget(
                                           onPressed: () async {
+                                            // Navigation
+
                                             context.pushNamed(
                                                 'editCompanyProfile');
                                           },
@@ -449,6 +451,8 @@ class _CompanyProfileWidgetState extends State<CompanyProfileWidget> {
                                         ),
                                         FFButtonWidget(
                                           onPressed: () async {
+                                            // Bottom sheet will be get open for adding new user.
+                                            // Add new user
                                             await showModalBottomSheet(
                                               isScrollControlled: true,
                                               backgroundColor:
@@ -722,6 +726,9 @@ class _CompanyProfileWidgetState extends State<CompanyProfileWidget> {
                                                               InkWell(
                                                                 onTap:
                                                                     () async {
+                                                                  // User can modify added information of user that is newly added to topgrid.
+                                                                  //
+                                                                  // ModifyUser
                                                                   await showModalBottomSheet(
                                                                     isScrollControlled:
                                                                         true,
@@ -812,6 +819,8 @@ class _CompanyProfileWidgetState extends State<CompanyProfileWidget> {
                                                                     return InkWell(
                                                                       onTap:
                                                                           () async {
+                                                                        // Alert dialog for user confirmation.
+                                                                        // Alert Dialog With Condition
                                                                         var confirmDialogResponse = await showDialog<bool>(
                                                                               context: context,
                                                                               builder: (alertDialogContext) {
@@ -833,9 +842,13 @@ class _CompanyProfileWidgetState extends State<CompanyProfileWidget> {
                                                                             ) ??
                                                                             false;
                                                                         if (confirmDialogResponse) {
+                                                                          // Document is getting delete.
+                                                                          // Document Delete
                                                                           await dataTableCompanyUsersRecord
                                                                               .reference
                                                                               .delete();
+                                                                          // Document is getting delete.
+                                                                          // Document Delete
                                                                           await textUsersRecord!
                                                                               .reference
                                                                               .delete();

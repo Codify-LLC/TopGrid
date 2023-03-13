@@ -3,7 +3,9 @@ import '/backend/backend.dart';
 import '/components/choose_types_of_parts/choose_types_of_parts_widget.dart';
 import '/components/empty_requirements_list/empty_requirements_list_widget.dart';
 import '/components/menu/menu_widget.dart';
+import '/components/multiple_selection_drop_down/multiple_selection_drop_down_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -27,6 +29,8 @@ class CreateNewRFQModel extends FlutterFlowModel {
   void removeFromFileData(FileStruct item) => fileData.remove(item);
   void removeAtIndexFromFileData(int index) => fileData.removeAt(index);
 
+  bool vendorDropDown = false;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
@@ -46,6 +50,8 @@ class CreateNewRFQModel extends FlutterFlowModel {
   // State field(s) for Quantity widget.
   TextEditingController? quantityController;
   String? Function(BuildContext, String?)? quantityControllerValidator;
+  // Model for multipleSelectionDropDown component.
+  late MultipleSelectionDropDownModel multipleSelectionDropDownModel;
   // State field(s) for AddDescription widget.
   TextEditingController? addDescriptionController;
   String? Function(BuildContext, String?)? addDescriptionControllerValidator;
@@ -57,6 +63,8 @@ class CreateNewRFQModel extends FlutterFlowModel {
   void initState(BuildContext context) {
     menuModel = createModel(context, () => MenuModel());
     rFQNameControllerValidator = _rFQNameControllerValidator;
+    multipleSelectionDropDownModel =
+        createModel(context, () => MultipleSelectionDropDownModel());
     dataTableShowLogs = false; // Disables noisy DataTable2 debug statements.
   }
 
@@ -64,6 +72,7 @@ class CreateNewRFQModel extends FlutterFlowModel {
     menuModel.dispose();
     rFQNameController?.dispose();
     quantityController?.dispose();
+    multipleSelectionDropDownModel.dispose();
     addDescriptionController?.dispose();
   }
 
