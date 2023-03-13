@@ -12,6 +12,7 @@ import '/custom_code/actions/index.dart' as actions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,8 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
       }
     });
 
-    _model.rFQNameController ??= TextEditingController();
+    _model.rFQNameController ??=
+        TextEditingController(text: FFAppState().rfqName);
     _model.quantityController ??= TextEditingController();
     _model.addDescriptionController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -358,6 +360,20 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                   child: TextFormField(
                                                     controller: _model
                                                         .rFQNameController,
+                                                    onChanged: (_) =>
+                                                        EasyDebounce.debounce(
+                                                      '_model.rFQNameController',
+                                                      Duration(
+                                                          milliseconds: 100),
+                                                      () async {
+                                                        FFAppState().update(() {
+                                                          FFAppState().rfqName =
+                                                              _model
+                                                                  .rFQNameController
+                                                                  .text;
+                                                        });
+                                                      },
+                                                    ),
                                                     autofocus: true,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
@@ -958,11 +974,32 @@ class _CreateNewRFQWidgetState extends State<CreateNewRFQWidget> {
                                                                       final textPartRecord =
                                                                           snapshot
                                                                               .data!;
-                                                                      return Text(
-                                                                        textPartRecord
-                                                                            .partName!,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyText2,
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          context
+                                                                              .pushNamed(
+                                                                            'PartDetails',
+                                                                            queryParams:
+                                                                                {
+                                                                              'part': serializeParam(
+                                                                                textPartRecord,
+                                                                                ParamType.Document,
+                                                                              ),
+                                                                            }.withoutNulls,
+                                                                            extra: <String,
+                                                                                dynamic>{
+                                                                              'part': textPartRecord,
+                                                                            },
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Text(
+                                                                          textPartRecord
+                                                                              .partName!,
+                                                                          style:
+                                                                              FlutterFlowTheme.of(context).bodyText2,
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),

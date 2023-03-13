@@ -83,6 +83,12 @@ class FFAppState extends ChangeNotifier {
   void deleteEncryptionPassword() {
     secureStorage.delete(key: 'ff_EncryptionPassword');
   }
+
+  String _rfqName = '';
+  String get rfqName => _rfqName;
+  set rfqName(String _value) {
+    _rfqName = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
